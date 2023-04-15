@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Dark Theme Activity',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red, 
       ),
       home: const MyHomePage(title: 'Dark Theme Activity'),
     );
@@ -29,18 +29,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const Text("Carlos"),
+      body: Container(
+        color: Colors.black87,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {}, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 187, 49, 40),
+                    foregroundColor: Colors.black87,
+                    ),
+                  child: const Text("Dark Mode"),
+                ),
+                ElevatedButton(
+                  onPressed: () {}, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 187, 49, 40),
+                    foregroundColor: Colors.black87,
+                  ),
+                  child: const Text("Normal Mode"),
+                ),
+              ],
+            ),
+            Center(
+              child: Image.asset(
+                'Assets/perfil1.jpg',
+                height: 300,
+              )
+            ),
+          ]
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: () {},
+        tooltip: 'Switch Theme',
+        child: const Icon(Icons.dark_mode),
+        backgroundColor: const Color.fromARGB(255, 187, 49, 40),
+        foregroundColor: Colors.black87,
       ),
     );
   }
