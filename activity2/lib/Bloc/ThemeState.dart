@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 abstract class ThemeState {
-  late Color mainColor;
+  late MaterialColor mainColor;
   late Color backgroundColor;
 }
 
 class DarkTheme extends ThemeState {
+  Map<int, Color> colorMap = {100: const Color.fromRGBO(170, 49, 50, 1)};
+
   DarkTheme() {
-    mainColor = const Color.fromARGB(255, 170, 49, 50);
-    backgroundColor = Colors.black87;
+    mainColor = MaterialColor(0xAA3132, colorMap);
+    backgroundColor = const Color.fromRGBO(34, 34, 34, 1);
   }
 }
 
 class NormalTheme extends ThemeState {
   NormalTheme() {
-    mainColor = const Color.fromARGB(255, 255, 0, 0);
+    mainColor = Colors.red;
     backgroundColor = Colors.white;
   }
 }

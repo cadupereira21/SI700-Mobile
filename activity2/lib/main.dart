@@ -1,4 +1,8 @@
+import 'package:activity2/Bloc/ThemeState.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'Bloc/ThemeBloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,10 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeState = context.watch<ThemeBloc>().state;
     return MaterialApp(
       title: 'Dark Theme Activity',
       theme: ThemeData(
-        primarySwatch: Colors.red, 
+        primarySwatch: themeState.mainColor,
       ),
       home: const MyHomePage(title: 'Dark Theme Activity'),
     );
@@ -35,47 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        color: Colors.black87,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {}, 
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 187, 49, 40),
-                    foregroundColor: Colors.black87,
-                    ),
-                  child: const Text("Dark Mode"),
-                ),
-                ElevatedButton(
-                  onPressed: () {}, 
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 187, 49, 40),
-                    foregroundColor: Colors.black87,
-                  ),
-                  child: const Text("Normal Mode"),
-                ),
-              ],
-            ),
-            Center(
-              child: Image.asset(
-                'Assets/perfil1.jpg',
-                height: 300,
-              )
-            ),
-          ]
-        ),
+      body: BlocProvider(
+        create: (BuildContext context) => ThemeBloc(NormalTheme()),
+        child: const Text("Carlos")
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Switch Theme',
-        child: const Icon(Icons.dark_mode),
         backgroundColor: const Color.fromARGB(255, 187, 49, 40),
         foregroundColor: Colors.black87,
+        child: const Icon(Icons.dark_mode),
       ),
     );
   }
