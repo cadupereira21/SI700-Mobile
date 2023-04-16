@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Bloc/ThemeBloc.dart';
+import 'Bloc/ThemeEvent.dart';
+import 'View/View.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +15,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = context.watch<ThemeBloc>().state;
-    return MaterialApp(
-      title: 'Dark Theme Activity',
-      theme: ThemeData(
-        primarySwatch: themeState.mainColor,
-      ),
-      home: const MyHomePage(title: 'Dark Theme Activity'),
+    //final themeState = context.watch<ThemeBloc>().state;
+    return BlocProvider(
+      create: (BuildContext context) => ThemeBloc(NormalTheme()),
+      child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+        return MaterialApp(
+          title: 'Dark Theme Activity',
+          theme: ThemeData(
+              //primarySwatch: state.swatch,
+              //appBarTheme: AppBarTheme(titleTextStyle: TextStyle(color: state.backgroundColor, fontSize: 20, fontWeight: FontWeight.bold)),
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: state.swatch)),
+          home: const MyHomePage(title: 'Dark Theme Activity'),
+        );
+      }),
     );
   }
 }
@@ -40,17 +48,17 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocProvider(
-        create: (BuildContext context) => ThemeBloc(NormalTheme()),
-        child: const Text("Carlos")
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Switch Theme',
-        backgroundColor: const Color.fromARGB(255, 187, 49, 40),
-        foregroundColor: Colors.black87,
-        child: const Icon(Icons.dark_mode),
-      ),
+      body: const View(),
+      floatingActionButton: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+        ThemeBloc themeBloc = BlocProvider.of<ThemeBloc>(context);
+        return FloatingActionButton(
+          onPressed: () {
+            state.isDark ? themeBloc.add(TurnNormalTheme()) : themeBloc.add(TurnDarkTheme());
+          },
+          tooltip: 'Switch Theme',
+          child: const Icon(Icons.dark_mode),
+        );
+      }),
     );
   }
 }
