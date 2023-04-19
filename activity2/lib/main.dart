@@ -15,15 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final themeState = context.watch<ThemeBloc>().state;
     return BlocProvider(
       create: (BuildContext context) => ThemeBloc(NormalTheme()),
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
         return MaterialApp(
           title: 'Dark Theme Activity',
           theme: ThemeData(
-              //primarySwatch: state.swatch,
-              //appBarTheme: AppBarTheme(titleTextStyle: TextStyle(color: state.backgroundColor, fontSize: 20, fontWeight: FontWeight.bold)),
               colorScheme: ColorScheme.fromSwatch(primarySwatch: state.swatch)),
           home: const MyHomePage(title: 'Dark Theme Activity'),
         );
