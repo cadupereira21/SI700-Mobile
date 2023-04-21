@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -17,19 +15,55 @@ class _LoginFormState extends State<LoginForm> {
     return Form(
       key: _formKey,
       child: Container(
+        margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
         child: Column(
           children: [
-            TextFormField(),
-            TextFormField(),
-            Row(
-              children: [
-                ElevatedButton(onPressed: (){}, child: const Text("Log In")),
-                ElevatedButton(onPressed: (){}, child: const Text("Log In")),
-              ],
+            formEmailField("Email"),
+            formPasswordField("Senha"),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  formButton("Entrar"),
+                  formButton("Cadastrar"),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget formEmailField(String text) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Senha'
+        ),
+        cursorColor: Colors.lightGreen,
+      )
+    );
+  }
+
+  Widget formPasswordField(String text) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Senha'
+        ),
+        cursorColor: Colors.lightGreen,
+        obscureText: true,
+      )
+    );
+  }
+
+  Widget formButton(String text) {
+    return ElevatedButton(
+        onPressed: () {},
+        child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
   }
 }

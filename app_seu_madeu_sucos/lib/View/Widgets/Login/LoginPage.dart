@@ -17,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               'lib/Assets/seuMadeu.jpeg',
