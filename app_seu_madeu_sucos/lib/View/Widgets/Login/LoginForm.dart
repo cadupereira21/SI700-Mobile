@@ -1,4 +1,8 @@
+import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthBloc.dart';
+import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthEvent.dart';
+import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthState.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -18,15 +22,15 @@ class _LoginFormState extends State<LoginForm> {
         margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
         child: Column(
           children: [
-            formEmailField("Email"),
-            formPasswordField("Senha"),
+            formEmailField(),
+            formPasswordField(),
             Padding(
               padding: const EdgeInsets.only(top: 60),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  formButton("Entrar"),
-                  formButton("Cadastrar"),
+                  formButton("Entrar", loginAction),
+                  formButton("Cadastrar", (){}),
                 ],
               ),
             ),
@@ -36,34 +40,33 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Widget formEmailField(String text) {
+  Widget formEmailField() {
     return Container(
-      padding: const EdgeInsets.all(10),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Senha'
-        ),
-        cursorColor: Colors.lightGreen,
-      )
-    );
+        padding: const EdgeInsets.all(10),
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Email'),
+          cursorColor: Colors.lightGreen,
+        ));
   }
 
-  Widget formPasswordField(String text) {
+  Widget formPasswordField() {
     return Container(
-      padding: const EdgeInsets.all(10),
-      child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Senha'
-        ),
-        cursorColor: Colors.lightGreen,
-        obscureText: true,
-      )
-    );
+        padding: const EdgeInsets.all(10),
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Senha'),
+          cursorColor: Colors.lightGreen,
+          obscureText: true,
+        ));
   }
 
-  Widget formButton(String text) {
+  Widget formButton(String text, void Function() onPressed) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
+  }
+
+  void loginAction() {
+    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+    authBloc.add(LogIn());
   }
 }
