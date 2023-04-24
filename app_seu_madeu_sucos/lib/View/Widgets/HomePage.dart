@@ -21,6 +21,32 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            const UserAccountsDrawerHeader(
+              accountName: Text("Carlos Eduardo de Andrade Pereira"), 
+              accountEmail: Text(
+                "carloseduardo2101@gmail.com", 
+                style: TextStyle(
+                  fontSize: 12, 
+                  fontStyle: FontStyle.italic),
+              ),
+              currentAccountPicture: CircleAvatar(),
+            ),
+            ListTile(
+              title: const Text("Perfil"),
+              textColor: Colors.green,
+              onTap: (){},
+            ),
+            ListTile(
+              title: const Text("Planos"),
+              textColor: Colors.green,
+              onTap: (){},
+            ),
+          ],
+        ),
+      ),
       body: IndexedStack(
         index: currentScreen,
         children: const [
@@ -51,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: currentScreen,
-        fixedColor: Colors.lightGreen,
+        fixedColor: Colors.green,
         
       ),
     );
