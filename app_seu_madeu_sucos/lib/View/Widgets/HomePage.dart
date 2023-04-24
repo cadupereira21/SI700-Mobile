@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'CartPage.dart';
 import 'HistoryPage.dart';
+import 'ProductScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -25,12 +26,8 @@ class _HomePageState extends State<HomePage> {
         children: const [
           HistoryPage(),
           CartPage(),
+          ProductScreen(),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Novo Pedido',
-        child: const Icon(Icons.shopping_bag),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int value) {
@@ -39,11 +36,23 @@ class _HomePageState extends State<HomePage> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.history_outlined), label: "Histórico de pedidos"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined), label: "Carrinho"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            label: "Histórico"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag_outlined),
+            label: "Pedido",
+            
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_outlined),
+            label: "Carrinho"
+          ),
         ],
         currentIndex: currentScreen,
         fixedColor: Colors.lightGreen,
+        
       ),
     );
   }
