@@ -1,6 +1,5 @@
 import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthBloc.dart';
 import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthEvent.dart';
-import 'package:app_seu_madeu_sucos/View/Logic/Bloc/Authenticate/AuthState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           decoration: const InputDecoration(labelText: 'Email'),
-          cursorColor: Colors.lightGreen,
+          cursorColor: Colors.green,
         ));
   }
 
@@ -54,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           decoration: const InputDecoration(labelText: 'Senha'),
-          cursorColor: Colors.lightGreen,
+          cursorColor: Colors.green,
           obscureText: true,
         ));
   }

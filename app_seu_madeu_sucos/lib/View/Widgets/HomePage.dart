@@ -1,3 +1,5 @@
+import 'package:app_seu_madeu_sucos/View/Widgets/UserPlanScreen.dart';
+import 'package:app_seu_madeu_sucos/View/Widgets/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'CartPage.dart';
@@ -25,24 +27,28 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: [
             const UserAccountsDrawerHeader(
-              accountName: Text("Carlos Eduardo de Andrade Pereira"), 
+              accountName: Text("Nome Completo do Usuário"),
               accountEmail: Text(
-                "carloseduardo2101@gmail.com", 
-                style: TextStyle(
-                  fontSize: 12, 
-                  fontStyle: FontStyle.italic),
+                "Email completo do usuário",
+                style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
               ),
               currentAccountPicture: CircleAvatar(),
             ),
             ListTile(
               title: const Text("Perfil"),
               textColor: Colors.green,
-              onTap: (){},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserProfileScreen()));
+              },
             ),
             ListTile(
               title: const Text("Planos"),
               textColor: Colors.green,
-              onTap: (){},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserPlanScreen()));
+              },
             ),
           ],
         ),
@@ -63,22 +69,16 @@ class _HomePageState extends State<HomePage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            label: "Histórico"
-          ),
+              icon: Icon(Icons.history_outlined), label: "Histórico"),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
             label: "Pedido",
-            
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: "Carrinho"
-          ),
+              icon: Icon(Icons.shopping_cart_outlined), label: "Carrinho"),
         ],
         currentIndex: currentScreen,
         fixedColor: Colors.green,
-        
       ),
     );
   }

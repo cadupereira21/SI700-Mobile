@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+class UserPlanScreen extends StatefulWidget {
+  const UserPlanScreen({super.key});
 
   @override
-  State<UserProfileScreen> createState() => _UserProfileScreenState();
+  State<UserPlanScreen> createState() => _UserPlanScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _UserPlanScreenState extends State<UserPlanScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +15,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       child: Card(
         child: Column(
           children: [
-            const Text("Tela de perfil do usuário"),
+            const Text("Tela de planos da loja"),
             ElevatedButton(onPressed: (){Navigator.pop(context);}, child: const Text("Voltar"))
           ],
         ),
