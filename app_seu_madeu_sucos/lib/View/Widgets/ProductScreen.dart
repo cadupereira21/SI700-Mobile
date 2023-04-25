@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:app_seu_madeu_sucos/View/Logic/CartInfo.dart';
 import 'package:flutter/material.dart';
 
-import '../Interfaces/Product.dart';
+import '../Entities/Product.dart';
 import '../Logic/ProductsInfo.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 5,
+      itemCount: allProducts.length,
       itemBuilder: (BuildContext context, int index) =>
           productTile(allProducts[index]));
   }

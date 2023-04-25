@@ -1,4 +1,4 @@
-import '../Interfaces/Product.dart';
+import '../Entities/Product.dart';
 
 class ProductsInfo {
   static final List<Product> allProducts = [
@@ -23,8 +23,23 @@ class ProductsInfo {
             "Suco natural de laranja sem açucar e sem adição de água, batido com couve, gengibre e hortelã"),
     Product(
         id: 5,
+        name: "Suco Detox de Abacaxi",
+        description:
+            "Suco natural de abacaxi sem açucar e sem adição de água, batido com couve, gengibre e hortelã"),
+    Product(
+        id: 6,
         name: "Suco de Laranja com Acerola",
         description:
             "Suco natural de laranja sem açucar e sem adição de água, batido com acerola"),
+    Product(
+        id: 7,
+        name: "Suco de Laranja com Morango",
+        description:
+            "Suco natural de laranja sem açucar e sem adição de água, batido com morango"),
+    Product(
+        id: 8,
+        name: "Suco de Laranja com Beterraba",
+        description:
+            "Suco natural de laranja sem açucar e sem adição de água, batido e coado com beterraba"),        
   ];
 }

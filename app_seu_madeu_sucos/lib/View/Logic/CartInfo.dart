@@ -1,4 +1,4 @@
-import '../Interfaces/Product.dart';
+import '../Entities/Product.dart';
 
 class CartInfo {
   static List<Map<String, Object>> addedProducts = [];
@@ -18,11 +18,14 @@ class CartInfo {
 
   static void removeFromCart(Product product) {
     for (int i = 0; i < CartInfo.addedProducts.length; i++) {
-      if (CartInfo.addedProducts[i]['Products'] == product) {
-        if (CartInfo.addedProducts[i]['Quantity'] == 1) {
+      Product? p = CartInfo.addedProducts[i]['Product'] as Product;
+      int quantity = CartInfo.addedProducts[i]['Quantity'] as int;
+      if (p == product) {
+        if (quantity == 1) {
           CartInfo.addedProducts.removeAt(i);
         } else {
-          CartInfo.addedProducts[i].update('Quantity', (value) => int.parse(value.toString()) - 1);
+          CartInfo.addedProducts[i]
+              .update('Quantity', (value) => int.parse(value.toString()) - 1);
         }
       }
     }
