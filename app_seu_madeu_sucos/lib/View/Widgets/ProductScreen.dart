@@ -4,6 +4,7 @@ import 'package:app_seu_madeu_sucos/View/Logic/CartInfo.dart';
 import 'package:flutter/material.dart';
 
 import '../Interfaces/Product.dart';
+import '../Logic/ProductsInfo.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -13,15 +14,14 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  List<Product> allProducts = [
-    Product(id: 1, name: "Suco 1", description: "Suco de Laranja")
-  ];
+  List<Product> allProducts = ProductsInfo.allProducts;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int index) => productTile(allProducts[index]));
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) =>
+            productTile(allProducts[index]));
   }
 
   Widget productTile(Product product) {
@@ -31,23 +31,24 @@ class _ProductScreenState extends State<ProductScreen> {
       color: Colors.green,
       child: ListTile(
         leading: productImage(),
-        title: Text("Produto ${product.id}"),
-        subtitle: const Text("Descrição do produto"),
+        title: Text("${product.name}"),
+        subtitle: Text(product.description!),
         trailing: addToCartButton(product),
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
       ),
     );
   }
 
-  SnackBar addedToCartSnackbar(double? productIndex) {
+  SnackBar addedToCartSnackbar(Product product) {
     return SnackBar(
       duration: const Duration(seconds: 2),
-      content: Text("Produto $productIndex adicionado ao carrinho!"),
+      content: Text("${product.name} adicionado ao carrinho!"),
       action: SnackBarAction(
-          label: "Desfazer",
-          onPressed: () {
-            //TODO: Desfazer ação de adicionar
-          }),
+        label: "Desfazer",
+        onPressed: () {
+          CartInfo.removeFromCart(product);
+        }
+      ),
     );
   }
 
@@ -64,13 +65,13 @@ class _ProductScreenState extends State<ProductScreen> {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green.shade800,
-          padding: EdgeInsets.all(17),
-          shape: CircleBorder(),
+          padding: const EdgeInsets.all(17),
+          shape: const CircleBorder(),
         ),
         onPressed: () {
           CartInfo.addToCart(product);
           ScaffoldMessenger.of(context)
-              .showSnackBar(addedToCartSnackbar(product.id));
+              .showSnackBar(addedToCartSnackbar(product));
         },
         child: const Icon(
           Icons.add_shopping_cart_sharp,

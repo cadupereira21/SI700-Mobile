@@ -7,4 +7,9 @@ class Product {
   final double? planId;
 
   Product({this.id, this.name, this.description, this.planId});
+
+  @override
+  String toString() {
+    return "Produto{id=$id, name=$name, description=$description, planId=$planId}";
+  }
 }
