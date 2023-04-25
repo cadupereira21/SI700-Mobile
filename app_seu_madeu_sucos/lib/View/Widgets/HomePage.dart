@@ -2,8 +2,8 @@ import 'package:app_seu_madeu_sucos/View/Widgets/UserPlanScreen.dart';
 import 'package:app_seu_madeu_sucos/View/Widgets/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
 
-import 'CartPage.dart';
-import 'HistoryPage.dart';
+import 'CartScreen.dart';
+import 'HistoryScreen.dart';
 import 'ProductScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,9 +27,9 @@ class _HomePageState extends State<HomePage> {
         body: IndexedStack(
           index: currentScreen,
           children: const [
-            HistoryPage(),
+            HistoryScreen(),
             ProductScreen(),
-            CartPage(),
+            CartScreen(),
           ],
         ),
         bottomNavigationBar: bottomNavigationBar());

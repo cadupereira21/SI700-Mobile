@@ -19,9 +19,9 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index) =>
-            productTile(allProducts[index]));
+      itemCount: 5,
+      itemBuilder: (BuildContext context, int index) =>
+          productTile(allProducts[index]));
   }
 
   Widget productTile(Product product) {
