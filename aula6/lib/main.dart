@@ -2,6 +2,8 @@ import 'package:aula6/View/Screens/BasicListView.dart';
 import 'package:aula6/View/Screens/DynamicListView.dart';
 import 'package:flutter/material.dart';
 
+import 'View/Screens/FutureScreen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -41,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: IndexedStack(
         index: _currentScreen,
-        children: [const BasicListView(), DynamicListView()],
+        children: [const BasicListView(), DynamicListView(), FutureScreen()],
       ),
       drawer: Drawer(
         child: ListView(
@@ -66,7 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pop(context);
                 });
               },
-            )
+            ),
+            ListTile(
+              title: const Text("Future Screen"),
+              onTap: () {
+                setState(() {
+                  _currentScreen = 2;
+                  Navigator.pop(context);
+                });
+              },
+            ),
           ],
         ),
       ),
