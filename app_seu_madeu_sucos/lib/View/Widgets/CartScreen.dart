@@ -39,14 +39,13 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       const Text("Pedido de plano"),
                       Switch(
-                      //thumbIcon: thumbIcon,
-                        value: isPlan,
-                        onChanged: (bool value) {
-                          setState(() {
-                            isPlan = value;
-                          });
-                        }
-                      ),
+                          //thumbIcon: thumbIcon,
+                          value: isPlan,
+                          onChanged: (bool value) {
+                            setState(() {
+                              isPlan = value;
+                            });
+                          }),
                     ],
                   ),
                 ),
@@ -56,20 +55,18 @@ class _CartScreenState extends State<CartScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
-                        onPressed: (){
-                          //TODO: Descartar o carrinho
-                        }, 
-                        child: const Text("Cancelar")
-                      ),
+                          onPressed: () {
+                            //TODO: Descartar o carrinho
+                          },
+                          child: const Text("Cancelar")),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
-                        onPressed: (){
-                          //TODO: Seguir para a tela de pedido
-                        }, 
-                        child: const Text("Continuar")
-                      ),
+                          onPressed: () {
+                            //TODO: Seguir para a tela de pedido
+                          },
+                          child: const Text("Continuar")),
                     ),
                   ],
                 )
@@ -105,7 +102,7 @@ class _CartScreenState extends State<CartScreen> {
   removeProduct(Product product) {
     return IconButton(
         onPressed: () {
-          CartInfo.removeFromCart(product);
+          setState(() => CartInfo.removeFromCart(product));
         },
         icon: const Icon(
           Icons.delete,
