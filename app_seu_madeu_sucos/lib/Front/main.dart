@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'View/Logic/Bloc/Authenticate/AuthBloc.dart';
-import 'View/Logic/Bloc/Authenticate/AuthState.dart';
+import 'Bloc/Authenticate/AuthBloc.dart';
+import 'Bloc/Authenticate/AuthState.dart';
 import 'View/Widgets/Login/LoginPage.dart';
 import 'View/Widgets/HomePage.dart';
 

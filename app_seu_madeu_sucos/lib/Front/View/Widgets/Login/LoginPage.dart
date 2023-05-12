@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
               'lib/Assets/seuMadeu.jpeg',
               height: 250,
             ),
-            LoginForm()
+            const LoginForm()
           ],
         ),
       ),

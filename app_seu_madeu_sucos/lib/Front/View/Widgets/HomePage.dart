@@ -1,5 +1,5 @@
-import 'package:app_seu_madeu_sucos/View/Widgets/UserPlanScreen.dart';
-import 'package:app_seu_madeu_sucos/View/Widgets/UserProfileScreen.dart';
+import 'package:app_seu_madeu_sucos/Front/View/Widgets/UserPlanScreen.dart';
+import 'package:app_seu_madeu_sucos/Front/View/Widgets/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'CartScreen.dart';

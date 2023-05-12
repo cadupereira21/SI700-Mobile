@@ -1,10 +1,10 @@
 import 'dart:ffi';
 
-import 'package:app_seu_madeu_sucos/View/Logic/CartInfo.dart';
+import 'package:app_seu_madeu_sucos/Front/Logic/CartInfo.dart';
 import 'package:flutter/material.dart';
 
-import '../Entities/Product.dart';
-import '../Logic/ProductsInfo.dart';
+import '../../Entities/Product.dart';
+import '../../Logic/ProductsInfo.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -69,6 +69,7 @@ class _ProductScreenState extends State<ProductScreen> {
           shape: const CircleBorder(),
         ),
         onPressed: () {
+          // Enviar evento para o bloc do carrinho
           CartInfo.addToCart(product);
           ScaffoldMessenger.of(context)
               .showSnackBar(addedToCartSnackbar(product));

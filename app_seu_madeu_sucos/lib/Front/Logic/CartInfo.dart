@@ -39,4 +39,8 @@ class CartInfo {
     }
     return null;
   }
+
+  static void clearCart() {
+    CartInfo.addedProducts.clear();
+  }
 }
