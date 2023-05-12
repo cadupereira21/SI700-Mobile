@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Bloc/Authenticate/AuthBloc.dart';
-import 'Bloc/Authenticate/AuthState.dart';
-import 'View/Widgets/Login/LoginPage.dart';
-import 'View/Widgets/HomePage.dart';
+import 'Front/Bloc/Authenticate/AuthBloc.dart';
+import 'Front/Bloc/Authenticate/AuthState.dart';
+import 'Front/Bloc/CartController/CartBloc.dart';
+import 'Front/Bloc/CartController/CartState.dart';
+import 'Front/View/Widgets/Login/LoginPage.dart';
+import 'Front/View/Widgets/HomePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => AuthBloc(NotLoggedIn())),
+        BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
+
       ],
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {

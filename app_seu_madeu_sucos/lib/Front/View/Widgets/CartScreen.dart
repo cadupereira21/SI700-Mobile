@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Bloc/CartController/CartBloc.dart';
+import '../../Bloc/CartController/CartState.dart';
 import '../../Entities/Product.dart';
 import '../../Logic/CartInfo.dart';
 
@@ -11,7 +14,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  var addedProducts = CartInfo.addedProducts;
+  //var addedProducts = CartInfo.addedProducts;
   bool isPlan = false;
 
   @override
@@ -20,10 +23,14 @@ class _CartScreenState extends State<CartScreen> {
       children: [
         Container(
           height: MediaQuery.of(context).size.height * 2 / 3,
-          child: ListView.builder(
-              itemCount: addedProducts.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  productTile(addedProducts[index])),
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              return ListView.builder(
+                  itemCount: state.addedProducts.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      productTile(state.addedProducts[index]));
+            }
+          ),
         ),
         Expanded(
           child: Container(

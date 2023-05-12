@@ -1,8 +1,11 @@
 import 'dart:ffi';
 
+import 'package:app_seu_madeu_sucos/Front/Bloc/CartController/CartBloc.dart';
 import 'package:app_seu_madeu_sucos/Front/Logic/CartInfo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Bloc/CartController/CartEvent.dart';
 import '../../Entities/Product.dart';
 import '../../Logic/ProductsInfo.dart';
 
@@ -19,9 +22,9 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: allProducts.length,
-      itemBuilder: (BuildContext context, int index) =>
-          productTile(allProducts[index]));
+        itemCount: allProducts.length,
+        itemBuilder: (BuildContext context, int index) =>
+            productTile(allProducts[index]));
   }
 
   Widget productTile(Product product) {
@@ -44,11 +47,10 @@ class _ProductScreenState extends State<ProductScreen> {
       duration: const Duration(seconds: 2),
       content: Text("${product.name} adicionado ao carrinho!"),
       action: SnackBarAction(
-        label: "Desfazer",
-        onPressed: () {
-          CartInfo.removeFromCart(product);
-        }
-      ),
+          label: "Desfazer",
+          onPressed: () {
+            CartInfo.removeFromCart(product);
+          }),
     );
   }
 
@@ -69,8 +71,8 @@ class _ProductScreenState extends State<ProductScreen> {
           shape: const CircleBorder(),
         ),
         onPressed: () {
-          // Enviar evento para o bloc do carrinho
-          CartInfo.addToCart(product);
+          BlocProvider.of<CartBloc>(context).add(AddToCart(product: product));
+          //CartInfo.addToCart(product);
           ScaffoldMessenger.of(context)
               .showSnackBar(addedToCartSnackbar(product));
         },

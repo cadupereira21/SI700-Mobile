@@ -1,6 +1,6 @@
-abstract class CartState {
+class CartState {
   List<Map<String, Object>> addedProducts;
-  CartState({required this.addedProducts});
+  CartState({this.addedProducts = const []});
 }
 
 class AddingToCart extends CartState {
