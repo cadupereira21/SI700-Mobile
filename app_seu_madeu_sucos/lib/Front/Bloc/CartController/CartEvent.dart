@@ -1,14 +1,14 @@
 import '../../Entities/Product.dart';
 
 abstract class CartEvent {
-  Product product;
-  CartEvent({required this.product});
+  CartEvent();
 }
 
 class AddToCart extends CartEvent {
-  AddToCart({required super.product});
+  Product product;
+  AddToCart({required this.product});
 }
 
 class ClearCart extends CartEvent {
-  ClearCart({required super.product});
+  ClearCart();
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Bloc/CartController/CartBloc.dart';
+import '../../Bloc/CartController/CartEvent.dart';
 import '../../Bloc/CartController/CartState.dart';
 import '../../Entities/Product.dart';
 import '../../Logic/CartInfo.dart';
@@ -46,7 +47,6 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       const Text("Pedido de plano"),
                       Switch(
-                          //thumbIcon: thumbIcon,
                           value: isPlan,
                           onChanged: (bool value) {
                             setState(() {
@@ -63,7 +63,10 @@ class _CartScreenState extends State<CartScreen> {
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
                           onPressed: () {
-                            //TODO: Descartar o carrinho
+                            BlocProvider.of<CartBloc>(context).add(
+                              ClearCart()
+                            );
+                            //TODO: Mudar para a tela de produtos
                           },
                           child: const Text("Cancelar")),
                     ),
