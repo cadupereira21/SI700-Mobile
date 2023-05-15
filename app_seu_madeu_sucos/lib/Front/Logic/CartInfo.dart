@@ -1,46 +1,55 @@
 import '../Entities/Product.dart';
 
 class CartInfo {
-  static List<Map<String, Object>> addedProducts = [];
+  
+  static CartInfo instance = CartInfo._createInstance();
 
-  static void addToCart(Product product) {
-    int? auxIndex = CartInfo._productExists(product);
+  List<Map<String, Object>> _addedProducts = [];
+  
+    List<Map<String, Object>> get addedProducts => _addedProducts;
+
+
+  CartInfo._createInstance();
+
+  void addToCart(Product product) {
+    int? auxIndex = _productExists(product);
     if (auxIndex == null) {
-      CartInfo.addedProducts.add({'Product': product, 'Quantity': 1});
+      _addedProducts.add({'Product': product, 'Quantity': 1});
     } else {
-      CartInfo.addedProducts[auxIndex]
+      _addedProducts[auxIndex]
           .update('Quantity', (value) => int.parse(value.toString()) + 1);
     }
     // ignore: avoid_print
     print(
-        "Added ${product.toString()} to cart\nQuantidade de produtos adicionados: ${CartInfo.addedProducts.length.toString()}\n${CartInfo.addedProducts.toString()}");
+        "Added ${product.toString()} to cart\nQuantidade de produtos adicionados: ${_addedProducts.length.toString()}\n${_addedProducts.toString()}");
   }
 
-  static void removeFromCart(Product product) {
-    for (int i = 0; i < CartInfo.addedProducts.length; i++) {
-      Product? p = CartInfo.addedProducts[i]['Product'] as Product;
-      int quantity = CartInfo.addedProducts[i]['Quantity'] as int;
+  void removeFromCart(Product product) {
+    for (int i = 0; i < _addedProducts.length; i++) {
+      Product? p = _addedProducts[i]['Product'] as Product;
+      int quantity = _addedProducts[i]['Quantity'] as int;
       if (p == product) {
         if (quantity == 1) {
-          CartInfo.addedProducts.removeAt(i);
+          _addedProducts.removeAt(i);
         } else {
-          CartInfo.addedProducts[i]
+          _addedProducts[i]
               .update('Quantity', (value) => int.parse(value.toString()) - 1);
         }
       }
     }
     // ignore: avoid_print
-    print("Removed ${product}from cart\n$addedProducts");
+    print("Removed ${product}from cart\n$_addedProducts");
   }
 
-  static int? _productExists(Product product) {
-    for (int i = 0; i < CartInfo.addedProducts.length; i++) {
-      if (CartInfo.addedProducts[i]['Product'] == product) return i;
+  int? _productExists(Product product) {
+    for (int i = 0; i < _addedProducts.length; i++) {
+      if (_addedProducts[i]['Product'] == product) return i;
     }
     return null;
   }
 
-  static void clearCart() {
-    CartInfo.addedProducts.clear();
+  void clearCart() {
+    _addedProducts.clear();
   }
+
 }

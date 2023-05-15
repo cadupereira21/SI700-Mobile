@@ -109,7 +109,7 @@ class _CartScreenState extends State<CartScreen> {
   removeProduct(Product product) {
     return IconButton(
         onPressed: () {
-          setState(() => CartInfo.removeFromCart(product));
+          setState(() => CartInfo.instance.removeFromCart(product));
         },
         icon: const Icon(
           Icons.delete,

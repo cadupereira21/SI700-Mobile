@@ -7,12 +7,12 @@ import 'CartState.dart';
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc(CartState initialState) : super(initialState) {
     on<AddToCart>((event, emit) {
-      CartInfo.addToCart(event.product);
-      emit(AddingToCart(addedProducts: CartInfo.addedProducts));
+      CartInfo.instance.addToCart(event.product);
+      emit(AddingToCart(addedProducts: CartInfo.instance.addedProducts));
     });
     on<ClearCart>((event, emit){
-      CartInfo.clearCart();
-      emit(ClearingCart(addedProducts: CartInfo.addedProducts));
+      CartInfo.instance.clearCart();
+      emit(ClearingCart(addedProducts: CartInfo.instance.addedProducts));
     });
   }
 }
