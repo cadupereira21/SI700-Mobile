@@ -5,9 +5,8 @@ class CartInfo {
   static CartInfo instance = CartInfo._createInstance();
 
   List<Map<String, Object>> _addedProducts = [];
-  
-    List<Map<String, Object>> get addedProducts => _addedProducts;
 
+  List<Map<String, Object>> get addedProducts => List.from(_addedProducts);
 
   CartInfo._createInstance();
 
