@@ -1,16 +1,14 @@
 import '../../Configuration/PasswordConfig.dart';
+import '../../Model/User.dart';
 
-abstract class AuthEvent{
+abstract class AuthEvent {}
 
-}
+class LogIn extends AuthEvent {
+  late User user;
 
-class LogIn extends AuthEvent{
-  final String username;
-  late final String password;
-
-  LogIn(this.username, password){
-    this.password = PasswordConfig.encode(password);
+  LogIn(username, password) {
+    this.user = User(username, PasswordConfig.encode(password));
   }
 }
 
-class LogOut extends AuthEvent{}
+class LogOut extends AuthEvent {}
