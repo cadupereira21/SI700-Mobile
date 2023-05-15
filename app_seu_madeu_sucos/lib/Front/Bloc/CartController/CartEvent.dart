@@ -9,6 +9,11 @@ class AddToCart extends CartEvent {
   AddToCart({required this.product});
 }
 
+class RemoveFromCart extends CartEvent {
+  Product product;
+  RemoveFromCart({required this.product});
+}
+
 class ClearCart extends CartEvent {
   ClearCart();
 }

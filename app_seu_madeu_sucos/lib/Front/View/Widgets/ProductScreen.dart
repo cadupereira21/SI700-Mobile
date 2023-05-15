@@ -49,7 +49,7 @@ class _ProductScreenState extends State<ProductScreen> {
       action: SnackBarAction(
           label: "Desfazer",
           onPressed: () {
-            CartInfo.instance.removeFromCart(product);
+            BlocProvider.of<CartBloc>(context).add(RemoveFromCart(product: product));
           }),
     );
   }
