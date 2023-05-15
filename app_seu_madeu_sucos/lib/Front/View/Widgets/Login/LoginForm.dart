@@ -1,5 +1,5 @@
-import 'package:app_seu_madeu_sucos/Front/Bloc/Authenticate/AuthBloc.dart';
-import 'package:app_seu_madeu_sucos/Front/Bloc/Authenticate/AuthEvent.dart';
+import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthBloc.dart';
+import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

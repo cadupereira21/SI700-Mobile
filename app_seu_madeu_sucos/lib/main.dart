@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Front/Bloc/Authenticate/AuthBloc.dart';
-import 'Front/Bloc/Authenticate/AuthState.dart';
+import 'Back/Controller/Authenticate/AuthBloc.dart';
+import 'Back/Controller/Authenticate/AuthState.dart';
 import 'Front/Bloc/CartController/CartBloc.dart';
 import 'Front/Bloc/CartController/CartState.dart';
 import 'Front/View/Widgets/Login/LoginPage.dart';
