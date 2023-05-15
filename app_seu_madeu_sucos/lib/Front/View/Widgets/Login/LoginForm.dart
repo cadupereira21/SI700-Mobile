@@ -3,6 +3,8 @@ import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthEvent.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Logic/LoginInfo.dart';
+
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -29,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   formButton("Entrar", loginAction),
-                  formButton("Cadastrar", (){}),
+                  formButton("Cadastrar", () {}),
                 ],
               ),
             ),
@@ -45,6 +47,15 @@ class _LoginFormState extends State<LoginForm> {
         child: TextFormField(
           decoration: const InputDecoration(labelText: 'Email'),
           cursorColor: Colors.green,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor, insira um email';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            LoginInfo.instance.setUsername(value!);
+          },
         ));
   }
 
@@ -55,6 +66,15 @@ class _LoginFormState extends State<LoginForm> {
           decoration: const InputDecoration(labelText: 'Senha'),
           cursorColor: Colors.green,
           obscureText: true,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor, insira uma senha';
+            }
+            return null;
+          },
+          onSaved: (value) {
+            LoginInfo.instance.setPassword(value!);
+          },
         ));
   }
 
@@ -65,7 +85,11 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void loginAction() {
-    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-    authBloc.add(LogIn());
+    if(_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+      authBloc.add(LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!)); 
+    }
   }
 }
