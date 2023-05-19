@@ -25,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             formEmailField(),
             formPasswordField(),
+            forgotMyPasswordButton(),
             Padding(
               padding: const EdgeInsets.only(top: 60),
               child: Row(
@@ -85,11 +86,26 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void loginAction() {
-    if(_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-      authBloc.add(LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!)); 
+      authBloc.add(
+          LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!));
     }
+  }
+
+  Widget forgotMyPasswordButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        TextButton(
+          onPressed: () {
+            // TODO: Realizar ação de esqueci minha senha
+          },
+          child: const Text("Esqueci minha senha"),
+        ),
+      ]
+    );
   }
 }
