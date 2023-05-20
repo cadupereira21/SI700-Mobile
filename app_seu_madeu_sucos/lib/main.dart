@@ -1,4 +1,4 @@
-import 'package:app_seu_madeu_sucos/Front/View/Widgets/SignupScreen.dart';
+import 'package:app_seu_madeu_sucos/Front/View/Widgets/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
