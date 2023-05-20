@@ -1,9 +1,9 @@
+import 'package:app_seu_madeu_sucos/Front/Bloc/AccessController/AccessState.dart';
 import 'package:app_seu_madeu_sucos/Front/View/Widgets/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Back/Controller/Authenticate/AuthBloc.dart';
-import 'Back/Controller/Authenticate/AuthState.dart';
+import 'Front/Bloc/AccessController/AccessBloc.dart';
 import 'Front/Bloc/CartController/CartBloc.dart';
 import 'Front/Bloc/CartController/CartState.dart';
 import 'Front/View/Widgets/Login/LoginPage.dart';
@@ -20,23 +20,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => AuthBloc(NotLoggedIn())),
+        BlocProvider(create: (BuildContext context) => AccessBloc(LogInState())),
         BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
 
       ],
-      child: BlocBuilder<AuthBloc, AuthState>(
+      child: BlocBuilder<AccessBloc, AccessState>(
         builder: (context, authState) {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
               primarySwatch: Colors.green,
             ),
-            home: authState.isLoggedIn?
-              const HomePage(title: 'Home Page')
-              :(authState is SignUpState?
-                const SignUpScreen()
-                :const LoginPage(title: 'Login Page')
-              ),
+            home: switchPage(authState),
           );
         }
       ),
@@ -44,3 +39,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Widget switchPage(AccessState state){
+  if (state is LogInState) {
+    return const LoginPage(title: 'Login Page');
+  } else if (state is LoggedInState) {
+    return const HomePage(title: 'Home Page');
+  } else if (state is SignUpState) {
+    return const SignUpScreen();
+  } else {
+    return Container();
+  }
+}

@@ -1,8 +1,8 @@
-import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthBloc.dart';
-import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Bloc/AccessController/AccessBloc.dart';
+import '../../../Bloc/AccessController/AccessEvent.dart';
 import '../../../Logic/LoginInfo.dart';
 
 class LoginForm extends StatefulWidget {
@@ -32,7 +32,7 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   formButton("Entrar", loginAction),
-                  formButton("Cadastrar", SignUpAction),
+                  formButton("Cadastre-se", signUpAction),
                 ],
               ),
             ),
@@ -104,14 +104,13 @@ class _LoginFormState extends State<LoginForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-      authBloc.add(
-          LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!));
+      AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+      accessBloc.add(LogInButtonClick());
     }
   }
 
-  void SignUpAction(){
-    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-    authBloc.add(SignUp());
+  void signUpAction(){
+    AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+    accessBloc.add(IWantToSignUpButtonClick());
   }
 }

@@ -1,8 +1,9 @@
-import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthBloc.dart';
-import 'package:app_seu_madeu_sucos/Back/Controller/Authenticate/AuthEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Bloc/AccessController/AccessBloc.dart';
+import '../../../Bloc/AccessController/AccessEvent.dart';
+import '../../../Bloc/AccessController/AccessState.dart';
 import '../../../Logic/LoginInfo.dart';
 import 'SignupFormFieldName.dart';
 
@@ -42,8 +43,8 @@ class _SignupFormState extends State<SignupForm> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    formButton("Cadastrar", () {}), 
-                    formButton("Cancelar", () {}),
+                    formButton("Cadastrar", SignUpAction), 
+                    formButton("Cancelar", cancelAction),
                   ],
                 ),
               ),
@@ -60,12 +61,12 @@ class _SignupFormState extends State<SignupForm> {
         child: TextFormField(
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira seu ${text.toLowerCase()}';
-            }
-            return null;
-          },
+          // validator: (value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'Por favor, insira seu ${text.toLowerCase()}';
+          //   }
+          //   return null;
+          // },
           onSaved: onSaved,
         ));
   }
@@ -114,10 +115,14 @@ class _SignupFormState extends State<SignupForm> {
       _formKey.currentState!.save();
       // TODO: Enviar requisição p/ cadastro
       // TODO: Realizar login
+      AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+      accessBloc.add(SignUpButtonClick());
     }
   }
 
   void cancelAction() {
     //TODO: Cancel action
+    AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+      accessBloc.add(CancelSignUpButtonClick());
   }
 }
