@@ -61,38 +61,35 @@ class _HomePageState extends State<HomePage> {
     return Drawer(
       child: ListView(
         children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text("Nome Completo do Usuário"),
-            accountEmail: Text(
-              "Email completo do usuário",
-              style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-            ),
-            currentAccountPicture: CircleAvatar(),
-          ),
-          ListTile(
-            title: const Text("Perfil"),
-            textColor: Colors.green,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UserProfileScreen()));
-            },
-          ),
-          ListTile(
-            title: const Text("Planos"),
-            textColor: Colors.green,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UserPlanScreen()));
-            },
-          ),
+          drawerHeader(),
+          drawerTile("Perfil", const UserProfileScreen()),
+          drawerTile("Planos", const UserPlanScreen()),
         ],
       ),
+    );
+  }
+
+  Widget drawerHeader() {
+    return const UserAccountsDrawerHeader(
+      accountName: Text("Nome Completo do Usuário"),
+      accountEmail: Text(
+        "Email completo do usuário",
+        style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+      ),
+      currentAccountPicture: CircleAvatar(),
+    );
+  }
+
+  Widget drawerTile(String title, Widget pushPage) {
+    return ListTile(
+      title: Text(title),
+      textColor: Colors.green,
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => pushPage),
+        );
+      },
     );
   }
 }
