@@ -32,7 +32,7 @@ class _LoginFormState extends State<LoginForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   formButton("Entrar", loginAction),
-                  formButton("Cadastrar", () {}),
+                  formButton("Cadastrar", SignUpAction),
                 ],
               ),
             ),
@@ -85,15 +85,6 @@ class _LoginFormState extends State<LoginForm> {
         child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
   }
 
-  void loginAction() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
-      authBloc.add(
-          LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!));
-    }
-  }
 
   Widget forgotMyPasswordButton() {
     return Row(
@@ -107,5 +98,20 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ]
     );
+  }
+
+  void loginAction() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+      authBloc.add(
+          LogIn(LoginInfo.instance.username!, LoginInfo.instance.password!));
+    }
+  }
+
+  void SignUpAction(){
+    AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+    authBloc.add(SignUp());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/Front/View/Widgets/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,10 @@ class MyApp extends StatelessWidget {
             ),
             home: authState.isLoggedIn?
               const HomePage(title: 'Home Page')
-              :const LoginPage(title: 'Login Page'),
+              :(authState is SignUpState?
+                const SignUpScreen()
+                :const LoginPage(title: 'Login Page')
+              ),
           );
         }
       ),

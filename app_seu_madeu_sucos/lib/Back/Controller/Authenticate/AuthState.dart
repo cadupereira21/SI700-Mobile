@@ -15,5 +15,7 @@ class NotLoggedIn extends AuthState {
 }
 
 class SignUpState extends AuthState {
-  
+  SignUpState() {
+    isLoggedIn = false;
+  }
 }

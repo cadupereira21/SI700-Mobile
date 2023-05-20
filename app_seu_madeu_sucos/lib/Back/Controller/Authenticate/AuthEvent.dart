@@ -15,21 +15,5 @@ class LogIn extends AuthEvent {
 class LogOut extends AuthEvent {}
 
 class SignUp extends AuthEvent {
-  late Client client;
-
-  SignUp({
-    required name,
-    required address,
-    required phone,
-    required activePlan,
-    required user,
-  }) {
-    this.client = Client(
-      name,
-      address,
-      phone,
-      activePlan,
-      user
-    );
-  }
+  SignUp();
 }
