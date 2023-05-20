@@ -13,3 +13,7 @@ class NotLoggedIn extends AuthState {
     isLoggedIn = false;
   }
 }
+
+class SignUpState extends AuthState {
+  
+}

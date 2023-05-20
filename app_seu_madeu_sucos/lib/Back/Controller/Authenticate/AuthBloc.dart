@@ -15,5 +15,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     on<LogOut>((event, emit) => emit(NotLoggedIn()));
+    on<SignUp>(((event, emit) => emit(SignUpState())));
   }
 }
