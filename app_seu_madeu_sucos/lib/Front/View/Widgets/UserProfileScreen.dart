@@ -24,18 +24,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
               child: Column(
                 children: [
-                  formTextField(SignupFormFieldName.NAME, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.PHONE, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.STREET, textFieldOnSaved),
+                  formTextField(SignupFormFieldName.NAME, textFieldOnSaved, "Nome"),
+                  formTextField(SignupFormFieldName.PHONE, textFieldOnSaved, "Telefone"),
+                  formTextField(SignupFormFieldName.STREET, textFieldOnSaved, "Rua"),
                   formTextField(
-                    SignupFormFieldName.STREET_NUMBER, textFieldOnSaved,
+                    SignupFormFieldName.STREET_NUMBER, textFieldOnSaved, "Número"
                   ),
-                  formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.CITY, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved),
-                  formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved),
-                  formPasswordField(),
+                  formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved, "Bairro"),
+                  formTextField(SignupFormFieldName.CITY, textFieldOnSaved, "Cidade"),
+                  formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved, "Estado"),
+                  formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved, "CEP"),
+                  formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved, "Email"),
+                  formNewPasswordField(),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Row(
@@ -57,10 +57,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  Widget formTextField(String text, void Function(String?) onSaved) {
+  Widget formTextField(String text, void Function(String?) onSaved, String initialValue) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
+          initialValue: initialValue,
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
           // validator: (value) {
@@ -73,11 +74,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ));
   }
 
-  Widget formPasswordField() {
+  Widget formNewPasswordField() {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Senha'),
+          decoration: const InputDecoration(labelText: 'Nova Senha'),
           cursorColor: Colors.green,
           obscureText: true,
           validator: (value) {
