@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Bloc/CartController/CartBloc.dart';
-import '../../Bloc/CartController/CartEvent.dart';
-import '../../Bloc/CartController/CartState.dart';
-import '../../Entities/Product.dart';
-import '../../Logic/CartInfo.dart';
+import '../Controller/Screen/Bloc/CartController/CartBloc.dart';
+import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
+import '../Controller/Screen/Bloc/CartController/CartState.dart';
+import '../../Model/Product.dart';
+import '../Controller/CartController.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -112,7 +112,7 @@ class _CartScreenState extends State<CartScreen> {
   removeProduct(Product product) {
     return IconButton(
         onPressed: () {
-          setState(() => CartInfo.instance.removeFromCart(product));
+          setState(() => CartController.instance.removeFromCart(product));
         },
         icon: const Icon(
           Icons.delete,

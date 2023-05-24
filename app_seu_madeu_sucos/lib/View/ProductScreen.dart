@@ -1,13 +1,13 @@
 import 'dart:ffi';
 
-import 'package:app_seu_madeu_sucos/Front/Bloc/CartController/CartBloc.dart';
-import 'package:app_seu_madeu_sucos/Front/Logic/CartInfo.dart';
+import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/CartController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Bloc/CartController/CartEvent.dart';
-import '../../Entities/Product.dart';
-import '../../Logic/ProductsInfo.dart';
+import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
+import '../../Model/Product.dart';
+import '../Controller/ProductsController.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});

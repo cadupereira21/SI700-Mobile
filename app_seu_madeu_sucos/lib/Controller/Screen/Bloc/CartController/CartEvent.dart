@@ -1,4 +1,6 @@
-import '../../Entities/Product.dart';
+
+
+import '../../../../Model/Product.dart';
 
 abstract class CartEvent {
   CartEvent();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Entities/Plan.dart';
-import '../../Logic/PlanInfo.dart';
+import '../../Model/Plan.dart';
+import '../Controller/PlanController.dart';
 
 class UserPlanScreen extends StatefulWidget {
   const UserPlanScreen({super.key});

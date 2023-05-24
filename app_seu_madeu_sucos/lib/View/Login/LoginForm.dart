@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../Bloc/AccessController/AccessBloc.dart';
-import '../../../Bloc/AccessController/AccessEvent.dart';
-import '../../../Logic/LoginInfo.dart';
+import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
+import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
+import '../../Controller/LoginController.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

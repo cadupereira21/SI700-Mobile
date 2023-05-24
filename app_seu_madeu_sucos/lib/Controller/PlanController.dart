@@ -1,4 +1,4 @@
-import '../Entities/Plan.dart';
+import '../Model/Plan.dart';
 
 class PlanInfo {
   //Create singleton

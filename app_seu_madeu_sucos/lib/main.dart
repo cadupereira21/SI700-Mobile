@@ -1,13 +1,13 @@
-import 'package:app_seu_madeu_sucos/Front/Bloc/AccessController/AccessState.dart';
-import 'package:app_seu_madeu_sucos/Front/View/Widgets/Signup/SignupScreen.dart';
+import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/AccessController/AccessState.dart';
+import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'Front/Bloc/AccessController/AccessBloc.dart';
-import 'Front/Bloc/CartController/CartBloc.dart';
-import 'Front/Bloc/CartController/CartState.dart';
-import 'Front/View/Widgets/Login/LoginPage.dart';
-import 'Front/View/Widgets/HomePage.dart';
+import 'Controller/Screen/Bloc/AccessController/AccessBloc.dart';
+import 'Controller/Screen/Bloc/CartController/CartBloc.dart';
+import 'Controller/Screen/Bloc/CartController/CartState.dart';
+import '/View/Login/LoginPage.dart';
+import '/View/HomePage.dart';
 
 void main() {
   runApp(const MyApp());

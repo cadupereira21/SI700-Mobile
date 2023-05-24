@@ -1,14 +1,14 @@
-import '../Entities/Product.dart';
+import '../Model/Product.dart';
 
-class CartInfo {
+class CartController {
   
-  static CartInfo instance = CartInfo._createInstance();
+  static CartController instance = CartController._createInstance();
 
   List<Map<String, Object>> _addedProducts = [];
 
   List<Map<String, Object>> get addedProducts => List.from(_addedProducts);
 
-  CartInfo._createInstance();
+  CartController._createInstance();
 
   void addToCart(Product product) {
     int? auxIndex = _productExists(product);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../Bloc/AccessController/AccessBloc.dart';
-import '../../../Bloc/AccessController/AccessEvent.dart';
-import '../../../Bloc/AccessController/AccessState.dart';
-import '../../../Logic/LoginInfo.dart';
+import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
+import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
+import '../../Controller/Screen/Bloc/AccessController/AccessState.dart';
+import '../../Controller/LoginController.dart';
 import 'SignupFormFieldName.dart';
 
 class SignupForm extends StatefulWidget {
@@ -85,7 +85,7 @@ class _SignupFormState extends State<SignupForm> {
             return null;
           },
           onSaved: (value) {
-            LoginInfo.instance.setPassword(value!);
+            
           },
         ));
   }

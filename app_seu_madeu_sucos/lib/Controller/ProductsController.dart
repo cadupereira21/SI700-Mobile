@@ -1,4 +1,4 @@
-import '../Entities/Product.dart';
+import '../Model/Product.dart';
 
 class ProductsInfo {
   static final List<Product> allProducts = [
