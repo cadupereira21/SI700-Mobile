@@ -9,7 +9,7 @@ class AccessBloc extends Bloc<AccessEvent, AccessState> {
       emit(LoggedInState())
     });
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));
-    on<SignUpButtonClick>(((event, emit) => emit(LoggedInState())));
+    on<SignUpRequestSuccessfulEvent>(((event, emit) => emit(LoggedInState())));
     on<CancelSignUpButtonClick>(((event, emit) => emit(LogInState())));
   }
 }

@@ -11,3 +11,5 @@ class RequestFailed extends RequestState{
   String message;
   RequestFailed({required this.message});
 }
+
+class WaitingRequest extends RequestState{}

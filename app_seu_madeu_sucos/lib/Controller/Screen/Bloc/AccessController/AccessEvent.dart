@@ -8,8 +8,8 @@ class IWantToSignUpButtonClick extends AccessEvent {
   IWantToSignUpButtonClick();
 }
 
-class SignUpButtonClick extends AccessEvent {
-  SignUpButtonClick();
+class SignUpRequestSuccessfulEvent extends AccessEvent {
+  SignUpRequestSuccessfulEvent();
 }
 
 class CancelSignUpButtonClick extends AccessEvent {

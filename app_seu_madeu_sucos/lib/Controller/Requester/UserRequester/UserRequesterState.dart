@@ -1,7 +1,15 @@
-abstract class UserRequesterState{}
+import '../RequestState.dart';
 
-class ProcessingRequest extends UserRequesterState{}
+abstract class UserRequestState extends RequestState{}
 
-class RequestSuccess extends UserRequesterState{}
+class ProcessingUserRequest extends UserRequestState{}
 
-class RequestFailed extends UserRequesterState{}
+class UserRequestSuccess extends UserRequestState{
+  String message;
+  UserRequestSuccess({required this.message});
+}
+
+class UserRequestFailed extends UserRequestState{
+  String message;
+  UserRequestFailed({required this.message});
+}

@@ -1,10 +1,14 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessState.dart';
 import '../../Data/UserData.dart';
+import '../../Model/Client.dart';
+import '../../Model/User.dart';
 import 'SignupFormFieldName.dart';
 
 class SignupForm extends StatefulWidget {
@@ -15,6 +19,9 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
+  User user = User();
+  Client client = Client();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,24 +33,68 @@ class _SignupFormState extends State<SignupForm> {
           margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
           child: Column(
             children: [
-              formTextField(SignupFormFieldName.NAME, textFieldOnSaved),
-              formTextField(SignupFormFieldName.PHONE, textFieldOnSaved),
-              formTextField(SignupFormFieldName.STREET, textFieldOnSaved),
               formTextField(
-                SignupFormFieldName.STREET_NUMBER, textFieldOnSaved,
+                SignupFormFieldName.NAME,
+                (value) {
+                  client.name = value;
+                },
               ),
-              formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved),
-              formTextField(SignupFormFieldName.CITY, textFieldOnSaved),
-              formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved),
-              formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved),
-              formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved),
+              formTextField(
+                SignupFormFieldName.PHONE,
+                (value) {
+                  client.phone = value;
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.STREET,
+                (value) {
+                  // ignore: unnecessary_brace_in_string_interps
+                  client.address = value;
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.STREET_NUMBER,
+                (value) {
+                  client.address = "${client.address}, $value";
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.NEIGHBOUR,
+                (value) {
+                  client.address = "${client.address}, $value";
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.CITY,
+                (value) {
+                  client.address = "${client.address}, $value";
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.DISTRICT,
+                (value) {
+                  client.address = "${client.address}-$value";
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.ZIPCODE,
+                (value) {
+                  client.address = "${client.address}, $value";
+                },
+              ),
+              formTextField(
+                SignupFormFieldName.EMAIL,
+                (value) {
+                  user.email = value;
+                },
+              ),
               formPasswordField(),
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    formButton("Cadastrar", SignUpAction), 
+                    formButton("Cadastrar", SignUpAction),
                     formButton("Cancelar", cancelAction),
                   ],
                 ),
@@ -85,7 +136,7 @@ class _SignupFormState extends State<SignupForm> {
             return null;
           },
           onSaved: (value) {
-            
+            user.password = value;
           },
         ));
   }
@@ -99,30 +150,27 @@ class _SignupFormState extends State<SignupForm> {
         ),
         onPressed: onPressed,
         child: Padding(
-          padding: text == "Cadastrar" ? 
-            const EdgeInsets.symmetric(vertical: 15, horizontal: 45)
-            : const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          padding: text == "Cadastrar"
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 45)
+              : const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Text(text),
         ),
       ),
     );
   }
 
-  void textFieldOnSaved(String? value) {}
-
   void SignUpAction() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // TODO: Enviar requisição p/ cadastro
-      // TODO: Realizar login
-      AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
-      accessBloc.add(SignUpButtonClick());
+      user.client = client;
+      UserRequesterBloc userRequesterBloc =
+          BlocProvider.of<UserRequesterBloc>(context);
+      userRequesterBloc.add(CreateUserEvent(user));
     }
   }
 
   void cancelAction() {
-    //TODO: Cancel action
     AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
-      accessBloc.add(CancelSignUpButtonClick());
+    accessBloc.add(CancelSignUpButtonClick());
   }
 }
