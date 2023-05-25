@@ -1,6 +1,6 @@
 import '../Model/Product.dart';
 
-class ProductsInfo {
+class ProductData {
   static final List<Product> allProducts = [
     Product(
         id: 1,

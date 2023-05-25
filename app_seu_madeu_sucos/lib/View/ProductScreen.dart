@@ -1,13 +1,13 @@
 import 'dart:ffi';
 
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
-import 'package:app_seu_madeu_sucos/Controller/CartController.dart';
+import 'package:app_seu_madeu_sucos/Data/CartData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../../Model/Product.dart';
-import '../Controller/ProductsController.dart';
+import '../Data/ProductData.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -17,7 +17,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  List<Product> allProducts = ProductsInfo.allProducts;
+  List<Product> allProducts = ProductData.allProducts;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Model/Plan.dart';
-import '../Controller/PlanController.dart';
+import '../Data/PlanData.dart';
 
 class UserPlanScreen extends StatefulWidget {
   const UserPlanScreen({super.key});
@@ -11,7 +11,7 @@ class UserPlanScreen extends StatefulWidget {
 }
 
 class _UserPlanScreenState extends State<UserPlanScreen> {
-  List<Plan> allPlans = PlanInfo.allPlans;
+  List<Plan> allPlans = PlanData.allPlans;
 
 
   @override

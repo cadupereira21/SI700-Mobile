@@ -1,10 +1,10 @@
-class LoginInfo {
+class UserData {
   String? _username;
   String? _password;
 
-  static LoginInfo instance = LoginInfo._createInstance();
+  static UserData instance = UserData._createInstance();
 
-  LoginInfo._createInstance();
+  UserData._createInstance();
 
   void setUsername(String username) {
     _username = username;

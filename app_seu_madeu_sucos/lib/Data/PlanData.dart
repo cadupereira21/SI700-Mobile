@@ -1,10 +1,10 @@
 import '../Model/Plan.dart';
 
-class PlanInfo {
+class PlanData {
   //Create singleton
-  static final PlanInfo _instance = PlanInfo._internal();
-  factory PlanInfo() => _instance;
-  PlanInfo._internal();
+  static final PlanData _instance = PlanData._internal();
+  factory PlanData() => _instance;
+  PlanData._internal();
 
   //Create list of plans
   static List<Plan> allPlans = [

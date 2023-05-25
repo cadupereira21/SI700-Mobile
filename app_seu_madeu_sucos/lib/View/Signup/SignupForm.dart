@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessState.dart';
-import '../../Controller/LoginController.dart';
+import '../../Data/UserData.dart';
 import 'SignupFormFieldName.dart';
 
 class SignupForm extends StatefulWidget {

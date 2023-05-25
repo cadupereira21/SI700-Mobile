@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
 import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
-import '../../Controller/LoginController.dart';
+import '../../Data/UserData.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            LoginInfo.instance.setUsername(value!);
+            UserData.instance.setUsername(value!);
           },
         ));
   }
@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            LoginInfo.instance.setPassword(value!);
+            UserData.instance.setPassword(value!);
           },
         ));
   }

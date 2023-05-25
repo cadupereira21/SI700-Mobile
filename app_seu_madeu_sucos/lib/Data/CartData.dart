@@ -1,14 +1,14 @@
 import '../Model/Product.dart';
 
-class CartController {
+class CartData {
   
-  static CartController instance = CartController._createInstance();
+  static CartData instance = CartData._createInstance();
 
   List<Map<String, Object>> _addedProducts = [];
 
   List<Map<String, Object>> get addedProducts => List.from(_addedProducts);
 
-  CartController._createInstance();
+  CartData._createInstance();
 
   void addToCart(Product product) {
     int? auxIndex = _productExists(product);
