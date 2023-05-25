@@ -14,7 +14,7 @@ class UserServiceImp {
     if (response.statusCode == 200) {
       return true;
     } else {
-      return false;
+      throw Exception("Erro ao criar usuário!");
     }
   }
 }
