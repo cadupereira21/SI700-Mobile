@@ -17,6 +17,7 @@ class AccessBloc extends Bloc<AccessEvent, AccessState> {
     on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));
     on<SignUpRequestSuccessfulEvent>(((event, emit) {
+      UserData.instance.setId(event.userId);
       UserData.instance.setEmail(event.userEmail);
       emit(LoggedInState());
     }));
@@ -41,7 +42,7 @@ class AccessBloc extends Bloc<AccessEvent, AccessState> {
     RequestStatus requestStatus = event[1];
     List<Object> obj = event[2];
     if (requestStatus == RequestStatus.SUCCESSFUL) {
-      add(SignUpRequestSuccessfulEvent(userEmail: (obj[0] as User).email));
+      add(SignUpRequestSuccessfulEvent(userId: obj[0].toString(), userEmail: (obj[1] as User).email));
     } else {
       add(SignUpRequestFailedEvent());
     }

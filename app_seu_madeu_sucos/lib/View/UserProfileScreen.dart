@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
+import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
+import '../Data/UserData.dart';
 import 'Signup/SignupFormFieldName.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -11,6 +15,12 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    BlocProvider.of<UserRequesterBloc>(context).add(GetUserEvent(userId: UserData.instance.id));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

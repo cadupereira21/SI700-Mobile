@@ -9,8 +9,9 @@ class IWantToSignUpButtonClick extends AccessEvent {
 }
 
 class SignUpRequestSuccessfulEvent extends AccessEvent {
+  String? userId;
   String? userEmail;
-  SignUpRequestSuccessfulEvent({this.userEmail});
+  SignUpRequestSuccessfulEvent({this.userId, this.userEmail});
 }
 
 class SignUpRequestFailedEvent extends AccessEvent {
