@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.user!.email = value!;
+            UserData.instance.user.email = value!;
           },
         ));
   }
@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.user!.password = value!;
+            UserData.instance.user.password = value!;
           },
         ));
   }

@@ -20,8 +20,8 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));
     on<SignUpRequestSuccessfulEvent>(((event, emit) {
-      UserData.instance.setId(event.userId);
-      UserData.instance.setUser(event.user);
+      UserData.instance.setId(event.userId!);
+      UserData.instance.setUser(event.user!);
       emit(LoggedInState());
     }));
     on<CancelSignUpButtonClick>(((event, emit) => emit(LogInState())));

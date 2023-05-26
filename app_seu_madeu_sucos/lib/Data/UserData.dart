@@ -2,8 +2,8 @@ import '../Model/Client.dart';
 import '../Model/User.dart';
 
 class UserData {
-  String? _id;
-  User? _user = User(
+  String _id = "";
+  User _user = User(
     email: "", 
     password: "",
     client: Client(
@@ -17,17 +17,14 @@ class UserData {
 
   UserData._createInstance();
 
-  void setId(String? id) {
+  void setId(String id) {
     _id = id;
   }
 
-  void setUser(User? user) {
+  void setUser(User user) {
     _user = user;
   }
 
-  String? get id => _id;
-  User? get user {
-    _user ??= User();
-    return _user;
-  }
+  String get id => _id;
+  User get user => _user;
 }

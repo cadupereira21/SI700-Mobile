@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../Data/UserData.dart';
+import '../Model/User.dart';
 import 'Signup/SignupFormFieldName.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -10,6 +12,8 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  User user = UserData.instance.user;
+  var clientAddress = UserData.instance.user.client!.address!.split(",");
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +27,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
               child: Column(
                 children: [
-                  formTextField(SignupFormFieldName.NAME, textFieldOnSaved, "Nome"),
-                  formTextField(SignupFormFieldName.PHONE, textFieldOnSaved, "Telefone"),
-                  formTextField(SignupFormFieldName.STREET, textFieldOnSaved, "Rua"),
                   formTextField(
-                    SignupFormFieldName.STREET_NUMBER, textFieldOnSaved, "Número"
+                    SignupFormFieldName.NAME, 
+                    textFieldOnSaved, 
+                    user.client!.name!,
                   ),
-                  formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved, "Bairro"),
-                  formTextField(SignupFormFieldName.CITY, textFieldOnSaved, "Cidade"),
-                  formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved, "Estado"),
-                  formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved, "CEP"),
-                  formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved, "Email"),
+                  formTextField(SignupFormFieldName.PHONE, textFieldOnSaved, user.client!.phone!,),
+                  formTextField(SignupFormFieldName.STREET, textFieldOnSaved, clientAddress[0],),
+                  formTextField(
+                    SignupFormFieldName.STREET_NUMBER, textFieldOnSaved, clientAddress[1],
+                  ),
+                  formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved, clientAddress[2],),
+                  formTextField(SignupFormFieldName.CITY, textFieldOnSaved, clientAddress[3].split("-")[0],),
+                  formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved, clientAddress[3].split("-")[1]),
+                  formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved, clientAddress[4]),
+                  formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved, user.email!),
                   formNewPasswordField(),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
