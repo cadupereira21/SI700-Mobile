@@ -1,9 +1,17 @@
 import '../Model/Client.dart';
+import '../Model/User.dart';
 
 class UserData {
   String? _id;
-  String? _email;
-  String? _password;
+  User? _user = User(
+    email: "", 
+    password: "",
+    client: Client(
+      name:"",
+      address: ",,,-,,,",
+      phone: "",
+    ),
+  );
 
   static UserData instance = UserData._createInstance();
 
@@ -13,14 +21,13 @@ class UserData {
     _id = id;
   }
 
-  void setEmail(String? email) {
-    _email = email;
-  }
-
-  void setPassword(String password) {
-    _password = password;
+  void setUser(User? user) {
+    _user = user;
   }
 
   String? get id => _id;
-  String? get username => _email;
+  User? get user {
+    _user ??= User();
+    return _user;
+  }
 }

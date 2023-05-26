@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
-import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
+import '../../Controller/Monitor/User/UserMonitorBloc.dart';
+import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Data/UserData.dart';
 
 class LoginForm extends StatefulWidget {
@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.setEmail(value!);
+            UserData.instance.user!.email = value!;
           },
         ));
   }
@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.setPassword(value!);
+            UserData.instance.user!.password = value!;
           },
         ));
   }
@@ -104,13 +104,13 @@ class _LoginFormState extends State<LoginForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+      UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
       accessBloc.add(LogInButtonClick());
     }
   }
 
   void signUpAction(){
-    AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
     accessBloc.add(IWantToSignUpButtonClick());
   }
 }

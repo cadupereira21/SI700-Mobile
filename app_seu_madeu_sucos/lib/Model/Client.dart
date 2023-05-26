@@ -9,5 +9,10 @@ class Client {
   String? phone;
   ActivePlan? activePlan;
 
-  Client();
+  Client({
+    this.name,
+    this.address,
+    this.phone,
+    this.activePlan,
+  });
 }

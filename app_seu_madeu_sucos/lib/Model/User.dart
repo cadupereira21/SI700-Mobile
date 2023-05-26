@@ -5,5 +5,9 @@ class User {
   String? password;
   Client? client;
 
-  User();
+  User({
+    this.email,
+    this.password,
+    this.client,
+  });
 }

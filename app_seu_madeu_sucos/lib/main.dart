@@ -1,11 +1,11 @@
-import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/AccessController/AccessState.dart';
+import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Controller/Monitor/User/UserMonitorState.dart';
 import 'Controller/Requester/RequestState.dart';
 import 'Controller/Requester/UserRequester/UserRequesterBloc.dart';
-import 'Controller/Screen/Bloc/AccessController/AccessBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartState.dart';
 import '/View/Login/LoginPage.dart';
@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => AccessBloc(LogInState())),
         BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
         BlocProvider(create: (BuildContext context) => UserRequesterBloc(WaitingRequest())),
+        BlocProvider(create: (BuildContext context) => UserMonitorBloc(LogInState())),
       ],
-      child: BlocBuilder<AccessBloc, AccessState>(
+      child: BlocBuilder<UserMonitorBloc, UserMonitorState>(
         builder: (context, authState) {
           return MaterialApp(
             title: 'Flutter Demo',
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Widget switchPage(AccessState state){
+Widget switchPage(UserMonitorState state){
   if (state is LogInState) {
     return const LoginPage(title: 'Login Page');
   } else if (state is LoggedInState) {

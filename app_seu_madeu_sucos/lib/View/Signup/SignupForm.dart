@@ -2,10 +2,9 @@ import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserReque
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Controller/Monitor/User/UserMonitorBloc.dart';
+import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
-import '../../Controller/Screen/Bloc/AccessController/AccessBloc.dart';
-import '../../Controller/Screen/Bloc/AccessController/AccessEvent.dart';
-import '../../Controller/Screen/Bloc/AccessController/AccessState.dart';
 import '../../Data/UserData.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
@@ -170,7 +169,7 @@ class _SignupFormState extends State<SignupForm> {
   }
 
   void cancelAction() {
-    AccessBloc accessBloc = BlocProvider.of<AccessBloc>(context);
+    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
     accessBloc.add(CancelSignUpButtonClick());
   }
 }
