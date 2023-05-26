@@ -8,20 +8,17 @@ import '../Interface/Notifier.dart';
 import '../Model/Client.dart';
 import '../Model/User.dart';
 import 'RequestStatus.dart';
+import 'Service.dart';
 
-class UserServiceImp implements Notifier {
+class UserServiceImp extends Service {
   static const String REQ_TITLE_CREATE_USER = "Create User Request";
   static const String REQ_TITLE_GET_USER = "Get User Request";
 
-  final String _baseUrl = "https://seu-madeu-sucos-default-rtdb.firebaseio.com";
-  final _dio = Dio();
-
   static final UserServiceImp instance = UserServiceImp._internal();
   UserServiceImp._internal();
-  StreamController? _streamController;
 
   Future<void> createUser(User user) async {
-    final response = await _dio.post("$_baseUrl/users.json",
+    final response = await dio.post("$baseUrl/users.json",
         data: json.encode({
           "email": user.email,
           "password": user.password,
@@ -45,7 +42,7 @@ class UserServiceImp implements Notifier {
   Future<void> getUserById(String? userId) async {
     User user = User();
     Client client = Client();
-    final response = await _dio.get("$_baseUrl/users/$userId.json");
+    final response = await dio.get("$baseUrl/users/$userId.json");
     //{client: {address: f, f, f, f-f, f, name: f, phone: f}, email: f, password: f}
 
     client.address = response.data['client']['address'];
@@ -61,19 +58,5 @@ class UserServiceImp implements Notifier {
           : RequestStatus.FAILED,
       object: [user],
     );
-  }
-
-  @override
-  void notify(
-      {String? requestTitle,
-      RequestStatus? responseStatus,
-      List<Object>? object}) {
-    _streamController?.sink.add([requestTitle, responseStatus, object]);
-  }
-
-  @override
-  Stream get stream {
-    _streamController ??= StreamController.broadcast();
-    return _streamController!.stream;
   }
 }
