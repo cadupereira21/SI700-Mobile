@@ -8,8 +8,8 @@ class UserData {
 
   UserData._createInstance();
 
-  void setUsername(String username) {
-    _email = username;
+  void setEmail(String? email) {
+    _email = email;
   }
 
   void setPassword(String password) {

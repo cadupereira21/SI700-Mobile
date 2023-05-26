@@ -11,3 +11,8 @@ class LoggedInState extends AccessState {
 class SignUpState extends AccessState {
   SignUpState() {}
 }
+
+class SignUpFailedState extends AccessState {
+  String message;
+  SignUpFailedState({required this.message});
+}

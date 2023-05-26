@@ -9,11 +9,14 @@ class IWantToSignUpButtonClick extends AccessEvent {
 }
 
 class SignUpRequestSuccessfulEvent extends AccessEvent {
-  SignUpRequestSuccessfulEvent();
+  String? userEmail;
+  SignUpRequestSuccessfulEvent({this.userEmail});
+}
+
+class SignUpRequestFailedEvent extends AccessEvent {
+  SignUpRequestFailedEvent();
 }
 
 class CancelSignUpButtonClick extends AccessEvent {
   CancelSignUpButtonClick();
 }
-
-

@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.setUsername(value!);
+            UserData.instance.setEmail(value!);
           },
         ));
   }

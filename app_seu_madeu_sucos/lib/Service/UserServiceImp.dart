@@ -9,7 +9,7 @@ import '../Model/User.dart';
 import 'RequestStatus.dart';
 
 class UserServiceImp implements Notifier {
-  final String _REQ_TITLE_CREATE_USER = "Create User Request";
+  static const String REQ_TITLE_CREATE_USER = "Create User Request";
 
   final String _baseUrl = "https://seu-madeu-sucos-default-rtdb.firebaseio.com";
   final _dio = Dio();
@@ -19,7 +19,7 @@ class UserServiceImp implements Notifier {
   StreamController? _streamController;
 
   Future<void> createUser(User user) async {
-    final response = await _dio.post("${_baseUrl}/users.json",
+    final response = await _dio.post("$_baseUrl/users.json",
         data: json.encode({
           "email": user.email,
           "password": user.password,
@@ -29,13 +29,21 @@ class UserServiceImp implements Notifier {
             "phone": user.client!.phone,
           },
           "activePlan": null
-        })); 
-    notify(requestTitle: _REQ_TITLE_CREATE_USER, responseStatus: RequestStatus.SUCCESSFUL);
+        }));
+
+    notify(
+        requestTitle: UserServiceImp.REQ_TITLE_CREATE_USER,
+        responseStatus: response.statusCode!.toInt() / 100 == 2
+            ? RequestStatus.SUCCESSFUL
+            : RequestStatus.FAILED,
+        object: [user]);
   }
 
   @override
   void notify(
-      {String? requestTitle, RequestStatus? responseStatus, List<Object>? object}) {
+      {String? requestTitle,
+      RequestStatus? responseStatus,
+      List<Object>? object}) {
     _streamController?.sink.add([requestTitle, responseStatus, object]);
   }
 
