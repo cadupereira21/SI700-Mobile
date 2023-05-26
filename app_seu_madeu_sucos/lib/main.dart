@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Controller/Monitor/User/UserMonitorState.dart';
+import 'Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
 import 'Controller/Requester/RequestState.dart';
 import 'Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartBloc.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
         BlocProvider(create: (BuildContext context) => UserRequesterBloc(WaitingRequest())),
         BlocProvider(create: (BuildContext context) => UserMonitorBloc(LogInState())),
+        BlocProvider(create: (BuildContext context) => ProductRequesterBloc(WaitingRequest())),
       ],
       child: BlocBuilder<UserMonitorBloc, UserMonitorState>(
         builder: (context, authState) {

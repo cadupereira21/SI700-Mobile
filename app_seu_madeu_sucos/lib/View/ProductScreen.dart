@@ -1,10 +1,12 @@
 import 'dart:ffi';
 
+import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'package:app_seu_madeu_sucos/Data/CartData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../../Model/Product.dart';
 import '../Data/ProductData.dart';
@@ -21,6 +23,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(allProducts.isEmpty){
+      BlocProvider.of<ProductRequesterBloc>(context).add(GetAllProductsRequest());
+    }
     return ListView.builder(
         itemCount: allProducts.length,
         itemBuilder: (BuildContext context, int index) =>
@@ -47,10 +52,12 @@ class _ProductScreenState extends State<ProductScreen> {
       duration: const Duration(seconds: 2),
       content: Text("${product.name} adicionado ao carrinho!"),
       action: SnackBarAction(
-          label: "Desfazer",
-          onPressed: () {
-            BlocProvider.of<CartBloc>(context).add(RemoveFromCart(product: product));
-          }),
+        label: "Desfazer",
+        onPressed: () {
+          BlocProvider.of<CartBloc>(context)
+              .add(RemoveFromCart(product: product),);
+        },
+      ),
     );
   }
 

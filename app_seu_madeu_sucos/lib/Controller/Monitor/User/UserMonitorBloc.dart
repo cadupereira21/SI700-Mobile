@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Data/UserData.dart';
 import 'package:app_seu_madeu_sucos/Model/User.dart';
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
@@ -13,11 +14,12 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     serviceStreamController.listen((event) {
       _listenToStream(event);
     });
-
     on<UpdateUserDataEvent>((event, emit) {
       emit(UserMonitorState(user: event.user));
     });
-    on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
+    on<LogInButtonClick>((event, emit) => {
+      emit(LoggedInState())
+    });
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));
     on<SignUpRequestSuccessfulEvent>(((event, emit) {
       UserData.instance.setId(event.userId!);
