@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
         BlocProvider(create: (BuildContext context) => UserRequesterBloc(WaitingRequest())),
         BlocProvider(create: (BuildContext context) => UserMonitorBloc(LogInState())),
-        BlocProvider(create: (BuildContext context) => ProductMonitorBloc(ProductMonitorState())),
+        BlocProvider(create: (BuildContext context) => ProductMonitorBloc(ProductMonitorState(productColletion: []))),
         BlocProvider(create: (BuildContext context) => ProductRequesterBloc(WaitingRequest())),
       ],
       child: BlocBuilder<UserMonitorBloc, UserMonitorState>(

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
+import '../Controller/Requester/RequestState.dart';
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../../Model/Product.dart';
 import '../Data/ProductData.dart';
@@ -26,13 +28,20 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     var productMonitorBloc = BlocProvider.of<ProductMonitorBloc>(context);
+    var productRequesterBloc = BlocProvider.of<ProductRequesterBloc>(context);
     if (allProducts.isEmpty) {
-      BlocProvider.of<ProductRequesterBloc>(context).add(GetAllProductsRequest());
+      productRequesterBloc.add(GetAllProductsRequest());
     }
-    return ListView.builder(
-        itemCount: allProducts.length,
-        itemBuilder: (BuildContext context, int index) =>
-            productTile(allProducts[index]));
+    return BlocBuilder<ProductMonitorBloc, ProductMonitorState>(builder: (context, state) {
+      return productRequesterBloc.state is ProcessingRequest
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: state.productColletion.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  productTile(state.productColletion[index]));
+    });
   }
 
   Widget productTile(Product product) {
