@@ -94,6 +94,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     user.email!,
                   ),
                   formNewPasswordField(),
+                  deleteUserButton(),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Row(
@@ -137,7 +138,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Nova Senha'),
+          decoration: const InputDecoration(labelText: 'Nova Senha',),
           cursorColor: Colors.green,
           obscureText: true,
           validator: (value) {
@@ -165,6 +166,21 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           child: Text(text),
         ),
       ),
+    );
+  }
+
+  Widget deleteUserButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        TextButton(
+          onPressed: () {
+            // BlocProvider.of<UserRequesterBloc>(context)
+            //   .add(DeleteUserRequest(userId: UserData.instance.id));
+          },
+          child: const Text("Excluir conta", style: TextStyle(color: Colors.red),)
+        ),
+      ]
     );
   }
 
