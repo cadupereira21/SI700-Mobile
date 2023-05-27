@@ -2,12 +2,17 @@ import '../../../Model/User.dart';
 
 abstract class UserRequesterEvent {}
 
-class CreateUserEvent extends UserRequesterEvent {
+class CreateUserRequest extends UserRequesterEvent {
   User user;
-  CreateUserEvent(this.user);
+  CreateUserRequest(this.user);
 }
 
-class GetUserEvent extends UserRequesterEvent {
+class GetUserRequest extends UserRequesterEvent {
   String? userId;
-  GetUserEvent({required this.userId});
+  GetUserRequest({required this.userId});
+}
+
+class UpdateUserRequest extends UserRequesterEvent {
+  User user;
+  UpdateUserRequest(this.user);
 }

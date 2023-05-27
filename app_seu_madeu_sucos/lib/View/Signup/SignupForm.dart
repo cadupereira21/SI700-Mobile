@@ -164,7 +164,7 @@ class _SignupFormState extends State<SignupForm> {
       user.client = client;
       UserRequesterBloc userRequesterBloc =
           BlocProvider.of<UserRequesterBloc>(context);
-      userRequesterBloc.add(CreateUserEvent(user));
+      userRequesterBloc.add(CreateUserRequest(user));
     }
   }
 
