@@ -14,6 +14,7 @@ class UserServiceImp extends Service {
   static const String REQ_TITLE_CREATE_USER = "Create User Request";
   static const String REQ_TITLE_GET_USER = "Get User Request";
   static const String REQ_TITLE_UPDATE_USER = "Update User Request";
+  static const String REQ_TITLE_DELETE_USER = "Update User Request";
 
   static final UserServiceImp instance = UserServiceImp._internal();
   UserServiceImp._internal();
@@ -80,6 +81,18 @@ class UserServiceImp extends Service {
           ? RequestStatus.SUCCESSFUL
           : RequestStatus.FAILED,
       object: [user],
+    );
+  }
+
+  Future<void> deleteUser(String userId) async {
+    final response = await dio.delete("$baseUrl/users/$userId.json");
+
+    notify(
+      requestTitle: UserServiceImp.REQ_TITLE_DELETE_USER,
+      responseStatus: response.statusCode!.toInt() / 100 == 2
+          ? RequestStatus.SUCCESSFUL
+          : RequestStatus.FAILED,
+      object: [],
     );
   }
 }
