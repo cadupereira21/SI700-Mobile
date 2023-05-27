@@ -13,6 +13,7 @@ class GetUserRequest extends UserRequesterEvent {
 }
 
 class UpdateUserRequest extends UserRequesterEvent {
+  String userId;
   User user;
-  UpdateUserRequest(this.user);
+  UpdateUserRequest({required this.userId, required this.user});
 }

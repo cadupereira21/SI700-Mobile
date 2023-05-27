@@ -13,6 +13,7 @@ import 'Service.dart';
 class UserServiceImp extends Service {
   static const String REQ_TITLE_CREATE_USER = "Create User Request";
   static const String REQ_TITLE_GET_USER = "Get User Request";
+  static const String REQ_TITLE_UPDATE_USER = "Update User Request";
 
   static final UserServiceImp instance = UserServiceImp._internal();
   UserServiceImp._internal();
@@ -53,6 +54,28 @@ class UserServiceImp extends Service {
 
     notify(
       requestTitle: UserServiceImp.REQ_TITLE_GET_USER,
+      responseStatus: response.statusCode!.toInt() / 100 == 2
+          ? RequestStatus.SUCCESSFUL
+          : RequestStatus.FAILED,
+      object: [user],
+    );
+  }
+
+  Future<void> updateUser(String userId, User user) async {
+    final response = await dio.put("$baseUrl/users/$userId.json",
+        data: json.encode({
+          "email": user.email,
+          "password": user.password,
+          "client": {
+            "name": user.client!.name,
+            "address": user.client!.address,
+            "phone": user.client!.phone,
+          },
+          "activePlan": user.client!.activePlan!
+        }));
+
+    notify(
+      requestTitle: UserServiceImp.REQ_TITLE_UPDATE_USER,
       responseStatus: response.statusCode!.toInt() / 100 == 2
           ? RequestStatus.SUCCESSFUL
           : RequestStatus.FAILED,

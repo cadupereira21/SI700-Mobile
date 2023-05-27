@@ -44,11 +44,11 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
     }
   }
 
-  _updateUserRequest(UpdateUserRequest event, Emitter<RequestState> emit){
+  _updateUserRequest(UpdateUserRequest event, Emitter<RequestState> emit) async {
     emit(ProcessingUserRequest());
 
     try {
-      //await service.updateUser(event.user);
+      await service.updateUser(event.userId, event.user);
       emit(RequestSuccess(message: "Usuário atualizado com sucesso!"));
       print((state as RequestSuccess).message);
     } catch (e) {
