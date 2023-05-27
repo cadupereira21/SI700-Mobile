@@ -17,3 +17,8 @@ class UpdateUserRequest extends UserRequesterEvent {
   User user;
   UpdateUserRequest({required this.userId, required this.user});
 }
+
+class DeleteUserRequest extends UserRequesterEvent {
+  String userId;
+  DeleteUserRequest({required this.userId});
+}

@@ -17,6 +17,9 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
     on<UpdateUserRequest>(
       (event, emit) => _updateUserRequest(event, emit)
     );
+    on<DeleteUserRequest>(
+      (event, emit) => _deleteUserRequest(event, emit)
+    );
   }
 
   void _createUserRequest(CreateUserRequest event, Emitter emit) async {
@@ -50,6 +53,19 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
     try {
       await service.updateUser(event.userId, event.user);
       emit(RequestSuccess(message: "Usuário atualizado com sucesso!"));
+      print((state as RequestSuccess).message);
+    } catch (e) {
+      emit(RequestFailed(message: e.toString()));
+      print(e.toString());
+    }
+  }
+  
+  _deleteUserRequest(DeleteUserRequest event, Emitter<RequestState> emit) async {
+    emit(ProcessingUserRequest());
+
+    try {
+      //await service.deleteUser(event.userId);
+      emit(RequestSuccess(message: "Usuário deletado com sucesso!"));
       print((state as RequestSuccess).message);
     } catch (e) {
       emit(RequestFailed(message: e.toString()));
