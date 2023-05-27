@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
+import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
 import '../Model/User.dart';
 import 'Signup/SignupFormFieldName.dart';
@@ -28,28 +31,76 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Column(
                 children: [
                   formTextField(
-                    SignupFormFieldName.NAME, 
-                    textFieldOnSaved, 
+                    SignupFormFieldName.NAME,
+                    (value) {
+                      user.client!.name = value;
+                    },
                     user.client!.name!,
                   ),
-                  formTextField(SignupFormFieldName.PHONE, textFieldOnSaved, user.client!.phone!,),
-                  formTextField(SignupFormFieldName.STREET, textFieldOnSaved, clientAddress[0],),
                   formTextField(
-                    SignupFormFieldName.STREET_NUMBER, textFieldOnSaved, clientAddress[1],
+                    SignupFormFieldName.PHONE,
+                    (value) {
+                      user.client!.phone = value;
+                    },
+                    user.client!.phone!,
                   ),
-                  formTextField(SignupFormFieldName.NEIGHBOUR, textFieldOnSaved, clientAddress[2],),
-                  formTextField(SignupFormFieldName.CITY, textFieldOnSaved, clientAddress[3].split("-")[0],),
-                  formTextField(SignupFormFieldName.DISTRICT, textFieldOnSaved, clientAddress[3].split("-")[1]),
-                  formTextField(SignupFormFieldName.ZIPCODE, textFieldOnSaved, clientAddress[4]),
-                  formTextField(SignupFormFieldName.EMAIL, textFieldOnSaved, user.email!),
+                  formTextField(
+                    SignupFormFieldName.STREET,
+                    (value) {
+                      user.client!.address = value;
+                    },
+                    clientAddress[0],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.STREET_NUMBER,
+                    (value) {
+                      user.client!.address = "${user.client!.address}, $value";
+                    },
+                    clientAddress[1],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.NEIGHBOUR,
+                    (value) {
+                      user.client!.address = "${user.client!.address}, $value";
+                    },
+                    clientAddress[2],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.CITY,
+                    (value) {
+                      user.client!.address = "${user.client!.address}, $value";
+                    },
+                    clientAddress[3].split("-")[0],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.DISTRICT,
+                    (value) {
+                      user.client!.address = "${user.client!.address}-$value";
+                    },
+                    clientAddress[3].split("-")[1],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.ZIPCODE,
+                    (value) {
+                      user.client!.address = "${user.client!.address}, $value";
+                    },
+                    clientAddress[4],
+                  ),
+                  formTextField(
+                    SignupFormFieldName.EMAIL,
+                    (value) {
+                      user.email = value;
+                    },
+                    user.email!,
+                  ),
                   formNewPasswordField(),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        formButton("Salvar", (){}), 
-                        formButton("Voltar", (){
+                        formButton("Salvar", _updateAction),
+                        formButton("Voltar", () {
                           Navigator.pop(context);
                         }),
                       ],
@@ -64,7 +115,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  Widget formTextField(String text, void Function(String?) onSaved, String initialValue) {
+  Widget formTextField(
+      String text, void Function(String?) onSaved, String initialValue) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
@@ -95,7 +147,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             return null;
           },
           onSaved: (value) {
-            //LoginInfo.instance.setPassword(value!);
+            UserData.instance.user.password = value;
           },
         ));
   }
@@ -116,5 +168,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  void textFieldOnSaved(String? value) {}
+  _updateAction(){
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      BlocProvider.of<UserRequesterBloc>(context)
+        .add(UpdateUserRequest(
+          userId: UserData.instance.id, 
+          user: user
+        ));
+    }
+  }
 }

@@ -71,7 +71,7 @@ class UserServiceImp extends Service {
             "address": user.client!.address,
             "phone": user.client!.phone,
           },
-          "activePlan": user.client!.activePlan!
+          "activePlan": user.client!.activePlan
         }));
 
     notify(
