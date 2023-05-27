@@ -175,8 +175,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       children: [
         TextButton(
           onPressed: () {
-            // BlocProvider.of<UserRequesterBloc>(context)
-            //   .add(DeleteUserRequest(userId: UserData.instance.id));
+            BlocProvider.of<UserRequesterBloc>(context)
+              .add(DeleteUserRequest(userId: UserData.instance.id));
           },
           child: const Text("Excluir conta", style: TextStyle(color: Colors.red),)
         ),

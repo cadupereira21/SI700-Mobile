@@ -64,7 +64,7 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
     emit(ProcessingUserRequest());
 
     try {
-      //await service.deleteUser(event.userId);
+      await service.deleteUser(event.userId);
       emit(RequestSuccess(message: "Usuário deletado com sucesso!"));
       print((state as RequestSuccess).message);
     } catch (e) {
