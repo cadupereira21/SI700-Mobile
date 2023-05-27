@@ -3,9 +3,9 @@ import '../../../Model/User.dart';
 
 abstract class UserMonitorEvent {}
 
-class UpdateUserDataEvent extends UserMonitorEvent {
+class FetchUserDataEvent extends UserMonitorEvent {
   User user;
-  UpdateUserDataEvent({required this.user});
+  FetchUserDataEvent({required this.user});
 }
 
 class LogInButtonClick extends UserMonitorEvent {
