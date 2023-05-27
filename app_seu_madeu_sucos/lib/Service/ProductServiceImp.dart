@@ -1,8 +1,10 @@
+import 'dart:async';
+
+import 'package:app_seu_madeu_sucos/Service/Service.dart';
 import 'package:dio/dio.dart';
 
 import '../Model/Product.dart';
 import 'RequestStatus.dart';
-import 'Service.dart';
 
 class ProductServiceImp extends Service {
   static const String REQ_TITLE_GET_PRODUCT = "Get User Request";
@@ -10,11 +12,12 @@ class ProductServiceImp extends Service {
   static final ProductServiceImp instance = ProductServiceImp._internal();
   ProductServiceImp._internal();
 
-  Future<List<Product>?> getAllProducts() async {
+  Future<void> getAllProducts() async {
     List<Product> productColletion = [];
     Response<dynamic> response;
     int i = 1;
-    while ((response = await dio.get("$baseUrl/products/$i.json")).data != null) {
+    while (
+        (response = await dio.get("$baseUrl/products/$i.json")).data != null) {
       Product product = Product(
         id: i.toString(),
         name: response.data["name"],
@@ -22,12 +25,16 @@ class ProductServiceImp extends Service {
         value: (response.data["value"]).toDouble(),
         planId: response.data["planId"],
       );
-      print(product.toString());
+
       productColletion.add(product);
       i++;
     }
-    //Put products on list
-    //Notify
-    return null;
+
+    notify(
+      requestTitle: REQ_TITLE_GET_PRODUCT, 
+      responseStatus: RequestStatus.SUCCESSFUL, 
+      object: productColletion,
+    );
+    //return null;
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:ffi';
 
+import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'package:app_seu_madeu_sucos/Data/CartData.dart';
@@ -19,11 +21,12 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  List<Product> allProducts = ProductData.allProducts;
+  List<Product> allProducts = ProductData.instance.allProducts;
 
   @override
   Widget build(BuildContext context) {
-    if(allProducts.isEmpty){
+    var productMonitorBloc = BlocProvider.of<ProductMonitorBloc>(context);
+    if (allProducts.isEmpty) {
       BlocProvider.of<ProductRequesterBloc>(context).add(GetAllProductsRequest());
     }
     return ListView.builder(
@@ -54,8 +57,9 @@ class _ProductScreenState extends State<ProductScreen> {
       action: SnackBarAction(
         label: "Desfazer",
         onPressed: () {
-          BlocProvider.of<CartBloc>(context)
-              .add(RemoveFromCart(product: product),);
+          BlocProvider.of<CartBloc>(context).add(
+            RemoveFromCart(product: product),
+          );
         },
       ),
     );

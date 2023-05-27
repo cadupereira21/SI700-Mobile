@@ -12,6 +12,8 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
   var serviceStreamController = UserServiceImp.instance.stream;
   UserMonitorBloc(super.initialState) {
     serviceStreamController.listen((event) {
+      print("User Monitor: Recebi um evento - \n${event[0]}");
+
       _listenToStream(event);
     });
     on<UpdateUserDataEvent>((event, emit) {
