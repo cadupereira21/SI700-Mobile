@@ -15,16 +15,19 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              'lib/Assets/seuMadeu.jpeg',
-              height: 250,
-            ),
-            const LoginForm()
-          ],
+      body: Container(
+        color: Colors.green,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                'lib/Assets/seuMadeu.jpeg',
+                height: 250,
+              ),
+              const LoginForm()
+            ],
+          ),
         ),
       ),
     );

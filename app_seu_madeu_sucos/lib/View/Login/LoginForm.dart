@@ -43,29 +43,55 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget formEmailField() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Email'),
-          cursorColor: Colors.green,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira um email';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            UserData.instance.user.email = value!;
-          },
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextFormField(
+              style: const TextStyle(height: BorderSide.strokeAlignCenter),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide.none
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide.none
+                ),     
+              ),
+              showCursor: false,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um email';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                UserData.instance.user.email = value!;
+              },
+            ),
+          )),
+    );
   }
 
   Widget formPasswordField() {
-    return Container(
-        padding: const EdgeInsets.all(10),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Senha'),
-          cursorColor: Colors.green,
+          style: const TextStyle(height: BorderSide.strokeAlignCenter),
+          decoration: const InputDecoration(
+            labelText: 'Senha',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide.none
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide.none
+            ),     
+          ),
+          showCursor: false,
           obscureText: true,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -76,7 +102,9 @@ class _LoginFormState extends State<LoginForm> {
           onSaved: (value) {
             UserData.instance.user.password = value!;
           },
-        ));
+        ),
+      ),
+    );
   }
 
   Widget formButton(String text, void Function() onPressed) {
