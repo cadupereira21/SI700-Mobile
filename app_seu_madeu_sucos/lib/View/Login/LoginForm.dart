@@ -125,7 +125,7 @@ class _LoginFormState extends State<LoginForm> {
           onPressed: () {
             // TODO: Realizar ação de esqueci minha senha
           },
-          child: const Text("Esqueci minha senha"),
+          child: const Text("Esqueceu sua senha?", style: TextStyle(color: Colors.white),),
         ),
       ]
     );
