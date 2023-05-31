@@ -47,31 +47,29 @@ class _LoginFormState extends State<LoginForm> {
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Card(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: TextFormField(
-              style: const TextStyle(height: BorderSide.strokeAlignCenter),
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide.none
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide.none
-                ),     
-              ),
-              showCursor: false,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira um email';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                UserData.instance.user.email = value!;
-              },
-            ),
-          )),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: TextFormField(
+          style: const TextStyle(height: BorderSide.strokeAlignCenter),
+          decoration: const InputDecoration(
+            labelText: 'Email',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+          ),
+          showCursor: false,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor, insira um email';
+            } else if (!value.contains("@") || !value.contains(".")) {
+              return "Por favor insira um email válido!";
+            }
+            return null;
+          },
+          onSaved: (value) {
+            UserData.instance.user.email = value!;
+          },
+        ),
+      )),
     );
   }
 
@@ -84,18 +82,16 @@ class _LoginFormState extends State<LoginForm> {
           decoration: const InputDecoration(
             labelText: 'Senha',
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide.none
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide.none
-            ),     
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
           ),
           showCursor: false,
           obscureText: true,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira uma senha';
+            } else if (value.length < 8) {
+              return "Sua senha deverá conter no mínimo 8 caracteres";
             }
             return null;
           },
@@ -109,26 +105,25 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget formButton(String text, void Function() onPressed) {
     return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.orange),
-      ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.orange),
+        ),
         onPressed: onPressed,
         child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
   }
 
-
   Widget forgotMyPasswordButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextButton(
-          onPressed: () {
-            // TODO: Realizar ação de esqueci minha senha
-          },
-          child: const Text("Esqueceu sua senha?", style: TextStyle(color: Colors.white),),
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      TextButton(
+        onPressed: () {
+          // TODO: Realizar ação de esqueci minha senha
+        },
+        child: const Text(
+          "Esqueceu sua senha?",
+          style: TextStyle(color: Colors.white),
         ),
-      ]
-    );
+      ),
+    ]);
   }
 
   void loginAction() {
@@ -140,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  void signUpAction(){
+  void signUpAction() {
     UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
     accessBloc.add(IWantToSignUpButtonClick());
   }
