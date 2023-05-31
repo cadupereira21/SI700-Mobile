@@ -44,61 +44,57 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget formEmailField() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: Card(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextFormField(
-          style: const TextStyle(height: BorderSide.strokeAlignCenter),
-          decoration: const InputDecoration(
-            labelText: 'Email',
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-          ),
-          showCursor: false,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira um email';
-            } else if (!value.contains("@") || !value.contains(".")) {
-              return "Por favor insira um email válido!";
-            }
-            return null;
-          },
-          onSaved: (value) {
-            UserData.instance.user.email = value!;
-          },
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Email',
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
         ),
-      )),
+        showCursor: false,
+        validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor, insira um email';
+        } else if (!value.contains("@") || !value.contains(".")) {
+          return "Por favor insira um email válido!";
+        }
+        return null;
+        },
+        onSaved: (value) {
+        UserData.instance.user.email = value!;
+        },
+      ),
     );
   }
 
   Widget formPasswordField() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: TextFormField(
-          style: const TextStyle(height: BorderSide.strokeAlignCenter),
-          decoration: const InputDecoration(
-            labelText: 'Senha',
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-          ),
-          showCursor: false,
-          obscureText: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira uma senha';
-            } else if (value.length < 8) {
-              return "Sua senha deverá conter no mínimo 8 caracteres";
-            }
-            return null;
-          },
-          onSaved: (value) {
-            UserData.instance.user.password = value!;
-          },
+    return Padding( 
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Senha',
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
         ),
+        showCursor: false,
+        obscureText: true,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor, insira uma senha';
+          } else if (value.length < 8) {
+            return "Sua senha deverá conter no mínimo 8 caracteres";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          UserData.instance.user.password = value!;
+        },
       ),
     );
   }
