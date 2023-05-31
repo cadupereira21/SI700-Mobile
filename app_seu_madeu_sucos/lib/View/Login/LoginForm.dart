@@ -109,6 +109,9 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget formButton(String text, void Function() onPressed) {
     return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.orange),
+      ),
         onPressed: onPressed,
         child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
   }
