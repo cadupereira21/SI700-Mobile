@@ -112,8 +112,21 @@ class _SignupFormState extends State<SignupForm> {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          decoration: InputDecoration(labelText: text),
-          cursorColor: Colors.green,
+          decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: text,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedErrorBorder:
+              const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          errorBorder:
+              const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        ),
+          cursorColor: Colors.orange.shade600,
           // validator: (value) {
           //   if (value == null || value.isEmpty) {
           //     return 'Por favor, insira seu ${text.toLowerCase()}';
@@ -128,7 +141,20 @@ class _SignupFormState extends State<SignupForm> {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Senha'),
+          decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Senha',
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedErrorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          errorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        ),
           cursorColor: Colors.green,
           obscureText: true,
           validator: (value) {
