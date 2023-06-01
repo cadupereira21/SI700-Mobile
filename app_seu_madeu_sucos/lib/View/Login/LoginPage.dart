@@ -16,14 +16,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.green,
+        color: Colors.green.shade600,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset(
                 'lib/Assets/SeuMadeuLogo.png',
-                height: 250,
+                height: 300,
               ),
               const LoginForm()
             ],
