@@ -26,79 +26,82 @@ class _SignupFormState extends State<SignupForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-          child: Column(
-            children: [
-              formTextField(
-                SignupFormFieldName.NAME,
-                (value) {
-                  client.name = value;
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.PHONE,
-                (value) {
-                  client.phone = value;
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.STREET,
-                (value) {
-                  // ignore: unnecessary_brace_in_string_interps
-                  client.address = value;
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.STREET_NUMBER,
-                (value) {
-                  client.address = "${client.address}, $value";
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.NEIGHBOUR,
-                (value) {
-                  client.address = "${client.address}, $value";
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.CITY,
-                (value) {
-                  client.address = "${client.address}, $value";
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.DISTRICT,
-                (value) {
-                  client.address = "${client.address}-$value";
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.ZIPCODE,
-                (value) {
-                  client.address = "${client.address}, $value";
-                },
-              ),
-              formTextField(
-                SignupFormFieldName.EMAIL,
-                (value) {
-                  user.email = value;
-                },
-              ),
-              formPasswordField(),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    formButton("Cadastrar", SignUpAction),
-                    formButton("Cancelar", cancelAction),
-                  ],
+      child: Container(
+        color: Colors.green.shade600,
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+            child: Column(
+              children: [
+                formTextField(
+                  SignupFormFieldName.NAME,
+                  (value) {
+                    client.name = value;
+                  },
                 ),
-              ),
-            ],
+                formTextField(
+                  SignupFormFieldName.PHONE,
+                  (value) {
+                    client.phone = value;
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.STREET,
+                  (value) {
+                    // ignore: unnecessary_brace_in_string_interps
+                    client.address = value;
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.STREET_NUMBER,
+                  (value) {
+                    client.address = "${client.address}, $value";
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.NEIGHBOUR,
+                  (value) {
+                    client.address = "${client.address}, $value";
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.CITY,
+                  (value) {
+                    client.address = "${client.address}, $value";
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.DISTRICT,
+                  (value) {
+                    client.address = "${client.address}-$value";
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.ZIPCODE,
+                  (value) {
+                    client.address = "${client.address}, $value";
+                  },
+                ),
+                formTextField(
+                  SignupFormFieldName.EMAIL,
+                  (value) {
+                    user.email = value;
+                  },
+                ),
+                formPasswordField(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      formButton("Cadastrar", SignUpAction),
+                      formButton("Cancelar", cancelAction),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
