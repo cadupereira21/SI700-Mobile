@@ -4,6 +4,7 @@ import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Assets/CustomColor.dart';
 import 'Controller/Monitor/Product/ProductMonitorBloc.dart';
 import 'Controller/Monitor/User/UserMonitorState.dart';
 import 'Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
-              primarySwatch: Colors.green,
+              primarySwatch: CustomColor.getGreenColor(),
             ),
             home: switchPage(authState),
           );
