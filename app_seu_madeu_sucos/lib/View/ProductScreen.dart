@@ -78,7 +78,7 @@ class _ProductScreenState extends State<ProductScreen> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: Image.asset(
-        'lib/Assets/seuMadeu.jpeg',
+        'lib/Assets/SeuMadeuLogo.png',
       ),
     );
   }

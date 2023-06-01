@@ -43,61 +43,83 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget formEmailField() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Email'),
-          cursorColor: Colors.green,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira um email';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            UserData.instance.user.email = value!;
-          },
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Email',
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+        ),
+        showCursor: false,
+        validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor, insira um email';
+        } else if (!value.contains("@") || !value.contains(".")) {
+          return "Por favor insira um email válido!";
+        }
+        return null;
+        },
+        onSaved: (value) {
+        UserData.instance.user.email = value!;
+        },
+      ),
+    );
   }
 
   Widget formPasswordField() {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Senha'),
-          cursorColor: Colors.green,
-          obscureText: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Por favor, insira uma senha';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            UserData.instance.user.password = value!;
-          },
-        ));
+    return Padding( 
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          labelText: 'Senha',
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+        ),
+        showCursor: false,
+        obscureText: true,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Por favor, insira uma senha';
+          } else if (value.length < 8) {
+            return "Sua senha deverá conter no mínimo 8 caracteres";
+          }
+          return null;
+        },
+        onSaved: (value) {
+          UserData.instance.user.password = value!;
+        },
+      ),
+    );
   }
 
   Widget formButton(String text, void Function() onPressed) {
     return ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.orange.shade600),
+        ),
         onPressed: onPressed,
         child: Padding(padding: const EdgeInsets.all(10), child: Text(text)));
   }
 
-
   Widget forgotMyPasswordButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextButton(
-          onPressed: () {
-            // TODO: Realizar ação de esqueci minha senha
-          },
-          child: const Text("Esqueci minha senha"),
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      TextButton(
+        onPressed: () {
+          // TODO: Realizar ação de esqueci minha senha
+        },
+        child: const Text(
+          "Esqueceu sua senha?",
+          style: TextStyle(color: Colors.white),
         ),
-      ]
-    );
+      ),
+    ]);
   }
 
   void loginAction() {
@@ -109,7 +131,7 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  void signUpAction(){
+  void signUpAction() {
     UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
     accessBloc.add(IWantToSignUpButtonClick());
   }
