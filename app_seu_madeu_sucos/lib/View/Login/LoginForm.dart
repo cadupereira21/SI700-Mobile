@@ -51,27 +51,36 @@ class _LoginFormState extends State<LoginForm> {
           fillColor: Colors.white,
           labelText: 'Email',
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedErrorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          errorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         ),
         showCursor: false,
+        onChanged: (value) {
+          _formKey.currentState!.validate();
+        },
         validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor, insira um email';
-        } else if (!value.contains("@") || !value.contains(".")) {
-          return "Por favor insira um email válido!";
-        }
-        return null;
+          if (value == null || value.isEmpty) {
+            return 'Por favor, insira um email';
+          } else if (!value.contains("@") || !value.contains(".")) {
+            return "Por favor insira um email válido!";
+          }
+          return null;
         },
         onSaved: (value) {
-        UserData.instance.user.email = value!;
+          UserData.instance.user.email = value!;
         },
       ),
     );
   }
 
   Widget formPasswordField() {
-    return Padding( 
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         decoration: const InputDecoration(
@@ -79,11 +88,20 @@ class _LoginFormState extends State<LoginForm> {
           fillColor: Colors.white,
           labelText: 'Senha',
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedErrorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          errorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         ),
         showCursor: false,
         obscureText: true,
+        onChanged: (value) {
+          _formKey.currentState!.validate();
+        },
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Por favor, insira uma senha';
