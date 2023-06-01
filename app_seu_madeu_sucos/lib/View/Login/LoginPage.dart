@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset(
-                'lib/Assets/seuMadeu.jpeg',
+                'lib/Assets/SeuMadeuLogo.png',
                 height: 250,
               ),
               const LoginForm()
