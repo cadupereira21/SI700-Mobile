@@ -37,7 +37,22 @@ class _SignupFormState extends State<SignupForm> {
               children: [
                 formTextField(
                   text: SignupFormFieldName.NAME,
+                  validator: (value) {
+                    (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira seu nome';
+                      }
+                      return null;
+                    };
+                  },
                   onSaved: (value) {
+                    var auxValue = value!.split(" ");
+                    value = "";
+                    for (int i = 0; i < auxValue.length; i++) {
+                      auxValue[i] =
+                          "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                      value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                    }
                     client.name = value;
                   },
                   inputType: TextInputType.name,
@@ -47,7 +62,7 @@ class _SignupFormState extends State<SignupForm> {
                   mask: TextFormFieldFormat.PHONE,
                   inputType: TextInputType.phone,
                   onSaved: (value) {
-                    client.phone = value;
+                    client.phone = TextFormFieldFormat.PHONE.getMaskedText();
                   },
                 ),
                 formTextField(
@@ -88,7 +103,8 @@ class _SignupFormState extends State<SignupForm> {
                   mask: TextFormFieldFormat.ZIPCODE,
                   inputType: TextInputType.number,
                   onSaved: (value) {
-                    client.address = "${client.address}, $value";
+                    client.address =
+                        "${client.address}, ${TextFormFieldFormat.PHONE.getMaskedText()}";
                   },
                 ),
                 formTextField(
@@ -117,17 +133,16 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  Widget formTextField({
-      String? text,
+  Widget formTextField(
+      {String? text,
       MaskTextInputFormatter? mask,
       TextInputType? inputType,
+      String? Function(String?)? validator,
       void Function(String?)? onSaved}) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          inputFormatters: mask != null
-              ? [mask]
-              : [],
+          inputFormatters: mask != null ? [mask] : [],
           keyboardType: inputType ?? TextInputType.text,
           decoration: InputDecoration(
             filled: true,
@@ -144,12 +159,10 @@ class _SignupFormState extends State<SignupForm> {
                 borderSide: BorderSide(color: Colors.red)),
           ),
           cursorColor: Colors.orange.shade600,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'Por favor, insira seu ${text.toLowerCase()}';
-          //   }
-          //   return null;
-          // },
+          validator: validator ??
+              (value) {
+                return null;
+              },
           onSaved: onSaved,
         ));
   }
