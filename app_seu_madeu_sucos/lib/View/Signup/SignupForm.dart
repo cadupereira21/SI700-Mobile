@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Controller/Monitor/User/UserMonitorBloc.dart';
 import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
-import '../../Data/UserData.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
 import 'SignupFormFieldName.dart';
@@ -174,13 +173,13 @@ class _SignupFormState extends State<SignupForm> {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: text == "Cadastrar" ? Colors.green : Colors.red,
+          backgroundColor: text == "Cadastrar" ? Colors.orange.shade600 : Colors.grey,
         ),
         onPressed: onPressed,
         child: Padding(
           padding: text == "Cadastrar"
-              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 45)
-              : const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              ? const EdgeInsets.symmetric(vertical: 12, horizontal: 20)
+              : const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Text(text),
         ),
       ),
