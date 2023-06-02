@@ -37,13 +37,16 @@ class _SignupFormState extends State<SignupForm> {
               children: [
                 formTextField(
                   text: SignupFormFieldName.NAME,
+                  inputType: TextInputType.name,
                   validator: (value) {
-                    (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira seu nome';
-                      }
-                      return null;
-                    };
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, insira seu nome';
+                    } else if (
+                        TextFormFieldFormat.checkIfStringHasNumber(value) ||
+                        TextFormFieldFormat.checkIfStringHasSpecialCharacters(value)) {
+                      return "Esse campo só aceita letras!";
+                    }
+                    return null;
                   },
                   onSaved: (value) {
                     var auxValue = value!.split(" ");
@@ -55,7 +58,6 @@ class _SignupFormState extends State<SignupForm> {
                     }
                     client.name = value;
                   },
-                  inputType: TextInputType.name,
                 ),
                 formTextField(
                   text: SignupFormFieldName.PHONE,
