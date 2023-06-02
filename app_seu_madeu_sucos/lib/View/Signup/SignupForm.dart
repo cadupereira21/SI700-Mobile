@@ -9,6 +9,7 @@ import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
+import '../TextFormFieldFormat.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -43,7 +44,7 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.PHONE,
-                  mask:"(##) # ####-####",
+                  mask: TextFormFieldFormat.PHONE,
                   inputType: TextInputType.phone,
                   onSaved: (value) {
                     client.phone = value;
@@ -57,7 +58,7 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET_NUMBER,
-                  mask: "#####",
+                  mask: TextFormFieldFormat.STREET_NUMBER,
                   inputType: TextInputType.number,
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
@@ -84,7 +85,7 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
-                  mask: "#####-###",
+                  mask: TextFormFieldFormat.ZIPCODE,
                   inputType: TextInputType.number,
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
@@ -118,14 +119,14 @@ class _SignupFormState extends State<SignupForm> {
 
   Widget formTextField({
       String? text,
-      String? mask,
+      MaskTextInputFormatter? mask,
       TextInputType? inputType,
       void Function(String?)? onSaved}) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           inputFormatters: mask != null
-              ? [MaskTextInputFormatter(mask: mask)]
+              ? [mask]
               : [],
           keyboardType: inputType ?? TextInputType.text,
           decoration: InputDecoration(
