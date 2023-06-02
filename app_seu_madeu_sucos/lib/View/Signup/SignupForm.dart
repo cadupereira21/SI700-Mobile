@@ -1,13 +1,14 @@
 import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/View/Signup/SignupFormFieldName.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../Controller/Monitor/User/UserMonitorBloc.dart';
 import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
-import 'SignupFormFieldName.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
@@ -34,57 +35,61 @@ class _SignupFormState extends State<SignupForm> {
             child: Column(
               children: [
                 formTextField(
-                  SignupFormFieldName.NAME,
-                  (value) {
+                  text: SignupFormFieldName.NAME,
+                  onSaved: (value) {
                     client.name = value;
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.PHONE,
-                  (value) {
+                  text: SignupFormFieldName.PHONE,
+                  mask:"(##) # ####-####",
+                  onSaved: (value) {
                     client.phone = value;
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.STREET,
-                  (value) {
+                  text: SignupFormFieldName.STREET,
+                  onSaved: (value) {
                     // ignore: unnecessary_brace_in_string_interps
                     client.address = value;
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.STREET_NUMBER,
-                  (value) {
+                  text: SignupFormFieldName.STREET_NUMBER,
+                  mask: "####",
+                  onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.NEIGHBOUR,
-                  (value) {
+                  text: SignupFormFieldName.NEIGHBOUR,
+                  onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.CITY,
-                  (value) {
+                  text: SignupFormFieldName.CITY,
+                  onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
+                // TODO: Change to dropdown
                 formTextField(
-                  SignupFormFieldName.DISTRICT,
-                  (value) {
+                  text: SignupFormFieldName.DISTRICT,
+                  onSaved: (value) {
                     client.address = "${client.address}-$value";
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.ZIPCODE,
-                  (value) {
+                  text: SignupFormFieldName.ZIPCODE,
+                  mask: "#####-###",
+                  onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
                 formTextField(
-                  SignupFormFieldName.EMAIL,
-                  (value) {
+                  text: SignupFormFieldName.EMAIL,
+                  onSaved: (value) {
                     user.email = value;
                   },
                 ),
@@ -107,24 +112,30 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  Widget formTextField(String text, void Function(String?) onSaved) {
+  Widget formTextField({
+      String? text,
+      String? mask,
+      void Function(String?)? onSaved}) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
+          inputFormatters: mask != null
+              ? [MaskTextInputFormatter(mask: mask)]
+              : [],
           decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          labelText: text,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent)),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent)),
-          focusedErrorBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-          errorBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-        ),
+            filled: true,
+            fillColor: Colors.white,
+            labelText: text,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
+          ),
           cursorColor: Colors.orange.shade600,
           // validator: (value) {
           //   if (value == null || value.isEmpty) {
@@ -141,19 +152,19 @@ class _SignupFormState extends State<SignupForm> {
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           decoration: const InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          labelText: 'Senha',
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent)),
-          focusedErrorBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-          errorBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-        ),
+            filled: true,
+            fillColor: Colors.white,
+            labelText: 'Senha',
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          ),
           cursorColor: Colors.green,
           obscureText: true,
           validator: (value) {
@@ -173,7 +184,8 @@ class _SignupFormState extends State<SignupForm> {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: text == "Cadastrar" ? Colors.orange.shade600 : Colors.grey,
+          backgroundColor:
+              text == "Cadastrar" ? Colors.orange.shade600 : Colors.grey,
         ),
         onPressed: onPressed,
         child: Padding(
