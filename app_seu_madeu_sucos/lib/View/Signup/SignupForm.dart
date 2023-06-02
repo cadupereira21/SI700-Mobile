@@ -39,10 +39,12 @@ class _SignupFormState extends State<SignupForm> {
                   onSaved: (value) {
                     client.name = value;
                   },
+                  inputType: TextInputType.name,
                 ),
                 formTextField(
                   text: SignupFormFieldName.PHONE,
                   mask:"(##) # ####-####",
+                  inputType: TextInputType.phone,
                   onSaved: (value) {
                     client.phone = value;
                   },
@@ -50,13 +52,13 @@ class _SignupFormState extends State<SignupForm> {
                 formTextField(
                   text: SignupFormFieldName.STREET,
                   onSaved: (value) {
-                    // ignore: unnecessary_brace_in_string_interps
                     client.address = value;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET_NUMBER,
-                  mask: "####",
+                  mask: "#####",
+                  inputType: TextInputType.number,
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
@@ -83,12 +85,14 @@ class _SignupFormState extends State<SignupForm> {
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
                   mask: "#####-###",
+                  inputType: TextInputType.number,
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.EMAIL,
+                  inputType: TextInputType.emailAddress,
                   onSaved: (value) {
                     user.email = value;
                   },
@@ -115,6 +119,7 @@ class _SignupFormState extends State<SignupForm> {
   Widget formTextField({
       String? text,
       String? mask,
+      TextInputType? inputType,
       void Function(String?)? onSaved}) {
     return Container(
         padding: const EdgeInsets.all(10),
@@ -122,6 +127,7 @@ class _SignupFormState extends State<SignupForm> {
           inputFormatters: mask != null
               ? [MaskTextInputFormatter(mask: mask)]
               : [],
+          keyboardType: inputType ?? TextInputType.text,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
