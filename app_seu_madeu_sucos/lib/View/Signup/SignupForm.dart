@@ -22,6 +22,8 @@ class _SignupFormState extends State<SignupForm> {
   User user = User();
   Client client = Client();
 
+  String _dropdownValue = "AC";
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -90,7 +92,7 @@ class _SignupFormState extends State<SignupForm> {
                   text: SignupFormFieldName.STREET_NUMBER,
                   mask: TextFormFieldFormat.STREET_NUMBER,
                   inputType: TextInputType.number,
-                  validator: (value){
+                  validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira o número do seu endereço";
                     }
@@ -101,7 +103,7 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.NEIGHBOUR,
-                  validator: (value){
+                  validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu bairro";
                     }
@@ -112,11 +114,38 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.CITY,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira sua cidade";
+                    }
+                  },
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
                 ),
                 // TODO: Change to dropdown
+                DropdownButtonFormField(
+                  value: _dropdownValue,
+                  items: const [
+                    DropdownMenuItem(value: "AC", child: Text("AC")),
+                    DropdownMenuItem(
+                      value: "AL",
+                      child: Text("AL"),
+                    ),
+                    DropdownMenuItem(
+                      value: "AP",
+                      child: Text("AP"),
+                    ),
+                  ],
+                  onSaved: (value) {
+                    client.address = "${client.address}-$value";
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      _dropdownValue = value!;
+                    });
+                  },
+                ),
                 formTextField(
                   text: SignupFormFieldName.DISTRICT,
                   onSaved: (value) {
