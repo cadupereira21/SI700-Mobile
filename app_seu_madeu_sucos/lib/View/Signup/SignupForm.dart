@@ -77,6 +77,11 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu endereço";
+                    }
+                  },
                   onSaved: (value) {
                     client.address = value;
                   },
