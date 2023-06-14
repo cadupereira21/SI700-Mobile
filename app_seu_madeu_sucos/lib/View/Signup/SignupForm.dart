@@ -9,6 +9,7 @@ import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
+import '../../Model/Districts.dart';
 import '../TextFormFieldFormat.dart';
 
 class SignupForm extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SignupFormState extends State<SignupForm> {
   User user = User();
   Client client = Client();
 
-  String _dropdownValue = "AC";
+  String _dropdownValue = BrazilianDistricts.values.first.toString();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -126,17 +127,12 @@ class _SignupFormState extends State<SignupForm> {
                 // TODO: Change to dropdown
                 DropdownButtonFormField(
                   value: _dropdownValue,
-                  items: const [
-                    DropdownMenuItem(value: "AC", child: Text("AC")),
-                    DropdownMenuItem(
-                      value: "AL",
-                      child: Text("AL"),
-                    ),
-                    DropdownMenuItem(
-                      value: "AP",
-                      child: Text("AP"),
-                    ),
-                  ],
+                  items: list.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                   onSaved: (value) {
                     client.address = "${client.address}-$value";
                   },
