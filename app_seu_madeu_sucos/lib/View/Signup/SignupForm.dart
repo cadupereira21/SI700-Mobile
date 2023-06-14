@@ -144,6 +144,14 @@ class _SignupFormState extends State<SignupForm> {
                 formTextField(
                   text: SignupFormFieldName.EMAIL,
                   inputType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, insira um email';
+                    } else if (!value.contains("@") || !value.contains(".")) {
+                      return "Por favor insira um email válido!";
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     user.email = value;
                   },
@@ -256,6 +264,8 @@ class _SignupFormState extends State<SignupForm> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira uma senha';
+            }else if (value.length < 8) {
+              return "Sua senha deverá conter no mínimo 8 caracteres";
             }
             return null;
           },
