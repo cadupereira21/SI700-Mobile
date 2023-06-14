@@ -90,6 +90,11 @@ class _SignupFormState extends State<SignupForm> {
                   text: SignupFormFieldName.STREET_NUMBER,
                   mask: TextFormFieldFormat.STREET_NUMBER,
                   inputType: TextInputType.number,
+                  validator: (value){
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira o número do seu endereço";
+                    }
+                  },
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
