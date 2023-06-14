@@ -89,29 +89,40 @@ class _SignupFormState extends State<SignupForm> {
                     client.address = value;
                   },
                 ),
-                formTextField(
-                  text: SignupFormFieldName.STREET_NUMBER,
-                  mask: TextFormFieldFormat.STREET_NUMBER,
-                  inputType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Por favor insira o número do seu endereço";
-                    }
-                  },
-                  onSaved: (value) {
-                    client.address = "${client.address}, $value";
-                  },
-                ),
-                formTextField(
-                  text: SignupFormFieldName.NEIGHBOUR,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Por favor insira seu bairro";
-                    }
-                  },
-                  onSaved: (value) {
-                    client.address = "${client.address}, $value";
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 100, 
+                      child: formTextField(
+                        text: SignupFormFieldName.STREET_NUMBER,
+                        mask: TextFormFieldFormat.STREET_NUMBER,
+                        inputType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor insira o número do seu endereço";
+                          }
+                        },
+                        onSaved: (value) {
+                          client.address = "${client.address}, $value";
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width-200, 
+                      child: formTextField(
+                        text: SignupFormFieldName.NEIGHBOUR,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor insira seu bairro";
+                          }
+                        },
+                        onSaved: (value) {
+                          client.address = "${client.address}, $value";
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 formTextField(
                   text: SignupFormFieldName.CITY,

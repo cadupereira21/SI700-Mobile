@@ -1,7 +1,7 @@
 class SignupFormFieldName {
   static const String NAME = 'Nome Completo';
   static const String STREET = 'Rua';
-  static const String STREET_NUMBER = 'Número';
+  static const String STREET_NUMBER = 'Nº';
   static const String NEIGHBOUR = 'Bairro';
   static const String CITY = 'Cidade';
   static const String DISTRICT = 'Estado';
