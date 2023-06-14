@@ -31,11 +31,12 @@ class _SignupFormState extends State<SignupForm> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        height: MediaQuery.of(context).size.height,
         color: Colors.green.shade600,
         child: Form(
           key: _formKey,
           child: Container(
-            margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+            margin: const EdgeInsets.fromLTRB(40, 20, 40, 0),
             child: Column(
               children: [
                 formTextField(
@@ -124,18 +125,29 @@ class _SignupFormState extends State<SignupForm> {
                     ),
                   ],
                 ),
-                formTextField(
-                  text: SignupFormFieldName.CITY,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Por favor insira sua cidade";
-                    }
-                  },
-                  onSaved: (value) {
-                    client.address = "${client.address}, $value";
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: dropdownButton(),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 200,
+                      child: formTextField(
+                        text: SignupFormFieldName.CITY,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Por favor insira sua cidade";
+                          }
+                        },
+                        onSaved: (value) {
+                          client.address = "${client.address}, $value";
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                dropdownButton(),
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
                   mask: TextFormFieldFormat.ZIPCODE,
