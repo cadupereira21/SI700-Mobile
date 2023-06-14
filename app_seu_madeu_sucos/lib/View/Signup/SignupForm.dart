@@ -124,14 +124,7 @@ class _SignupFormState extends State<SignupForm> {
                     client.address = "${client.address}, $value";
                   },
                 ),
-                // TODO: Change to dropdown
                 dropdownButton(),
-                formTextField(
-                  text: SignupFormFieldName.DISTRICT,
-                  onSaved: (value) {
-                    client.address = "${client.address}-$value";
-                  },
-                ),
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
                   mask: TextFormFieldFormat.ZIPCODE,
