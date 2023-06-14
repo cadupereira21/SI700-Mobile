@@ -1,5 +1,5 @@
 class Districts {
-  List<String> list = [
+  static const List<String> list = [
     "AC",
     "AL",
     "AP",

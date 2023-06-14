@@ -23,7 +23,7 @@ class _SignupFormState extends State<SignupForm> {
   User user = User();
   Client client = Client();
 
-  String _dropdownValue = BrazilianDistricts.values.first.toString();
+  String _dropdownValue = Districts.list[0];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -127,7 +127,7 @@ class _SignupFormState extends State<SignupForm> {
                 // TODO: Change to dropdown
                 DropdownButtonFormField(
                   value: _dropdownValue,
-                  items: list.map<DropdownMenuItem<String>>((String value) {
+                  items: Districts.list.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
