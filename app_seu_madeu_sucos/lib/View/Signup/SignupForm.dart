@@ -41,9 +41,10 @@ class _SignupFormState extends State<SignupForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira seu nome';
-                    } else if (
-                        TextFormFieldFormat.checkIfStringHasNumber(value) ||
-                        TextFormFieldFormat.checkIfStringHasSpecialCharacters(value)) {
+                    } else if (TextFormFieldFormat.checkIfStringHasNumber(
+                            value) ||
+                        TextFormFieldFormat.checkIfStringHasSpecialCharacters(
+                            value)) {
                       return "Esse campo só aceita letras!";
                     }
                     return null;
@@ -63,6 +64,13 @@ class _SignupFormState extends State<SignupForm> {
                   text: SignupFormFieldName.PHONE,
                   mask: TextFormFieldFormat.PHONE,
                   inputType: TextInputType.phone,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu número de telefone";
+                    } else if (value.length < 16) {
+                      return "Número incompleto!";
+                    }
+                  },
                   onSaved: (value) {
                     client.phone = TextFormFieldFormat.PHONE.getMaskedText();
                   },
