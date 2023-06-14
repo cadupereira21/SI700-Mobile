@@ -125,23 +125,7 @@ class _SignupFormState extends State<SignupForm> {
                   },
                 ),
                 // TODO: Change to dropdown
-                DropdownButtonFormField(
-                  value: _dropdownValue,
-                  items: Districts.list.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onSaved: (value) {
-                    client.address = "${client.address}-$value";
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      _dropdownValue = value!;
-                    });
-                  },
-                ),
+                dropdownButton(),
                 formTextField(
                   text: SignupFormFieldName.DISTRICT,
                   onSaved: (value) {
@@ -179,6 +163,39 @@ class _SignupFormState extends State<SignupForm> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget dropdownButton() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+        value: _dropdownValue,
+        decoration: const InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+          ),
+        items: Districts.list
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onSaved: (value) {
+          client.address = "${client.address}-$value";
+        },
+        onChanged: (value) {
+          setState(() {
+            _dropdownValue = value!;
+          });
+        },
       ),
     );
   }
