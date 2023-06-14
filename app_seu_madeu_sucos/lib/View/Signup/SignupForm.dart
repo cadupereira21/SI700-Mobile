@@ -101,6 +101,11 @@ class _SignupFormState extends State<SignupForm> {
                 ),
                 formTextField(
                   text: SignupFormFieldName.NEIGHBOUR,
+                  validator: (value){
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu bairro";
+                    }
+                  },
                   onSaved: (value) {
                     client.address = "${client.address}, $value";
                   },
