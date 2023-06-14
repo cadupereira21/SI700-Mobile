@@ -129,6 +129,13 @@ class _SignupFormState extends State<SignupForm> {
                   text: SignupFormFieldName.ZIPCODE,
                   mask: TextFormFieldFormat.ZIPCODE,
                   inputType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira o seu CEP";
+                    } else if (value.length < 9) {
+                      return "CEP incompleto";
+                    }
+                  },
                   onSaved: (value) {
                     client.address =
                         "${client.address}, ${TextFormFieldFormat.PHONE.getMaskedText()}";
@@ -166,16 +173,15 @@ class _SignupFormState extends State<SignupForm> {
       child: DropdownButtonFormField(
         value: _dropdownValue,
         decoration: const InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent)),
-          ),
-        items: Districts.list
-            .map<DropdownMenuItem<String>>((String value) {
+          filled: true,
+          fillColor: Colors.white,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent)),
+        ),
+        items: Districts.list.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
