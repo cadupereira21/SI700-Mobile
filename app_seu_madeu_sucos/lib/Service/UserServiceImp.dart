@@ -26,7 +26,14 @@ class UserServiceImp extends Service {
           "password": user.password,
           "client": {
             "name": user.client!.name,
-            "address": user.client!.address,
+            "address": {
+              "street": user.client!.address!.street!,
+              "streetNumber": user.client!.address!.streetNumber!,
+              "neighbour" : user.client!.address!.neighbour!,
+              "district" : user.client!.address!.district!,
+              "city" : user.client!.address!.city,
+              "zipcode" : user.client!.address!.cep,
+            },
             "phone": user.client!.phone,
           },
           "activePlan": null

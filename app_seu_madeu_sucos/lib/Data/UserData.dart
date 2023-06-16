@@ -1,3 +1,4 @@
+import '../Model/Address.dart';
 import '../Model/Client.dart';
 import '../Model/User.dart';
 
@@ -8,7 +9,14 @@ class UserData {
     password: "",
     client: Client(
       name:"",
-      address: ",,,-,,,",
+      address: Address(
+        street: "",
+        streetNumber: 0,
+        neighbour: "",
+        district: "",
+        city: "",
+        cep: "",
+      ),
       phone: "",
     ),
   );

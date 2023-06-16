@@ -1,11 +1,12 @@
 import 'ActivePlan.dart';
+import 'Address.dart';
 import 'User.dart';
 
 class Client {
 
   String? _id;
   String? name;
-  String? address;
+  Address? address;
   String? phone;
   ActivePlan? activePlan;
 
