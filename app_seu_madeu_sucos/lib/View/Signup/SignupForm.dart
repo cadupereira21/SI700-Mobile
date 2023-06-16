@@ -7,6 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../Controller/Monitor/User/UserMonitorBloc.dart';
 import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
+import '../../Model/Address.dart';
 import '../../Model/Client.dart';
 import '../../Model/User.dart';
 import '../../Model/Districts.dart';
@@ -22,6 +23,7 @@ class SignupForm extends StatefulWidget {
 class _SignupFormState extends State<SignupForm> {
   User user = User();
   Client client = Client();
+  Address address = Address();
 
   String _dropdownValue = Districts.list[0];
 
@@ -87,14 +89,22 @@ class _SignupFormState extends State<SignupForm> {
                     }
                   },
                   onSaved: (value) {
-                    client.address = value;
+                    var auxValue = value!.split(" ");
+                    value = "";
+                    for (int i = 0; i < auxValue.length; i++) {
+                      auxValue[i] =
+                          "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                      value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                    }
+
+                    address.street = value;
                   },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 100, 
+                      width: 100,
                       child: formTextField(
                         text: SignupFormFieldName.STREET_NUMBER,
                         mask: TextFormFieldFormat.STREET_NUMBER,
@@ -105,12 +115,12 @@ class _SignupFormState extends State<SignupForm> {
                           }
                         },
                         onSaved: (value) {
-                          client.address = "${client.address}, $value";
+                          address.streetNumber = int.parse(value!);
                         },
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width-200, 
+                      width: MediaQuery.of(context).size.width - 200,
                       child: formTextField(
                         text: SignupFormFieldName.NEIGHBOUR,
                         validator: (value) {
@@ -119,14 +129,23 @@ class _SignupFormState extends State<SignupForm> {
                           }
                         },
                         onSaved: (value) {
-                          client.address = "${client.address}, $value";
+                          var auxValue = value!.split(" ");
+                          value = "";
+                          for (int i = 0; i < auxValue.length; i++) {
+                            auxValue[i] =
+                                "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                            value =
+                                i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                          }
+
+                          address.neighbour = value;
                         },
                       ),
                     ),
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
                       width: 100,
@@ -142,7 +161,8 @@ class _SignupFormState extends State<SignupForm> {
                           }
                         },
                         onSaved: (value) {
-                          client.address = "${client.address}, $value";
+                          address.city =
+                              "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                         },
                       ),
                     ),
@@ -160,8 +180,7 @@ class _SignupFormState extends State<SignupForm> {
                     }
                   },
                   onSaved: (value) {
-                    client.address =
-                        "${client.address}, ${TextFormFieldFormat.PHONE.getMaskedText()}";
+                    address.cep = value;
                   },
                 ),
                 formTextField(
@@ -219,7 +238,7 @@ class _SignupFormState extends State<SignupForm> {
           );
         }).toList(),
         onSaved: (value) {
-          client.address = "${client.address}-$value";
+          address.district = value;
         },
         onChanged: (value) {
           setState(() {
@@ -287,7 +306,7 @@ class _SignupFormState extends State<SignupForm> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira uma senha';
-            }else if (value.length < 8) {
+            } else if (value.length < 8) {
               return "Sua senha deverá conter no mínimo 8 caracteres";
             }
             return null;
@@ -320,6 +339,7 @@ class _SignupFormState extends State<SignupForm> {
   void SignUpAction() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      client.address = address;
       user.client = client;
       UserRequesterBloc userRequesterBloc =
           BlocProvider.of<UserRequesterBloc>(context);

@@ -16,7 +16,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   User user = UserData.instance.user;
-  var clientAddress = UserData.instance.user.client!.address!.split(",");
+  //var clientAddress = UserData.instance.user.client!.address!;
 
   @override
   Widget build(BuildContext context) {
@@ -47,44 +47,60 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     SignupFormFieldName.STREET,
                     (value) {
-                      user.client!.address = value;
+                      var auxValue = value!.split(" ");
+                      value = "";
+                      for (int i = 0; i < auxValue.length; i++) {
+                        auxValue[i] =
+                            "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                        value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                      }
+
+                      user.client!.address!.street = value;
                     },
-                    clientAddress[0],
+                    user.client!.address!.street!,
                   ),
                   formTextField(
                     SignupFormFieldName.STREET_NUMBER,
                     (value) {
-                      user.client!.address = "${user.client!.address}, $value";
+                      user.client!.address!.streetNumber = int.parse(value!);
                     },
-                    clientAddress[1],
+                    user.client!.address!.streetNumber!.toString(),
                   ),
                   formTextField(
                     SignupFormFieldName.NEIGHBOUR,
                     (value) {
-                      user.client!.address = "${user.client!.address}, $value";
+                      var auxValue = value!.split(" ");
+                      value = "";
+                      for (int i = 0; i < auxValue.length; i++) {
+                        auxValue[i] =
+                            "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                        value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                      }
+
+                      user.client!.address!.neighbour = value;
                     },
-                    clientAddress[2],
+                    user.client!.address!.neighbour!,
                   ),
                   formTextField(
                     SignupFormFieldName.CITY,
                     (value) {
-                      user.client!.address = "${user.client!.address}, $value";
+                      user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                     },
-                    clientAddress[3].split("-")[0],
+                    user.client!.address!.city!,
                   ),
                   formTextField(
                     SignupFormFieldName.DISTRICT,
                     (value) {
-                      user.client!.address = "${user.client!.address}-$value";
+                      user.client!.address!.district = value;
                     },
-                    clientAddress[3].split("-")[1],
+                    user.client!.address!.district!,
                   ),
                   formTextField(
                     SignupFormFieldName.ZIPCODE,
                     (value) {
-                      user.client!.address = "${user.client!.address}, $value";
+                      user.client!.address!.cep = value;
                     },
-                    clientAddress[4],
+                    user.client!.address!.cep!,
                   ),
                   formTextField(
                     SignupFormFieldName.EMAIL,
@@ -138,7 +154,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Nova Senha',),
+          decoration: const InputDecoration(
+            labelText: 'Nova Senha',
+          ),
           cursorColor: Colors.green,
           obscureText: true,
           validator: (value) {
@@ -170,29 +188,25 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 
   Widget deleteUserButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextButton(
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      TextButton(
           onPressed: () {
             BlocProvider.of<UserRequesterBloc>(context)
-              .add(DeleteUserRequest(userId: UserData.instance.id));
+                .add(DeleteUserRequest(userId: UserData.instance.id));
           },
-          child: const Text("Excluir conta", style: TextStyle(color: Colors.red),)
-        ),
-      ]
-    );
+          child: const Text(
+            "Excluir conta",
+            style: TextStyle(color: Colors.red),
+          )),
+    ]);
   }
 
-  _updateAction(){
+  _updateAction() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       BlocProvider.of<UserRequesterBloc>(context)
-        .add(UpdateUserRequest(
-          userId: UserData.instance.id, 
-          user: user
-        ));
+          .add(UpdateUserRequest(userId: UserData.instance.id, user: user));
     }
   }
 }
