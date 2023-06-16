@@ -31,22 +31,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Column(
                 children: [
                   formTextField(
-                    SignupFormFieldName.NAME,
-                    (value) {
+                    text: SignupFormFieldName.NAME,
+                    initialValue: user.client!.name!,
+                    onSaved: (value) {
                       user.client!.name = value;
                     },
-                    user.client!.name!,
                   ),
                   formTextField(
-                    SignupFormFieldName.PHONE,
-                    (value) {
+                    text: SignupFormFieldName.PHONE,
+                    initialValue: user.client!.phone!,
+                    onSaved: (value) {
                       user.client!.phone = value;
                     },
-                    user.client!.phone!,
                   ),
                   formTextField(
-                    SignupFormFieldName.STREET,
-                    (value) {
+                    text: SignupFormFieldName.STREET,
+                    initialValue: user.client!.address!.street!,
+                    onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
                       for (int i = 0; i < auxValue.length; i++) {
@@ -57,18 +58,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                       user.client!.address!.street = value;
                     },
-                    user.client!.address!.street!,
                   ),
                   formTextField(
-                    SignupFormFieldName.STREET_NUMBER,
-                    (value) {
+                    text: SignupFormFieldName.STREET_NUMBER,
+                    initialValue: user.client!.address!.streetNumber!.toString(),
+                    onSaved: (value) {
                       user.client!.address!.streetNumber = int.parse(value!);
                     },
-                    user.client!.address!.streetNumber!.toString(),
                   ),
                   formTextField(
-                    SignupFormFieldName.NEIGHBOUR,
-                    (value) {
+                    text: SignupFormFieldName.NEIGHBOUR,
+                    initialValue: user.client!.address!.neighbour!,
+                    onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
                       for (int i = 0; i < auxValue.length; i++) {
@@ -79,35 +80,34 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                       user.client!.address!.neighbour = value;
                     },
-                    user.client!.address!.neighbour!,
                   ),
                   formTextField(
-                    SignupFormFieldName.CITY,
-                    (value) {
+                    text: SignupFormFieldName.CITY,
+                    initialValue: user.client!.address!.city!,
+                    onSaved: (value) {
                       user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                     },
-                    user.client!.address!.city!,
                   ),
                   formTextField(
-                    SignupFormFieldName.DISTRICT,
-                    (value) {
+                    text: SignupFormFieldName.DISTRICT,
+                    initialValue: user.client!.address!.district!,
+                    onSaved: (value) {
                       user.client!.address!.district = value;
                     },
-                    user.client!.address!.district!,
                   ),
                   formTextField(
-                    SignupFormFieldName.ZIPCODE,
-                    (value) {
+                    text: SignupFormFieldName.ZIPCODE,
+                    initialValue: user.client!.address!.cep!,
+                    onSaved: (value) {
                       user.client!.address!.cep = value;
                     },
-                    user.client!.address!.cep!,
                   ),
                   formTextField(
-                    SignupFormFieldName.EMAIL,
-                    (value) {
+                    text: SignupFormFieldName.EMAIL,
+                    initialValue: user.email!,
+                    onSaved: (value) {
                       user.email = value;
                     },
-                    user.email!,
                   ),
                   formNewPasswordField(),
                   deleteUserButton(),
@@ -132,20 +132,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  Widget formTextField(
-      String text, void Function(String?) onSaved, String initialValue) {
+  Widget formTextField({
+    required String text,
+    required String initialValue, 
+    required void Function(String?) onSaved, 
+    String? Function(String?)? validator,
+  }) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           initialValue: initialValue,
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'Por favor, insira seu ${text.toLowerCase()}';
-          //   }
-          //   return null;
-          // },
+          validator: validator ??
+            (value) {
+              return null;
+            },
           onSaved: onSaved,
         ));
   }
