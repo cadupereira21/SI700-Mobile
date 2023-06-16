@@ -41,9 +41,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira seu nome';
-                      } else if (
-                        TextFormFieldFormat.checkIfStringHasNumber(value) ||
-                        TextFormFieldFormat.checkIfStringHasSpecialCharacters(value)) {
+                      } else if (TextFormFieldFormat.checkIfStringHasNumber(
+                              value) ||
+                          TextFormFieldFormat.checkIfStringHasSpecialCharacters(
+                              value)) {
                         return "Esse campo só aceita letras!";
                       }
                       return null;
@@ -63,6 +64,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       } else if (value.length < 16) {
                         return "Número incompleto!";
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       user.client!.phone = value;
@@ -75,6 +77,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       if (value == null || value.isEmpty) {
                         return "Por favor insira seu endereço";
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       var auxValue = value!.split(" ");
@@ -90,13 +93,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   formTextField(
                     text: SignupFormFieldName.STREET_NUMBER,
-                    initialValue: user.client!.address!.streetNumber!.toString(),
+                    initialValue:
+                        user.client!.address!.streetNumber!.toString(),
                     mask: TextFormFieldFormat.STREET_NUMBER,
                     inputType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "*";
+                        return "Por favor insira o número do seu endereço";
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       user.client!.address!.streetNumber = int.parse(value!);
@@ -109,6 +114,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       if (value == null || value.isEmpty) {
                         return "Por favor insira seu bairro";
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       var auxValue = value!.split(" ");
@@ -130,9 +136,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       if (value == null || value.isEmpty) {
                         return "Por favor insira sua cidade";
                       }
+                      return null;
                     },
                     onSaved: (value) {
-                      user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
+                      user.client!.address!.city =
+                          "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                     },
                   ),
                   formTextField(
@@ -146,6 +154,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       } else if (value.length < 9) {
                         return "CEP incompleto";
                       }
+                      return null;
                     },
                     onSaved: (value) {
                       user.client!.address!.cep = value;
@@ -218,8 +227,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     required String text,
     required String initialValue,
     MaskTextInputFormatter? mask,
-    TextInputType? inputType, 
-    required void Function(String?) onSaved, 
+    TextInputType? inputType,
+    required void Function(String?) onSaved,
     String? Function(String?)? validator,
   }) {
     return Container(
@@ -231,9 +240,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
           validator: validator ??
-            (value) {
-              return null;
-            },
+              (value) {
+                return null;
+              },
           onSaved: onSaved,
         ));
   }
