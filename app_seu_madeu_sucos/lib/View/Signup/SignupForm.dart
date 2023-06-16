@@ -31,10 +31,10 @@ class _SignupFormState extends State<SignupForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        color: Colors.green.shade600,
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      color: Colors.green.shade600,
+      child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Container(
@@ -96,7 +96,7 @@ class _SignupFormState extends State<SignupForm> {
                           "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
-
+      
                     address.street = value;
                   },
                 ),
@@ -111,7 +111,7 @@ class _SignupFormState extends State<SignupForm> {
                         inputType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Por favor insira o número do seu endereço";
+                            return "*";
                           }
                         },
                         onSaved: (value) {
@@ -137,7 +137,7 @@ class _SignupFormState extends State<SignupForm> {
                             value =
                                 i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                           }
-
+      
                           address.neighbour = value;
                         },
                       ),
