@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
+import '../Model/Districts.dart';
 import '../Model/User.dart';
 import 'Signup/SignupFormFieldName.dart';
+import 'TextFormFieldFormat.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -16,6 +19,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   User user = UserData.instance.user;
+  String _dropdownValue = Districts.list[0];
   //var clientAddress = UserData.instance.user.client!.address!;
 
   @override
@@ -31,22 +35,51 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               child: Column(
                 children: [
                   formTextField(
-                    SignupFormFieldName.NAME,
-                    (value) {
+                    text: SignupFormFieldName.NAME,
+                    inputType: TextInputType.name,
+                    initialValue: user.client!.name!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira seu nome';
+                      } else if (TextFormFieldFormat.checkIfStringHasNumber(
+                              value) ||
+                          TextFormFieldFormat.checkIfStringHasSpecialCharacters(
+                              value)) {
+                        return "Esse campo só aceita letras!";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       user.client!.name = value;
                     },
-                    user.client!.name!,
                   ),
                   formTextField(
-                    SignupFormFieldName.PHONE,
-                    (value) {
+                    text: SignupFormFieldName.PHONE,
+                    mask: TextFormFieldFormat.PHONE,
+                    inputType: TextInputType.phone,
+                    initialValue: user.client!.phone!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu número de telefone";
+                      } else if (value.length < 16) {
+                        return "Número incompleto!";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       user.client!.phone = value;
                     },
-                    user.client!.phone!,
                   ),
                   formTextField(
-                    SignupFormFieldName.STREET,
-                    (value) {
+                    text: SignupFormFieldName.STREET,
+                    initialValue: user.client!.address!.street!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu endereço";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
                       for (int i = 0; i < auxValue.length; i++) {
@@ -57,18 +90,33 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                       user.client!.address!.street = value;
                     },
-                    user.client!.address!.street!,
                   ),
                   formTextField(
-                    SignupFormFieldName.STREET_NUMBER,
-                    (value) {
+                    text: SignupFormFieldName.STREET_NUMBER,
+                    initialValue:
+                        user.client!.address!.streetNumber!.toString(),
+                    mask: TextFormFieldFormat.STREET_NUMBER,
+                    inputType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira o número do seu endereço";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       user.client!.address!.streetNumber = int.parse(value!);
                     },
-                    user.client!.address!.streetNumber!.toString(),
                   ),
                   formTextField(
-                    SignupFormFieldName.NEIGHBOUR,
-                    (value) {
+                    text: SignupFormFieldName.NEIGHBOUR,
+                    initialValue: user.client!.address!.neighbour!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu bairro";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
                       for (int i = 0; i < auxValue.length; i++) {
@@ -79,35 +127,54 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                       user.client!.address!.neighbour = value;
                     },
-                    user.client!.address!.neighbour!,
                   ),
+                  dropdownButton(),
                   formTextField(
-                    SignupFormFieldName.CITY,
-                    (value) {
-                      user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
+                    text: SignupFormFieldName.CITY,
+                    initialValue: user.client!.address!.city!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira sua cidade";
+                      }
+                      return null;
                     },
-                    user.client!.address!.city!,
-                  ),
-                  formTextField(
-                    SignupFormFieldName.DISTRICT,
-                    (value) {
-                      user.client!.address!.district = value;
+                    onSaved: (value) {
+                      user.client!.address!.city =
+                          "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                     },
-                    user.client!.address!.district!,
                   ),
                   formTextField(
-                    SignupFormFieldName.ZIPCODE,
-                    (value) {
+                    text: SignupFormFieldName.ZIPCODE,
+                    initialValue: user.client!.address!.cep!,
+                    mask: TextFormFieldFormat.ZIPCODE,
+                    inputType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira o seu CEP";
+                      } else if (value.length < 9) {
+                        return "CEP incompleto";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       user.client!.address!.cep = value;
                     },
-                    user.client!.address!.cep!,
                   ),
                   formTextField(
-                    SignupFormFieldName.EMAIL,
-                    (value) {
+                    text: SignupFormFieldName.EMAIL,
+                    initialValue: user.email!,
+                    inputType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira um email';
+                      } else if (!value.contains("@") || !value.contains(".")) {
+                        return "Por favor insira um email válido!";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
                       user.email = value;
                     },
-                    user.email!,
                   ),
                   formNewPasswordField(),
                   deleteUserButton(),
@@ -132,20 +199,50 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  Widget formTextField(
-      String text, void Function(String?) onSaved, String initialValue) {
+  Widget dropdownButton() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+        value: _dropdownValue,
+        decoration: const InputDecoration(labelText: "UF"),
+        items: Districts.list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onSaved: (value) {
+          user.client!.address!.district = value;
+        },
+        onChanged: (value) {
+          setState(() {
+            _dropdownValue = value!;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget formTextField({
+    required String text,
+    required String initialValue,
+    MaskTextInputFormatter? mask,
+    TextInputType? inputType,
+    required void Function(String?) onSaved,
+    String? Function(String?)? validator,
+  }) {
     return Container(
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           initialValue: initialValue,
+          inputFormatters: mask != null ? [mask] : [],
+          keyboardType: inputType ?? TextInputType.text,
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
-          // validator: (value) {
-          //   if (value == null || value.isEmpty) {
-          //     return 'Por favor, insira seu ${text.toLowerCase()}';
-          //   }
-          //   return null;
-          // },
+          validator: validator ??
+              (value) {
+                return null;
+              },
           onSaved: onSaved,
         ));
   }
@@ -162,6 +259,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira uma senha';
+            } else if (value.length < 8) {
+              return "Sua senha deverá conter no mínimo 8 caracteres";
             }
             return null;
           },
