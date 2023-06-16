@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
@@ -33,6 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 children: [
                   formTextField(
                     text: SignupFormFieldName.NAME,
+                    inputType: TextInputType.name,
                     initialValue: user.client!.name!,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -50,7 +52,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   formTextField(
                     text: SignupFormFieldName.PHONE,
+                    mask: TextFormFieldFormat.PHONE,
+                    inputType: TextInputType.phone,
                     initialValue: user.client!.phone!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu número de telefone";
+                      } else if (value.length < 16) {
+                        return "Número incompleto!";
+                      }
+                    },
                     onSaved: (value) {
                       user.client!.phone = value;
                     },
@@ -145,7 +156,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   Widget formTextField({
     required String text,
-    required String initialValue, 
+    required String initialValue,
+    MaskTextInputFormatter? mask,
+    TextInputType? inputType, 
     required void Function(String?) onSaved, 
     String? Function(String?)? validator,
   }) {
@@ -153,6 +166,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         padding: const EdgeInsets.all(10),
         child: TextFormField(
           initialValue: initialValue,
+          inputFormatters: mask != null ? [mask] : [],
+          keyboardType: inputType ?? TextInputType.text,
           decoration: InputDecoration(labelText: text),
           cursorColor: Colors.green,
           validator: validator ??
