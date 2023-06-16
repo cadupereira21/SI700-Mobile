@@ -69,6 +69,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.STREET,
                     initialValue: user.client!.address!.street!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu endereço";
+                      }
+                    },
                     onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
@@ -84,6 +89,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.STREET_NUMBER,
                     initialValue: user.client!.address!.streetNumber!.toString(),
+                    mask: TextFormFieldFormat.STREET_NUMBER,
+                    inputType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "*";
+                      }
+                    },
                     onSaved: (value) {
                       user.client!.address!.streetNumber = int.parse(value!);
                     },
@@ -91,6 +103,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.NEIGHBOUR,
                     initialValue: user.client!.address!.neighbour!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira seu bairro";
+                      }
+                    },
                     onSaved: (value) {
                       var auxValue = value!.split(" ");
                       value = "";
@@ -106,6 +123,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.CITY,
                     initialValue: user.client!.address!.city!,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira sua cidade";
+                      }
+                    },
                     onSaved: (value) {
                       user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                     },
@@ -120,6 +142,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.ZIPCODE,
                     initialValue: user.client!.address!.cep!,
+                    mask: TextFormFieldFormat.ZIPCODE,
+                    inputType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Por favor insira o seu CEP";
+                      } else if (value.length < 9) {
+                        return "CEP incompleto";
+                      }
+                    },
                     onSaved: (value) {
                       user.client!.address!.cep = value;
                     },
@@ -127,6 +158,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   formTextField(
                     text: SignupFormFieldName.EMAIL,
                     initialValue: user.email!,
+                    inputType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira um email';
+                      } else if (!value.contains("@") || !value.contains(".")) {
+                        return "Por favor insira um email válido!";
+                      }
+                      return null;
+                    },
                     onSaved: (value) {
                       user.email = value;
                     },
@@ -190,6 +230,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Por favor, insira uma senha';
+            } else if (value.length < 8) {
+              return "Sua senha deverá conter no mínimo 8 caracteres";
             }
             return null;
           },
