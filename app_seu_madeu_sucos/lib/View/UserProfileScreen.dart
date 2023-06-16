@@ -4,6 +4,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
+import '../Model/Districts.dart';
 import '../Model/User.dart';
 import 'Signup/SignupFormFieldName.dart';
 import 'TextFormFieldFormat.dart';
@@ -18,6 +19,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   User user = UserData.instance.user;
+  String _dropdownValue = Districts.list[0];
   //var clientAddress = UserData.instance.user.client!.address!;
 
   @override
@@ -120,6 +122,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       user.client!.address!.neighbour = value;
                     },
                   ),
+                  dropdownButton(),
                   formTextField(
                     text: SignupFormFieldName.CITY,
                     initialValue: user.client!.address!.city!,
@@ -130,13 +133,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     },
                     onSaved: (value) {
                       user.client!.address!.city = "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.DISTRICT,
-                    initialValue: user.client!.address!.district!,
-                    onSaved: (value) {
-                      user.client!.address!.district = value;
                     },
                   ),
                   formTextField(
@@ -190,6 +186,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget dropdownButton() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: DropdownButtonFormField(
+        value: _dropdownValue,
+        decoration: const InputDecoration(labelText: "UF"),
+        items: Districts.list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onSaved: (value) {
+          user.client!.address!.district = value;
+        },
+        onChanged: (value) {
+          setState(() {
+            _dropdownValue = value!;
+          });
+        },
       ),
     );
   }
