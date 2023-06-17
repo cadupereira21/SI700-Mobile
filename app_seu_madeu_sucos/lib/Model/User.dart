@@ -10,4 +10,10 @@ class User {
     this.password,
     this.client,
   });
+
+  //create to string
+  @override
+  String toString() {
+    return "User: {email: $email, password: $password, client: ${client.toString()}}";
+  }
 }

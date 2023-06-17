@@ -1,4 +1,3 @@
-import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Data/UserData.dart';
 import 'package:app_seu_madeu_sucos/Model/User.dart';
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
@@ -22,9 +21,8 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
     on<LogOutButtonClick>(
       (event, emit) {
-        // UserData clear
-        print("Logout Button Click");
-        // Back to login screen
+        UserData.instance.clearData();
+        emit(LogInState());
       },
     );
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));

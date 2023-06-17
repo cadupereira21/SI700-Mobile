@@ -1,7 +1,10 @@
 import 'package:app_seu_madeu_sucos/View/UserPlanScreen.dart';
 import 'package:app_seu_madeu_sucos/View/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Controller/Monitor/User/UserMonitorBloc.dart';
+import '../Controller/Monitor/User/UserMonitorEvent.dart';
 import 'CartScreen.dart';
 import 'HistoryScreen.dart';
 import 'ProductScreen.dart';
@@ -69,7 +72,10 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.bottomLeft,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
+                  accessBloc.add(LogOutButtonClick());
+                },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                   child: Text("Sair"),
