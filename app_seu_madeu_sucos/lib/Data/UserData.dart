@@ -5,10 +5,10 @@ import '../Model/User.dart';
 class UserData {
   String _id = "";
   User _user = User(
-    email: "", 
+    email: "",
     password: "",
     client: Client(
-      name:"",
+      name: "",
       address: Address(
         street: "",
         streetNumber: 0,
@@ -25,6 +25,26 @@ class UserData {
 
   UserData._createInstance();
 
+  void clearData() {
+    setId("");
+    setUser(User(
+      email: "",
+      password: "",
+      client: Client(
+        name: "",
+        address: Address(
+          street: "",
+          streetNumber: 0,
+          neighbour: "",
+          district: "",
+          city: "",
+          cep: "",
+        ),
+        phone: "",
+      ),
+    ));
+  }
+
   void setId(String id) {
     _id = id;
   }
@@ -35,4 +55,10 @@ class UserData {
 
   String get id => _id;
   User get user => _user;
+
+  @override
+  String toString() {
+    //Create to string
+    return "User Data: {id: ${_id}, user: ${_user.toString()}}";
+  }
 }

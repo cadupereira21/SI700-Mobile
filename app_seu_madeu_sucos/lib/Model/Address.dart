@@ -14,4 +14,10 @@ class Address {
     this.city,
     this.cep
   });
+
+  //create to string
+  @override
+  String toString() {
+    return "Address: {street: $street, streetNumber: $streetNumber, neighbour: $neighbour, district: $district, city: $city, cep: $cep}";
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Data/UserData.dart';
 import 'package:app_seu_madeu_sucos/Model/User.dart';
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
@@ -19,9 +18,13 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     on<FetchUserDataEvent>((event, emit) {
       emit(UserMonitorState(user: event.user));
     });
-    on<LogInButtonClick>((event, emit) => {
-      emit(LoggedInState())
-    });
+    on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
+    on<LogOutButtonClick>(
+      (event, emit) {
+        UserData.instance.clearData();
+        emit(LogInState());
+      },
+    );
     on<IWantToSignUpButtonClick>(((event, emit) => emit(SignUpState())));
     on<SignUpRequestSuccessfulEvent>(((event, emit) {
       UserData.instance.setId(event.userId!);
@@ -62,7 +65,8 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     RequestStatus requestStatus = event[1];
     List<Object> obj = event[2];
     if (requestStatus == RequestStatus.SUCCESSFUL) {
-      add(SignUpRequestSuccessfulEvent(userId: obj[0].toString(), user: (obj[1] as User)));
+      add(SignUpRequestSuccessfulEvent(
+          userId: obj[0].toString(), user: (obj[1] as User)));
     } else {
       add(SignUpRequestFailedEvent());
     }

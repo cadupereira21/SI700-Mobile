@@ -4,7 +4,6 @@ import 'User.dart';
 
 class Client {
 
-  String? _id;
   String? name;
   Address? address;
   String? phone;
@@ -16,4 +15,10 @@ class Client {
     this.phone,
     this.activePlan,
   });
+
+  //Create to string
+  @override
+  String toString() {
+    return "Client: {name: $name, address: ${address.toString()}, phone: $phone, activePlan: ${activePlan.toString()}}";
+  }
 }
