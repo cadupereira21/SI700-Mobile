@@ -12,6 +12,10 @@ class LogInButtonClick extends UserMonitorEvent {
   LogInButtonClick();
 }
 
+class LogOutButtonClick extends UserMonitorEvent {
+  LogOutButtonClick();
+}
+
 class IWantToSignUpButtonClick extends UserMonitorEvent {
   IWantToSignUpButtonClick();
 }

@@ -59,11 +59,24 @@ class _HomePageState extends State<HomePage> {
 
   Widget drawer() {
     return Drawer(
-      child: ListView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           drawerHeader(),
           drawerTile("Perfil", const UserProfileScreen()),
           drawerTile("Planos", const UserPlanScreen()),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: ElevatedButton(
+                onPressed: (){},
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  child: Text("Sair"),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
