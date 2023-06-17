@@ -71,14 +71,20 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: ElevatedButton(
-                onPressed: (){
-                  UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
-                  accessBloc.add(LogOutButtonClick());
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                  child: Text("Sair"),
+              child: Container(
+                margin: const EdgeInsets.all(12.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                  onPressed: (){
+                    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
+                    accessBloc.add(LogOutButtonClick());
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+                    child: Text("Sair"),
+                  ),
                 ),
               ),
             ),
