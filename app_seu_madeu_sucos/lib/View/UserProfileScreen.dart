@@ -6,6 +6,7 @@ import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
 import '../Model/Districts.dart';
 import '../Model/User.dart';
+import 'ConfirmDeleteUserScreen.dart';
 import 'Signup/SignupFormFieldName.dart';
 import 'TextFormFieldFormat.dart';
 
@@ -290,8 +291,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       TextButton(
           onPressed: () {
-            BlocProvider.of<UserRequesterBloc>(context)
-                .add(DeleteUserRequest(userId: UserData.instance.id));
+            Navigator.pop(context);
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ConfirmDeleteUserScreen()),
+            );
           },
           child: const Text(
             "Excluir conta",
