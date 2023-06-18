@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Controller/Monitor/User/UserMonitorBloc.dart';
 import '../Controller/Monitor/User/UserMonitorEvent.dart';
+import '../Data/UserData.dart';
 import 'CartScreen.dart';
 import 'HistoryScreen.dart';
 import 'ProductScreen.dart';
@@ -95,10 +96,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget drawerHeader() {
-    return const UserAccountsDrawerHeader(
-      accountName: Text("Nome Completo do Usuário"),
+    return UserAccountsDrawerHeader(
+      accountName: Text(UserData.instance.user.client!.name!),
       accountEmail: Text(
-        "Email completo do usuário",
+        UserData.instance.user.email!,
         style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
       ),
       currentAccountPicture: CircleAvatar(),
