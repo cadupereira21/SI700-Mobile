@@ -28,29 +28,34 @@ class _ProductScreenState extends State<ProductScreen> {
     if (allProducts.isEmpty) {
       productRequesterBloc.add(GetAllProductsRequest());
     }
-    return BlocBuilder<ProductMonitorBloc, ProductMonitorState>(builder: (context, state) {
+    return BlocBuilder<ProductMonitorBloc, ProductMonitorState>(
+        builder: (context, state) {
       return productRequesterBloc.state is ProcessingRequest
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: state.productColletion.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  productTile(state.productColletion[index]));
+          : Container(
+              color: const Color.fromRGBO(67, 160, 71, 1),
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: List.generate(state.productColletion.length, (index) {
+                  return productTile(state.productColletion[index]);
+                }),
+              ),
+            );
     });
   }
 
   Widget productTile(Product product) {
-    return Card(
-      margin: const EdgeInsets.all(7),
-      elevation: 5,
-      color: Colors.green,
-      child: ListTile(
-        leading: productImage(),
-        title: Text("${product.name}"),
-        subtitle: Text(product.description!),
-        trailing: addToCartButton(product),
-        contentPadding: const EdgeInsets.all(10),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        //color: Colors.red,
+        child: Center(child: Text(product.name!)),
       ),
     );
   }
