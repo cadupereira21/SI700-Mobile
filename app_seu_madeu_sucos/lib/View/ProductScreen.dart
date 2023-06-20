@@ -1,11 +1,7 @@
-import 'dart:ffi';
-
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorState.dart';
-import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
-import 'package:app_seu_madeu_sucos/Data/CartData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
