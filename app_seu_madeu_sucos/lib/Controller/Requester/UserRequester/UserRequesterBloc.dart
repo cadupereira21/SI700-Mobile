@@ -11,15 +11,9 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
 
   UserRequesterBloc(super.initialState) {
     on<CreateUserRequest>((event, emit) => _createUserRequest(event, emit));
-    on<GetUserRequest>(
-      (event, emit) => _getUserRequest(event, emit)
-    );
-    on<UpdateUserRequest>(
-      (event, emit) => _updateUserRequest(event, emit)
-    );
-    on<DeleteUserRequest>(
-      (event, emit) => _deleteUserRequest(event, emit)
-    );
+    on<GetUserRequest>((event, emit) => _getUserRequest(event, emit));
+    on<UpdateUserRequest>((event, emit) => _updateUserRequest(event, emit));
+    on<DeleteUserRequest>((event, emit) => _deleteUserRequest(event, emit));
   }
 
   void _createUserRequest(CreateUserRequest event, Emitter emit) async {
@@ -47,7 +41,8 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
     }
   }
 
-  _updateUserRequest(UpdateUserRequest event, Emitter<RequestState> emit) async {
+  _updateUserRequest(
+      UpdateUserRequest event, Emitter<RequestState> emit) async {
     emit(ProcessingUserRequest());
 
     try {
@@ -59,8 +54,9 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
       print(e.toString());
     }
   }
-  
-  _deleteUserRequest(DeleteUserRequest event, Emitter<RequestState> emit) async {
+
+  _deleteUserRequest(
+      DeleteUserRequest event, Emitter<RequestState> emit) async {
     emit(ProcessingUserRequest());
 
     try {
