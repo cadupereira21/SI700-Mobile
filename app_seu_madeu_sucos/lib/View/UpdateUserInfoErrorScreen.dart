@@ -1,4 +1,8 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterState.dart';
+import 'package:app_seu_madeu_sucos/View/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UpdateUserInfoErrorScreen extends StatelessWidget {
   const UpdateUserInfoErrorScreen({super.key});
@@ -23,17 +27,13 @@ class UpdateUserInfoErrorScreen extends StatelessWidget {
             ),
             const Text(
               "Descrição: <MensagemDeErro>",
-              style: TextStyle(
-                fontSize: 14,
-                color: Color.fromRGBO(0, 0, 0, 0.7)
-              ),
+              style:
+                  TextStyle(fontSize: 14, color: Color.fromRGBO(0, 0, 0, 0.7)),
             ),
             ElevatedButton(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.red),
-              ),
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: ((context) => const UserProfileScreen())));
               },
               child: const Padding(
                 padding: EdgeInsets.all(10.0),

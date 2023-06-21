@@ -51,7 +51,7 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, RequestState> {
       print((state as RequestSuccess).message);
     } catch (e) {
       emit(RequestFailed(message: e.toString()));
-      print(e.toString());
+      print("UserRequesterBloc: falha na atualização de usuario! Descrição do erro:${e.toString()}");
     }
   }
 

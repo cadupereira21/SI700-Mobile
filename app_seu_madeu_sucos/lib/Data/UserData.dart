@@ -58,7 +58,6 @@ class UserData {
 
   @override
   String toString() {
-    //Create to string
     return "User Data: {id: ${_id}, user: ${_user.toString()}}";
   }
 }

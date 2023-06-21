@@ -1,3 +1,5 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/RequestState.dart';
+import 'package:app_seu_madeu_sucos/View/UpdateUserInfoErrorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -314,18 +316,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       userRequesterBloc
           .add(UpdateUserRequest(userId: UserData.instance.id, user: user));
 
-      Navigator.pop(context);
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(seconds: 3),
-        content: const Text("Informações atualizadas com sucesso"),
-        action: SnackBarAction(
-          label: "Ok",
-          onPressed: () {
-            ScaffoldMessenger.of(context).clearSnackBars();
-          },
-        ),
-      ));
+      if (userRequesterBloc.state is RequestSuccess) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 3),
+          content: const Text("Informações atualizadas com sucesso"),
+          action: SnackBarAction(
+            label: "Ok",
+            onPressed: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
+            },
+          ),
+        ));
+      } else if (userRequesterBloc.state is RequestFailed) {
+        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateUserInfoErrorScreen()));
+      }
     }
   }
 }
