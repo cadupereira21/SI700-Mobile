@@ -21,7 +21,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   User user = UserData.instance.user;
-  String _dropdownValue = Districts.list[0];
+  String _dropdownValue = UserData.instance.user.client!.address!.district!;
   //var clientAddress = UserData.instance.user.client!.address!;
 
   @override
