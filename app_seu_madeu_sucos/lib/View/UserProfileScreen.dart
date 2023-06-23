@@ -324,13 +324,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           action: SnackBarAction(
             label: "Ok",
             onPressed: () {
-              ScaffoldMessenger.of(context).clearSnackBars();
+              try {
+                ScaffoldMessenger.of(context).clearSnackBars();
+              } catch (e) {
+                print(e.toString());
+              }
             },
           ),
         ));
       } else if (userRequesterBloc.state is RequestFailed) {
         Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdateUserInfoErrorScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const UpdateUserInfoErrorScreen()));
       }
     }
   }
