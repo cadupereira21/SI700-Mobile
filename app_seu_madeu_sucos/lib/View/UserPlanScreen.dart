@@ -83,11 +83,11 @@ class _UserPlanScreenState extends State<UserPlanScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                plan.name, 
+                plan.name!, 
                 style: const TextStyle(fontSize: 20, color: Colors.green),
               ),
               Text(
-                "R\$ ${plan.value.toStringAsFixed(2)}", 
+                "R\$ ${plan.value!.toStringAsFixed(2)}", 
                 style: const TextStyle(fontSize: 20, color: Colors.orange),
               ),
             ],
@@ -96,7 +96,7 @@ class _UserPlanScreenState extends State<UserPlanScreen> {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(plan.description, style: const TextStyle(fontSize: 15, color: Colors.black)),
+            Text(plan.description!, style: const TextStyle(fontSize: 15, color: Colors.black)),
           ],
         ),
         //trailing: addToCartButton(product),

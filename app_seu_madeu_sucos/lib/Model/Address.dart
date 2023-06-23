@@ -15,6 +15,19 @@ class Address {
     this.cep
   });
 
+  //create getters and setters
+  String? get getStreet => street;
+  set setStreet(String? street) => this.street = street;
+  int? get getStreetNumber => streetNumber;
+  set setStreetNumber(int? streetNumber) => this.streetNumber = streetNumber;
+  String? get getNeighbour => neighbour;
+  set setNeighbour(String? neighbour) => this.neighbour = neighbour;
+  String? get getDistrict => district;
+  set setDistrict(String? district) => this.district = district;
+  String? get getCity => city;
+  set setCity(String? city) => this.city = city;
+  String? get getCep => cep;
+
   //create to string
   @override
   String toString() {

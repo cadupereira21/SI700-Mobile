@@ -1,8 +1,11 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/RequestState.dart';
+import 'package:app_seu_madeu_sucos/View/UpdateUserInfoErrorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
+import '../Controller/Requester/UserRequester/UserRequesterState.dart';
 import '../Data/UserData.dart';
 import '../Model/Districts.dart';
 import '../Model/User.dart';
@@ -20,7 +23,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   User user = UserData.instance.user;
-  String _dropdownValue = Districts.list[0];
+  String _dropdownValue = UserData.instance.user.client!.address!.district!;
   //var clientAddress = UserData.instance.user.client!.address!;
 
   @override
@@ -292,8 +295,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       TextButton(
           onPressed: () {
             Navigator.pop(context);
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ConfirmDeleteUserScreen()),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ConfirmDeleteUserScreen()),
             );
           },
           child: const Text(
@@ -307,8 +312,33 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      BlocProvider.of<UserRequesterBloc>(context)
+      var userRequesterBloc = BlocProvider.of<UserRequesterBloc>(context);
+      userRequesterBloc
           .add(UpdateUserRequest(userId: UserData.instance.id, user: user));
+
+      if (userRequesterBloc.state is RequestSuccess) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 3),
+          content: const Text("Informações atualizadas com sucesso"),
+          action: SnackBarAction(
+            label: "Ok",
+            onPressed: () {
+              try {
+                ScaffoldMessenger.of(context).clearSnackBars();
+              } catch (e) {
+                print(e.toString());
+              }
+            },
+          ),
+        ));
+      } else if (userRequesterBloc.state is RequestFailed) {
+        Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const UpdateUserInfoErrorScreen()));
+      }
     }
   }
 }
