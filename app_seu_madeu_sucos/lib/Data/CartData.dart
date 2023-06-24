@@ -4,6 +4,12 @@ class CartData {
   
   static CartData instance = CartData._createInstance();
 
+  // _addedProducts: [
+  //   {
+  //      "Product" : Product,
+  //      "Quantity" : int,
+  //   }
+  // ]
   List<Map<String, Object>> _addedProducts = [];
 
   List<Map<String, Object>> get addedProducts => List.from(_addedProducts);
