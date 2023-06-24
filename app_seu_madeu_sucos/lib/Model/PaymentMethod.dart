@@ -1,6 +1,8 @@
-enum PaymentMethod {
-  MONEY,
-  CREDIT,
-  DEBIT,
-  PIX,
+class PaymentMethod {
+  static final List<String> list = [
+    "Dinheiro",
+    "Cartão de Crédito",
+    "Cartão de Débito",
+    "Pix",
+  ];
 }

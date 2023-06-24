@@ -7,7 +7,7 @@ class Order {
   Client? _requester;
   List<Map<String, Object>>? _products;
   String? _comments;
-  PaymentMethod? _paymentMethod;
+  String? _paymentMethod;
   double? _value;
   bool? _isPlan;
   bool? _isDelivery;
@@ -18,7 +18,7 @@ class Order {
     Client? requester,
     List<Map<String, Object>>? products,
     String? comments,
-    PaymentMethod? paymentMethod,
+    String? paymentMethod,
     double? value,
     bool? isPlan,
     bool? isDelivery,
@@ -39,7 +39,7 @@ class Order {
   Client? get getRequester => _requester;
   List<Map<String, Object>>? get getProducts => _products;
   String? get getComments => _comments;
-  PaymentMethod? get getPaymentMethod => _paymentMethod;
+  String? get getPaymentMethod => _paymentMethod;
   double? get getValue => _value;
   bool? get getIsPlan => _isPlan;
   bool? get getIsDelivery => _isDelivery;
@@ -49,7 +49,7 @@ class Order {
   set setRequester(Client? requester) => _requester = requester;
   set setProducts(List<Map<String, Object>>? products) => _products = products;
   set setComments(String? comments) => _comments = comments;
-  set setPaymentMethod(PaymentMethod? paymentMethod) =>
+  set setPaymentMethod(String? paymentMethod) =>
       _paymentMethod = paymentMethod;
   set setValue(double? value) => _value = value;
   set setIsPlan(bool? isPlan) => _isPlan = isPlan;

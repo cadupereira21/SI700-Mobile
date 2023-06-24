@@ -13,7 +13,7 @@ class OrderData {
     requester: UserData.instance.user.client,
     products: List.empty(),
     comments: "",
-    paymentMethod: PaymentMethod.MONEY,
+    paymentMethod: PaymentMethod.list[0],
     value: 0.0,
     isPlan: false,
     isDelivery: false,

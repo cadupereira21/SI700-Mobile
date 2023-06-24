@@ -1,4 +1,8 @@
+import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
+import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
 import 'package:flutter/material.dart';
+
+import '../Model/Order.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -8,6 +12,12 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  Order _order = OrderData.instance.getOrder;
+  final EdgeInsets _buttonSizePadding = const EdgeInsets.symmetric(
+    vertical: 13.0,
+    horizontal: 20.0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +32,10 @@ class _OrderScreenState extends State<OrderScreen> {
           },
         ),
       ),
-      body: screenScrolablleContent(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
+        child: screenScrolablleContent(),
+      ),
     );
   }
 
@@ -36,16 +49,40 @@ class _OrderScreenState extends State<OrderScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Text("Total: R\$100,00"),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text(
+                      "Total: R\$100,00",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(onPressed: () {}, child: Text("Enviar")),
-                  ElevatedButton(onPressed: () {}, child: Text("Cancelar")),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Padding(
+                        padding: _buttonSizePadding,
+                        child: const Text("Enviar"),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Padding(
+                        padding: _buttonSizePadding,
+                        child: const Text("Cancelar"),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -56,23 +93,19 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget contentFields() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(
-            top: 15.0, left: 15.0, right: 15.0, bottom: 0.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Product List View"),
-                Text("Checkers and Dropdowns"),
-              ],
-            ),
-            Text("Comments"),
-            Text("Address Form"),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Product List View"),
+              Text("Checkers and Dropdowns"),
+            ],
+          ),
+          Text("Comments"),
+          Text("Address Form"),
+        ],
       ),
     );
   }
