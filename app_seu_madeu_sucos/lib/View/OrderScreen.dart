@@ -4,9 +4,13 @@ import 'package:app_seu_madeu_sucos/Model/Address.dart';
 import 'package:app_seu_madeu_sucos/Model/Districts.dart';
 import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../Controller/Screen/Bloc/CartController/CartBloc.dart';
+import '../Controller/Screen/Bloc/CartController/CartState.dart';
 import '../Model/Order.dart';
+import '../Model/Product.dart';
 import 'Signup/SignupFormFieldName.dart';
 import 'TextFormFieldFormat.dart';
 
@@ -48,15 +52,15 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
-        child: screenScrolablleContent(),
+        child: scaffoldContent(),
       ),
     );
   }
 
-  Widget screenScrolablleContent() {
+  Widget scaffoldContent() {
     return Column(
       children: [
-        contentFields(),
+        orderFields(),
         Expanded(
             child: Align(
           alignment: Alignment.bottomCenter,
@@ -66,7 +70,7 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget contentFields() {
+  Widget orderFields() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.62,
       child: SingleChildScrollView(
@@ -75,7 +79,7 @@ class _OrderScreenState extends State<OrderScreen> {
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.25,
-              child: Container(color: Colors.red),
+              child: productListView(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
@@ -86,7 +90,9 @@ class _OrderScreenState extends State<OrderScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
-              child: !_order.getIsDelivery! || _useRegisteredAddress ? Container() : addressForm(),
+              child: !_order.getIsDelivery! || _useRegisteredAddress
+                  ? Container()
+                  : addressForm(),
             ),
           ],
         ),
@@ -251,11 +257,9 @@ class _OrderScreenState extends State<OrderScreen> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         floatingLabelStyle: TextStyle(color: customGreenColor),
         enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: customGreenColor, width: 1.5)),
+            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: customGreenColor, width: 1.5)),
+            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedErrorBorder:
             OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         errorBorder:
@@ -399,15 +403,13 @@ class _OrderScreenState extends State<OrderScreen> {
             floatingLabelBehavior: FloatingLabelBehavior.always,
             floatingLabelStyle: TextStyle(color: customGreenColor),
             enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: customGreenColor, width: 1.5)),
+                borderSide: BorderSide(color: customGreenColor, width: 1.5)),
             focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: customGreenColor, width: 1.5)),
-            focusedErrorBorder:
-                const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-            errorBorder:
-                const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)),
           ),
           cursorColor: Colors.orange.shade600,
           validator: validator ??
@@ -448,6 +450,45 @@ class _OrderScreenState extends State<OrderScreen> {
             _districtAddressFormDropdownValue = value!;
           });
         },
+      ),
+    );
+  }
+
+  Widget productListView() {
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+      return ListView.builder(
+          itemCount: state.addedProducts.length,
+          itemBuilder: (BuildContext context, int index) =>
+              productTile(state.addedProducts[index]));
+    });
+  }
+
+  productTile(Map<String, Object> element) {
+    Product product = element['Product'] as Product;
+    int quantity = element['Quantity'] as int;
+    return Card(
+      //margin: const EdgeInsets.all(7),
+      child: ListTile(
+        leading: Text(
+          "${quantity}x",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        title: Text(
+          "${product.name}", 
+          style: const TextStyle(
+            fontSize: 16, 
+            fontWeight: FontWeight.w600
+          ),
+        ),
+        subtitle: Text("R\$${product.getValue!.toStringAsFixed(2)}"),
+        trailing: Text(
+          "R\$${product.value!.toStringAsFixed(2)}", 
+          style: TextStyle(color: customGreenColor),
+        ),
+        //contentPadding: const EdgeInsets.all(10),
       ),
     );
   }
