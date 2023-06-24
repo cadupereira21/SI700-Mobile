@@ -29,33 +29,17 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget screenScrolablleContent() {
     return Column(
       children: [
-        SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-                top: 15.0, left: 15.0, right: 15.0, bottom: 0.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Product List View"),
-                    Text("Checkers and Dropdowns"),
-                  ],
-                ),
-                Text("Comments"),
-                Text("Address Form"),
-              ],
-            ),
-          ),
-        ),
+        contentFields(),
         Expanded(
             child: Align(
           alignment: Alignment.bottomCenter,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("Total: R\$100,00"),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Text("Total: R\$100,00"),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -67,6 +51,29 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         )),
       ],
+    );
+  }
+
+  Widget contentFields() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: 15.0, left: 15.0, right: 15.0, bottom: 0.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Product List View"),
+                Text("Checkers and Dropdowns"),
+              ],
+            ),
+            Text("Comments"),
+            Text("Address Form"),
+          ],
+        ),
+      ),
     );
   }
 }
