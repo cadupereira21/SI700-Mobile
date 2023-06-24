@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/View/OrderScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,14 +25,12 @@ class _CartScreenState extends State<CartScreen> {
       children: [
         Container(
           height: MediaQuery.of(context).size.height * 2 / 3,
-          child: BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              return ListView.builder(
-                  itemCount: state.addedProducts.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      productTile(state.addedProducts[index]));
-            }
-          ),
+          child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+            return ListView.builder(
+                itemCount: state.addedProducts.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    productTile(state.addedProducts[index]));
+          }),
         ),
         Expanded(
           child: Container(
@@ -63,9 +62,7 @@ class _CartScreenState extends State<CartScreen> {
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
                           onPressed: () {
-                            BlocProvider.of<CartBloc>(context).add(
-                              ClearCart()
-                            );
+                            BlocProvider.of<CartBloc>(context).add(ClearCart());
                             //TODO: Mudar para a tela de produtos
                           },
                           child: const Text("Cancelar")),
@@ -74,7 +71,11 @@ class _CartScreenState extends State<CartScreen> {
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
                           onPressed: () {
-                            //TODO: Seguir para a tela de pedido
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OrderScreen()),
+                            );
                           },
                           child: const Text("Continuar")),
                     ),

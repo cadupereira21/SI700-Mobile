@@ -3,53 +3,62 @@ import 'package:app_seu_madeu_sucos/Model/Client.dart';
 import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
 
 class Order {
-  String? id;
-  Client? requester;
-  List<Map<String, Object>>? products;
-  String? comments;
-  PaymentMethod? paymentMethod;
-  double? value;
-  bool? isPlan;
-  bool? isDelivery;
-  Address? customDeliveryAddress;
+  String? _id;
+  Client? _requester;
+  List<Map<String, Object>>? _products;
+  String? _comments;
+  PaymentMethod? _paymentMethod;
+  double? _value;
+  bool? _isPlan;
+  bool? _isDelivery;
+  Address? _customDeliveryAddress;
 
   Order({
-    this.id,
-    this.requester,
-    this.products,
-    this.comments,
-    this.paymentMethod,
-    this.value,
-    this.isPlan,
-    this.isDelivery,
-    this.customDeliveryAddress,
-  });
+    String? id,
+    Client? requester,
+    List<Map<String, Object>>? products,
+    String? comments,
+    PaymentMethod? paymentMethod,
+    double? value,
+    bool? isPlan,
+    bool? isDelivery,
+    Address? customDeliveryAddress,
+  }) {
+    _id = id;
+    _requester = requester;
+    _products = products;
+    _comments = comments;
+    _paymentMethod = paymentMethod;
+    _value = value;
+    _isPlan = isPlan;
+    _isDelivery = isDelivery;
+    _customDeliveryAddress = customDeliveryAddress;
+  }
 
-  String? get getId => this.id;
-  Client? get getRequester => this.requester;
-  List<Map<String, Object>>? get getProducts => this.products;
-  String? get getComments => this.comments;
-  PaymentMethod? get getPaymentMethod => this.paymentMethod;
-  double? get getValue => this.value;
-  bool? get getIsPlan => this.isPlan;
-  bool? get getIsDelivery => this.isDelivery;
-  Address? get getCustomDeliveryAddress => this.customDeliveryAddress;
+  String? get getId => _id;
+  Client? get getRequester => _requester;
+  List<Map<String, Object>>? get getProducts => _products;
+  String? get getComments => _comments;
+  PaymentMethod? get getPaymentMethod => _paymentMethod;
+  double? get getValue => _value;
+  bool? get getIsPlan => _isPlan;
+  bool? get getIsDelivery => _isDelivery;
+  Address? get getCustomDeliveryAddress => _customDeliveryAddress;
 
-  set setId(String? id) => this.id = id;
-  set setRequester(Client? requester) => this.requester = requester;
-  set setProducts(List<Map<String, Object>>? products) =>
-      this.products = products;
-  set setComments(String? comments) => this.comments = comments;
+  set setId(String? id) => _id = id;
+  set setRequester(Client? requester) => _requester = requester;
+  set setProducts(List<Map<String, Object>>? products) => _products = products;
+  set setComments(String? comments) => _comments = comments;
   set setPaymentMethod(PaymentMethod? paymentMethod) =>
-      this.paymentMethod = paymentMethod;
-  set setValue(double? value) => this.value = value;
-  set setIsPlan(bool? isPlan) => this.isPlan = isPlan;
-  set setIsDelivery(bool? isDelivery) => this.isDelivery = isDelivery;
+      _paymentMethod = paymentMethod;
+  set setValue(double? value) => _value = value;
+  set setIsPlan(bool? isPlan) => _isPlan = isPlan;
+  set setIsDelivery(bool? isDelivery) => _isDelivery = isDelivery;
   set setCustomDeliveryAddress(Address? customDeliveryAddress) =>
-      this.customDeliveryAddress = customDeliveryAddress;
+      _customDeliveryAddress = customDeliveryAddress;
 
   @override
   String toString() {
-    return "Order: {id: $id, requester: ${requester.toString()}, products: ${products.toString()}, comments: $comments, paymentMethod: ${paymentMethod.toString()}, value: $value, isPlan: $isPlan, isDelivery: $isDelivery, customDeliveryAddress: ${customDeliveryAddress.toString()}}";
+    return "Order: {id: $_id, requester: ${_requester.toString()}, products: ${_products.toString()}, comments: $_comments, paymentMethod: ${_paymentMethod.toString()}, value: $_value, isPlan: $_isPlan, isDelivery: $_isDelivery, customDeliveryAddress: ${_customDeliveryAddress.toString()}}";
   }
 }
