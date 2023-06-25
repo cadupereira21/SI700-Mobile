@@ -1,8 +1,5 @@
-import 'dart:convert';
 
-import 'package:app_seu_madeu_sucos/Model/Product.dart';
 import 'package:app_seu_madeu_sucos/Service/Service.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Model/Order.dart';
@@ -20,45 +17,28 @@ class OrderServiceImp extends Service {
 
     final createOrderResponse = await dio.post(
       "$baseUrl/orders/${orderId}.json",
-      data: json.encode({
-        "requester": {
-          "user": {
-            "email": order.getRequester!.getEmail,
-            "client": {
-              "name": order.getRequester!.getClient!.getName,
-            },
-          },
-        },
-        "comments": order.getComments,
-        "paymentMethod": order.getPaymentMethod,
-        "value": order.getValue,
-        "isPlan": order.getIsPlan,
-        "isDelivery": order.getIsDelivery,
-        "customDeliveryAddress": order.getCustomDeliveryAddress ?? "",
-        "deliveryTime": order.getDeliveryTime ?? "",
-        "takeAwayTime": order.getTakeAwayTime ?? "",
-      }),
+      data: order.toMap(),
     );
 
-    for (int i = 0; i < order.getProducts!.length; i++) {
-      Product product = order.getProducts![i]['Product'] as Product;
-      int quantity = int.parse(order.getProducts![i]['Quantity'].toString());
-      final createOrderProductResponse = await dio.post(
-        "$baseUrl/orders/${orderId}/products.json",
-        data: json.encode({
-          "product": product.getName,
-          "quantity": quantity,
-        }),
-      );
+    // for (int i = 0; i < order.getProducts!.length; i++) {
+    //   Product product = order.getProducts![i]['Product'] as Product;
+    //   int quantity = int.parse(order.getProducts![i]['Quantity'].toString());
+    //   final createOrderProductResponse = await dio.post(
+    //     "$baseUrl/orders/${orderId}/products.json",
+    //     data: json.encode({
+    //       "product": product.getName,
+    //       "quantity": quantity,
+    //     }),
+    //   );
 
-      if (createOrderResponse.statusCode!.toInt() / 100 != 2) {
-        notify(
-          requestTitle: OrderServiceImp.REQ_TITLE_CREATE_ORDER,
-          responseStatus: RequestStatus.FAILED,
-          object: [],
-        );
-      }
-    }
+    //   if (createOrderResponse.statusCode!.toInt() / 100 != 2) {
+    //     notify(
+    //       requestTitle: OrderServiceImp.REQ_TITLE_CREATE_ORDER,
+    //       responseStatus: RequestStatus.FAILED,
+    //       object: [],
+    //     );
+    //   }
+    // }
 
     notify(
       requestTitle: OrderServiceImp.REQ_TITLE_CREATE_ORDER,

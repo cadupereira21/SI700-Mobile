@@ -1,4 +1,5 @@
 import 'package:app_seu_madeu_sucos/Model/Address.dart';
+import 'package:app_seu_madeu_sucos/Model/Product.dart';
 import 'package:app_seu_madeu_sucos/Model/User.dart';
 
 class Order {
@@ -64,6 +65,43 @@ class Order {
       _customDeliveryAddress = customDeliveryAddress;
   set setDeliveryTime(String? deliveryTime) => _deliveryTime = deliveryTime;
   set setTakeAwayTime(String? takeAwayTime) => _takeAwayTime = takeAwayTime;
+
+  _productsToMap() {
+    Map<String, Map<String, Object>> aux = {};
+    for (int i = 0; i < getProducts!.length; i++) {
+      //aux.putIfAbsent('Product $i', () => _products![i]);
+      Product product = _products![i]['Product']! as Product;
+      int quantity = int.parse(_products![i]['Quantity']!.toString());
+      aux['Product ${i+1}'] = {
+        'product': product.name!,
+        'quantity': quantity,
+      };
+    }
+    return aux;
+  }
+
+  Map<String, dynamic> toMap() {
+    print("## PRODUCTS TO MAP: ${_productsToMap()}");
+    return {
+      "requester": {
+        "user": {
+          "email": _requester!.getEmail,
+          "client": {
+            "name": _requester!.getClient!.getName,
+          },
+        },
+      },
+      "products": _productsToMap(),
+      "comments": _comments,
+      "paymentMethod": _paymentMethod,
+      "value": _value,
+      "isPlan": _isPlan,
+      "isDelivery": _isDelivery,
+      "customDeliveryAddress": _customDeliveryAddress ?? "",
+      "deliveryTime": _deliveryTime ?? "",
+      "takeAwayTime": _takeAwayTime ?? "",
+    };
+  }
 
   @override
   String toString() {
