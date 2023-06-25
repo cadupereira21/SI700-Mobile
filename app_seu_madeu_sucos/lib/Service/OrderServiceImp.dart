@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app_seu_madeu_sucos/Model/IdGenerator.dart';
 import 'package:app_seu_madeu_sucos/Model/Product.dart';
 import 'package:app_seu_madeu_sucos/Service/Service.dart';
 import 'package:flutter/material.dart';
