@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../Controller/Screen/Bloc/CartController/CartBloc.dart';
+import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../Controller/Screen/Bloc/CartController/CartState.dart';
 import '../Model/Order.dart';
 import '../Model/Product.dart';
@@ -21,6 +22,8 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  final OrderData _orderData = OrderData.instance;
+
   final _obsFormKey = GlobalKey<FormState>();
   final _addressFormKey = GlobalKey<FormState>();
   final _deliveryTimeFormKey = GlobalKey<FormState>();
@@ -152,7 +155,8 @@ class _OrderScreenState extends State<OrderScreen> {
               customElevatedButton(
                   buttonText: "Cancelar",
                   onPressed: () {
-                    //TODO: Esvaziar OrderData
+                    _orderData.clearData();
+                    BlocProvider.of<CartBloc>(context).add(ClearCart());
                     debugPrint("Order screen: Cancelei um pedido");
                     Navigator.pop(context);
                   }),
