@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterBloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Assets/CustomColor.dart';
+import 'Controller/Monitor/Order/OrderMonitorBloc.dart';
 import 'Controller/Monitor/Product/ProductMonitorBloc.dart';
 import 'Controller/Monitor/User/UserMonitorState.dart';
 import 'Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => ProductMonitorBloc(ProductMonitorState(productColletion: []))),
         BlocProvider(create: (BuildContext context) => ProductRequesterBloc(WaitingRequest())),
         BlocProvider(create: (BuildContext context) => OrderRequesterBloc(WaitingOrderRequestState())),
+        BlocProvider(create: (BuildContext context) => OrderMonitorBloc(OrderMonitorState())),
       ],
       child: BlocBuilder<UserMonitorBloc, UserMonitorState>(
         builder: (context, authState) {

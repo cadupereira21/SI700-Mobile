@@ -43,6 +43,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var orderRequesterBloc = BlocProvider.of<OrderRequesterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Finalizar Pedido"),
@@ -57,19 +58,19 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
-        child: scaffoldContent(),
+        child: scaffoldContent(orderRequesterBloc),
       ),
     );
   }
 
-  Widget scaffoldContent() {
+  Widget scaffoldContent(orderRequesterBloc) {
     return Column(
       children: [
         orderFields(),
         Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: bottomContentFields(),
+            child: bottomContentFields(orderRequesterBloc),
           ),
         ),
       ],
@@ -101,7 +102,7 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget bottomContentFields() {
+  Widget bottomContentFields(orderRequesterBloc) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -165,8 +166,7 @@ class _OrderScreenState extends State<OrderScreen> {
               customElevatedButton(
                 buttonText: "Enviar",
                 onPressed: () {
-                  BlocProvider.of<OrderRequesterBloc>(context)
-                    .add(CreateOrderRequest(order: _orderData.getOrder));
+                  orderRequesterBloc.add(CreateOrderRequest(order: _orderData.getOrder));
                   debugPrint("Order Screen: Enviei um pedido");
                   Navigator.pop(context);
                 },

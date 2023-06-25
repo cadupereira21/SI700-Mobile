@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:app_seu_madeu_sucos/Model/IdGenerator.dart';
 import 'package:app_seu_madeu_sucos/Model/Product.dart';
 import 'package:app_seu_madeu_sucos/Service/Service.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../Model/Order.dart';
 import 'RequestStatus.dart';
@@ -15,18 +17,10 @@ class OrderServiceImp extends Service {
   OrderServiceImp._internal();
 
   Future<void> createOrder(Order order) async {
-    // for (int i = 0; i < order.getProducts!.length; i++) {
-    //   Product product = order.getProducts![i]["Product"] as Product;
-    //   int quantity = int.parse(order.getProducts![i]["Quantity"].toString());
-
-    //   products.add(json.encode({
-    //     "product": product.getName,
-    //     "quantity": quantity,
-    //   }));
-    // }
+    final orderId = const Uuid().v1();
 
     final createOrderResponse = await dio.post(
-      "$baseUrl/orders.json",
+      "$baseUrl/orders/${orderId}.json",
       data: json.encode({
         "requester": {
           "user": {
@@ -72,7 +66,7 @@ class OrderServiceImp extends Service {
       responseStatus: createOrderResponse.statusCode!.toInt() / 100 == 2
           ? RequestStatus.SUCCESSFUL
           : RequestStatus.FAILED,
-      object: [createOrderResponse.data['name'].toString(), order],
+      object: [orderId, order],
     );
   }
 }
