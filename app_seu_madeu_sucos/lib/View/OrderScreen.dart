@@ -268,10 +268,10 @@ class _OrderScreenState extends State<OrderScreen> {
         filled: true,
         //fillColor: Colors.white,
         labelText: "Observações",
-        labelStyle: TextStyle(color: Colors.black54),
+        labelStyle: const TextStyle(color: Colors.black54),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         floatingLabelStyle: TextStyle(color: customGreenColor),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black54, width: 1.5)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
@@ -297,10 +297,10 @@ class _OrderScreenState extends State<OrderScreen> {
         labelText: _order.getIsDelivery!
             ? "Horário de entrega"
             : "Horário de retirada",
-        labelStyle: TextStyle(color: Colors.black54),
+        labelStyle: const TextStyle(color: Colors.black54),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         floatingLabelStyle: TextStyle(color: customGreenColor),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black54, width: 1.5)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
@@ -330,6 +330,7 @@ class _OrderScreenState extends State<OrderScreen> {
               if (value == null || value.isEmpty) {
                 return "Por favor insira seu endereço";
               }
+              return null;
             },
             onSaved: (value) {
               var auxValue = value!.split(" ");
@@ -356,6 +357,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     if (value == null || value.isEmpty) {
                       return "*";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _customAddress.streetNumber = int.parse(value!);
@@ -370,6 +372,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu bairro";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     var auxValue = value!.split(" ");
@@ -401,6 +404,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira sua cidade";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _customAddress.city =
@@ -420,6 +424,7 @@ class _OrderScreenState extends State<OrderScreen> {
               } else if (value.length < 9) {
                 return "CEP incompleto";
               }
+              return null;
             },
             onSaved: (value) {
               _customAddress.cep = value;
@@ -445,10 +450,10 @@ class _OrderScreenState extends State<OrderScreen> {
             filled: true,
             //fillColor: Colors.white,
             labelText: text,
-            labelStyle: TextStyle(color: Colors.black54),
+            labelStyle: const TextStyle(color: Colors.black54),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             floatingLabelStyle: TextStyle(color: customGreenColor),
-            enabledBorder: OutlineInputBorder(
+            enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black54, width: 1.5)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: customGreenColor, width: 1.5)),
@@ -474,10 +479,10 @@ class _OrderScreenState extends State<OrderScreen> {
         decoration: InputDecoration(
           filled: true,
           labelText: "UF",
-          labelStyle: TextStyle(color: Colors.black54),
+          labelStyle: const TextStyle(color: Colors.black54),
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black54, width: 1.5)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: customGreenColor, width: 1.5)),
