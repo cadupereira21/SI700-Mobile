@@ -13,6 +13,7 @@ class Order {
   bool? _isDelivery;
   Address? _customDeliveryAddress;
   String? _deliveryTime;
+  String? _takeAwayTime;
 
   Order({
     String? id,
@@ -25,6 +26,7 @@ class Order {
     bool? isDelivery,
     Address? customDeliveryAddress,
     String? deliveryTime,
+    String? takeAwayTime,
   }) {
     _id = id;
     _requester = requester;
@@ -36,6 +38,7 @@ class Order {
     _isDelivery = isDelivery;
     _customDeliveryAddress = customDeliveryAddress;
     _deliveryTime = deliveryTime;
+    _takeAwayTime = takeAwayTime;
   }
 
   String? get getId => _id;
@@ -48,6 +51,7 @@ class Order {
   bool? get getIsDelivery => _isDelivery;
   Address? get getCustomDeliveryAddress => _customDeliveryAddress;
   String? get getDeliveryTime => _deliveryTime;
+  String? get getTakeAwayTime => _takeAwayTime;
 
   set setId(String? id) => _id = id;
   set setRequester(Client? requester) => _requester = requester;
@@ -60,9 +64,10 @@ class Order {
   set setCustomDeliveryAddress(Address? customDeliveryAddress) =>
       _customDeliveryAddress = customDeliveryAddress;
   set setDeliveryTime(String? deliveryTime) => _deliveryTime = deliveryTime;
+  set setTakeAwayTime(String? takeAwayTime) => _takeAwayTime = takeAwayTime;
 
   @override
   String toString() {
-    return "Order: {id: $_id, requester: ${_requester.toString()}, products: ${_products.toString()}, comments: $_comments, paymentMethod: ${_paymentMethod.toString()}, value: $_value, isPlan: $_isPlan, isDelivery: $_isDelivery, customDeliveryAddress: ${_customDeliveryAddress.toString()}, deliveryTime: $_deliveryTime}";
+    return "Order: {id: $_id, requester: ${_requester.toString()}, products: ${_products.toString()}, comments: $_comments, paymentMethod: ${_paymentMethod.toString()}, value: $_value, isPlan: $_isPlan, isDelivery: $_isDelivery, customDeliveryAddress: ${_customDeliveryAddress.toString()}, deliveryTime: $_deliveryTime, takeAwayTime: $_takeAwayTime}";
   }
 }

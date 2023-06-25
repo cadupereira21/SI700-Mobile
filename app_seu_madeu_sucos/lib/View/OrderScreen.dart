@@ -1,5 +1,4 @@
 import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
-import 'package:app_seu_madeu_sucos/Data/UserData.dart';
 import 'package:app_seu_madeu_sucos/Model/Address.dart';
 import 'package:app_seu_madeu_sucos/Model/Districts.dart';
 import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
@@ -114,15 +113,12 @@ class _OrderScreenState extends State<OrderScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.06,
-                child: _order.getIsDelivery!
-                    ? Form(
-                        key: _deliveryTimeFormKey,
-                        child: deliveryTime(),
-                      )
-                    : null,
-              ),
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: Form(
+                    key: _deliveryTimeFormKey,
+                    child: deliveryOrTakeAwayTime(),
+                  )),
               Text(
                 "Total: R\$${_order.getValue!.toStringAsFixed(2)}",
                 style:
@@ -268,11 +264,11 @@ class _OrderScreenState extends State<OrderScreen> {
         filled: true,
         //fillColor: Colors.white,
         labelText: "Observações",
-        labelStyle: TextStyle(color: customGreenColor),
+        labelStyle: TextStyle(color: Colors.black54),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         floatingLabelStyle: TextStyle(color: customGreenColor),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+            borderSide: BorderSide(color: Colors.black54, width: 1.5)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedErrorBorder:
@@ -280,26 +276,28 @@ class _OrderScreenState extends State<OrderScreen> {
         errorBorder:
             const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
-      cursorColor: Colors.green,
+      cursorColor: Colors.orange,
       onSaved: (value) {
         _order.setComments = value;
       },
     );
   }
 
-  Widget deliveryTime() {
+  Widget deliveryOrTakeAwayTime() {
     return TextFormField(
       inputFormatters: [TextFormFieldFormat.TIME],
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         filled: true,
         //fillColor: Colors.white,
-        labelText: "Horário de entrega",
-        labelStyle: TextStyle(color: customGreenColor),
+        labelText: _order.getIsDelivery!
+            ? "Horário de entrega"
+            : "Horário de retirada",
+        labelStyle: TextStyle(color: Colors.black54),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         floatingLabelStyle: TextStyle(color: customGreenColor),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+            borderSide: BorderSide(color: Colors.black54, width: 1.5)),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedErrorBorder:
@@ -307,9 +305,11 @@ class _OrderScreenState extends State<OrderScreen> {
         errorBorder:
             const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
-      cursorColor: Colors.green,
+      cursorColor: Colors.orange,
       onSaved: (value) {
-        _order.setDeliveryTime = value;
+        _order.getIsDelivery!
+            ? _order.setDeliveryTime = value
+            : _order.setTakeAwayTime = value;
       },
     );
   }
@@ -441,11 +441,11 @@ class _OrderScreenState extends State<OrderScreen> {
             filled: true,
             //fillColor: Colors.white,
             labelText: text,
-            labelStyle: TextStyle(color: customGreenColor),
+            labelStyle: TextStyle(color: Colors.black54),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             floatingLabelStyle: TextStyle(color: customGreenColor),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+                borderSide: BorderSide(color: Colors.black54, width: 1.5)),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: customGreenColor, width: 1.5)),
             focusedErrorBorder: const OutlineInputBorder(
@@ -470,11 +470,11 @@ class _OrderScreenState extends State<OrderScreen> {
         decoration: InputDecoration(
           filled: true,
           labelText: "UF",
-          labelStyle: TextStyle(color: customGreenColor),
+          labelStyle: TextStyle(color: Colors.black54),
           fillColor: Colors.white,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+              borderSide: BorderSide(color: Colors.black54, width: 1.5)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         ),
