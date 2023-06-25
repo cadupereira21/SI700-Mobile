@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
 import 'package:app_seu_madeu_sucos/View/OrderScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,9 @@ import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../Controller/Screen/Bloc/CartController/CartState.dart';
 import '../../Model/Product.dart';
 import '../Data/CartData.dart';
+import '../Data/UserData.dart';
+import '../Model/Order.dart';
+import '../Model/PaymentMethod.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -17,7 +21,11 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   //var addedProducts = CartInfo.addedProducts;
-  bool isPlan = false;
+  bool _isPlan = false;
+
+  final UserData _userData = UserData.instance;
+  final OrderData _orderData = OrderData.instance;
+  final CartData _cartData = CartData.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +54,10 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       const Text("Pedido de plano"),
                       Switch(
-                          value: isPlan,
+                          value: _isPlan,
                           onChanged: (bool value) {
                             setState(() {
-                              isPlan = value;
+                              _isPlan = value;
                             });
                           }),
                     ],
@@ -72,8 +80,22 @@ class _CartScreenState extends State<CartScreen> {
                       child: ElevatedButton(
                           onPressed: () {
                             if (CartData.instance.addedProducts.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(noProductSnackbar());
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(noProductSnackbar());
                             } else {
+                              Order newOrder = Order(
+                                id: "",
+                                requester: _userData.user.getClient,
+                                products: _cartData.addedProducts,
+                                value: CartData.instance.getTotalValue,
+                                comments: "",
+                                paymentMethod: PaymentMethod.list[0],
+                                isPlan: _isPlan,
+                                isDelivery: false,
+                                customDeliveryAddress: null,
+                                deliveryTime: "",
+                              );
+                              _orderData.setOrder = newOrder;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
