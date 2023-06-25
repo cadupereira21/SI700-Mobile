@@ -25,11 +25,16 @@ class OrderMonitorBloc extends Bloc<OrderMonitorEvent, OrderMonitorState> {
       }
     });
 
-    on<UpdateOrdersEvent>(
+    on<ListenToSuccesfulCreateOrderRequest>(
       (event, emit) {
-        debugPrint("[Order Monitor] UpdateOrderEvent");
+        debugPrint("[Order Monitor] Pedido criado com sucesso!");
         OrderData.instance.clearData();
-        emit(OrderMonitorState(order: event.order));
+        emit(OrderRequestSuccesfulState(order: event.order));
+      },
+    );
+    on<ListenToFailedCreateOrderRequest>(
+      (event, emit) {
+        emit(OrderRequestFailedState(message: "[Order Monitor] Não foi possível criar o pedido!"));
       },
     );
   }
@@ -40,7 +45,9 @@ class OrderMonitorBloc extends Bloc<OrderMonitorEvent, OrderMonitorState> {
     Order order = event[2][1] as Order;
     order.setId = orderId;
     if (responseStatus == RequestStatus.SUCCESSFUL) {
-      add(UpdateOrdersEvent(order: order));
+      add(ListenToSuccesfulCreateOrderRequest(order: order));
+    } else {
+      add(ListenToFailedCreateOrderRequest());
     }
   }
 }

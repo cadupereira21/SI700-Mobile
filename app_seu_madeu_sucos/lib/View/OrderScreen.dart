@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../Controller/Monitor/Order/OrderMonitorBloc.dart';
 import '../Controller/Screen/Bloc/CartController/CartBloc.dart';
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../Controller/Screen/Bloc/CartController/CartState.dart';
@@ -43,7 +44,6 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var orderRequesterBloc = BlocProvider.of<OrderRequesterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Finalizar Pedido"),
@@ -58,19 +58,19 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
-        child: scaffoldContent(orderRequesterBloc),
+        child: scaffoldContent(),
       ),
     );
   }
 
-  Widget scaffoldContent(orderRequesterBloc) {
+  Widget scaffoldContent() {
     return Column(
       children: [
         orderFields(),
         Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: bottomContentFields(orderRequesterBloc),
+            child: bottomContentFields(),
           ),
         ),
       ],
@@ -102,7 +102,9 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget bottomContentFields(orderRequesterBloc) {
+  Widget bottomContentFields() {
+    var orderRequesterBloc = BlocProvider.of<OrderRequesterBloc>(context);
+    var orderMonitorBloc = BlocProvider.of<OrderMonitorBloc>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -167,7 +169,9 @@ class _OrderScreenState extends State<OrderScreen> {
                 buttonText: "Enviar",
                 onPressed: () {
                   orderRequesterBloc.add(CreateOrderRequest(order: _orderData.getOrder));
-                  debugPrint("Order Screen: Enviei um pedido");
+                  
+                  debugPrint("[Order Screen] Enviei um pedido");
+
                   Navigator.pop(context);
                 },
               )
