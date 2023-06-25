@@ -73,13 +73,15 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget orderFields() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.51,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.23,
+              height: _useRegisteredAddress || !_order.getIsDelivery!
+                ? MediaQuery.of(context).size.height * 0.51
+                : MediaQuery.of(context).size.height * 0.23,
               child: productListView(),
             ),
             Padding(
