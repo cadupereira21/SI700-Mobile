@@ -180,8 +180,6 @@ class _OrderScreenState extends State<OrderScreen> {
                       .add(CreateOrderRequest(order: _orderData.getOrder));
 
                   debugPrint("[Order Screen] Enviei um pedido");
-
-                  //Navigator.pop(context);
                 },
               )
             ],
