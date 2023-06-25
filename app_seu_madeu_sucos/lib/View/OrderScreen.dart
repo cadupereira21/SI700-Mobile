@@ -24,6 +24,7 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   final _obsFormKey = GlobalKey<FormState>();
   final _addressFormKey = GlobalKey<FormState>();
+  final _deliveryTimeFormKey = GlobalKey<FormState>();
 
   bool _useRegisteredAddress = false;
 
@@ -91,7 +92,7 @@ class _OrderScreenState extends State<OrderScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: !_order.getIsDelivery! || _useRegisteredAddress
-                  ? Container()
+                  ? null
                   : addressForm(),
             ),
           ],
@@ -107,8 +108,16 @@ class _OrderScreenState extends State<OrderScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width*0.3, 
+                height: MediaQuery.of(context).size.height * 0.06,
+                child: _order.getIsDelivery! ? Form(
+                  key: _deliveryTimeFormKey, 
+                  child: deliveryTime(),
+                ) : null,
+              ),
               Text(
                 "Total: R\$${_order.getValue!.toStringAsFixed(2)}",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -268,6 +277,33 @@ class _OrderScreenState extends State<OrderScreen> {
       cursorColor: Colors.green,
       onSaved: (value) {
         _order.setComments = value;
+      },
+    );
+  }
+
+  Widget deliveryTime() {
+    return TextFormField(
+      inputFormatters: [TextFormFieldFormat.TIME],
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        filled: true,
+        //fillColor: Colors.white,
+        labelText: "Horário de entrega",
+        labelStyle: TextStyle(color: customGreenColor),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelStyle: TextStyle(color: customGreenColor),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: customGreenColor, width: 1.5)),
+        focusedErrorBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        errorBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+      ),
+      cursorColor: Colors.green,
+      onSaved: (value) {
+        _order.setDeliveryTime = value;
       },
     );
   }
@@ -456,6 +492,10 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget productListView() {
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+      if (state.addedProducts.length < 1) {
+        //TODO: Add Snackbar
+        Navigator.pop(context);
+      }
       return ListView.builder(
           itemCount: state.addedProducts.length,
           itemBuilder: (BuildContext context, int index) =>
@@ -477,15 +517,12 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         ),
         title: Text(
-          "${product.name}", 
-          style: const TextStyle(
-            fontSize: 16, 
-            fontWeight: FontWeight.w600
-          ),
+          "${product.name}",
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
-        subtitle: Text("R\$${product.getValue!.toStringAsFixed(2)}"),
+        //subtitle: Text("R\$${product.getValue!.toStringAsFixed(2)}"),
         trailing: Text(
-          "R\$${product.value!.toStringAsFixed(2)}", 
+          "R\$${product.value!.toStringAsFixed(2)}",
           style: TextStyle(color: customGreenColor),
         ),
         //contentPadding: const EdgeInsets.all(10),

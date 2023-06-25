@@ -18,6 +18,7 @@ class OrderData {
     isPlan: false,
     isDelivery: false,
     customDeliveryAddress: null,
+    deliveryTime: "",
   );
 
   set setOrder(Order order) => _order = order;
@@ -31,5 +32,6 @@ class OrderData {
     isPlan: _order.getIsPlan,
     isDelivery: _order.getIsDelivery,
     customDeliveryAddress: _order.getCustomDeliveryAddress,
+    deliveryTime: _order.getDeliveryTime,
   );
 }

@@ -12,6 +12,7 @@ class Order {
   bool? _isPlan;
   bool? _isDelivery;
   Address? _customDeliveryAddress;
+  String? _deliveryTime;
 
   Order({
     String? id,
@@ -23,6 +24,7 @@ class Order {
     bool? isPlan,
     bool? isDelivery,
     Address? customDeliveryAddress,
+    String? deliveryTime,
   }) {
     _id = id;
     _requester = requester;
@@ -33,6 +35,7 @@ class Order {
     _isPlan = isPlan;
     _isDelivery = isDelivery;
     _customDeliveryAddress = customDeliveryAddress;
+    _deliveryTime = deliveryTime;
   }
 
   String? get getId => _id;
@@ -44,21 +47,22 @@ class Order {
   bool? get getIsPlan => _isPlan;
   bool? get getIsDelivery => _isDelivery;
   Address? get getCustomDeliveryAddress => _customDeliveryAddress;
+  String? get getDeliveryTime => _deliveryTime;
 
   set setId(String? id) => _id = id;
   set setRequester(Client? requester) => _requester = requester;
   set setProducts(List<Map<String, Object>>? products) => _products = products;
   set setComments(String? comments) => _comments = comments;
-  set setPaymentMethod(String? paymentMethod) =>
-      _paymentMethod = paymentMethod;
+  set setPaymentMethod(String? paymentMethod) => _paymentMethod = paymentMethod;
   set setValue(double? value) => _value = value;
   set setIsPlan(bool? isPlan) => _isPlan = isPlan;
   set setIsDelivery(bool? isDelivery) => _isDelivery = isDelivery;
   set setCustomDeliveryAddress(Address? customDeliveryAddress) =>
       _customDeliveryAddress = customDeliveryAddress;
+  set setDeliveryTime(String? deliveryTime) => _deliveryTime = deliveryTime;
 
   @override
   String toString() {
-    return "Order: {id: $_id, requester: ${_requester.toString()}, products: ${_products.toString()}, comments: $_comments, paymentMethod: ${_paymentMethod.toString()}, value: $_value, isPlan: $_isPlan, isDelivery: $_isDelivery, customDeliveryAddress: ${_customDeliveryAddress.toString()}}";
+    return "Order: {id: $_id, requester: ${_requester.toString()}, products: ${_products.toString()}, comments: $_comments, paymentMethod: ${_paymentMethod.toString()}, value: $_value, isPlan: $_isPlan, isDelivery: $_isDelivery, customDeliveryAddress: ${_customDeliveryAddress.toString()}, deliveryTime: $_deliveryTime}";
   }
 }
