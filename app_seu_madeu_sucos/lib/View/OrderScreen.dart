@@ -498,10 +498,6 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget productListView() {
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-      if (state.addedProducts.length < 1) {
-        //TODO: Add Snackbar
-        Navigator.pop(context);
-      }
       return ListView.builder(
           itemCount: state.addedProducts.length,
           itemBuilder: (BuildContext context, int index) =>
@@ -534,9 +530,9 @@ class _OrderScreenState extends State<OrderScreen> {
             Text(
               productNameStrings[1],
               style: const TextStyle(
-                fontSize: 14, 
-                //fontWeight: FontWeight.w600,
-                color: Color.fromRGBO(0, 0, 0, .7)),  
+                  fontSize: 14,
+                  //fontWeight: FontWeight.w600,
+                  color: Color.fromRGBO(0, 0, 0, .7)),
             ),
           ],
         ),

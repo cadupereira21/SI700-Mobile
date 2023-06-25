@@ -71,11 +71,15 @@ class _CartScreenState extends State<CartScreen> {
                       padding: EdgeInsets.only(left: 20),
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const OrderScreen()),
-                            );
+                            if (CartData.instance.addedProducts.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(noProductSnackbar());
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OrderScreen()),
+                              );
+                            }
                           },
                           child: const Text("Continuar")),
                     ),
@@ -112,13 +116,32 @@ class _CartScreenState extends State<CartScreen> {
 
   removeProduct(Product product) {
     return IconButton(
+      onPressed: () {
+        setState(() => CartData.instance.removeFromCart(product));
+      },
+      icon: const Icon(
+        Icons.delete,
+        color: Colors.red,
+        size: 22,
+      ),
+    );
+  }
+
+  SnackBar noProductSnackbar() {
+    return SnackBar(
+      duration: const Duration(seconds: 4),
+      content: const Text(
+          "Você precisa adicionar pelo menos um produto ao carrinho para poder continuar!"),
+      action: SnackBarAction(
+        label: "Ok",
         onPressed: () {
-          setState(() => CartData.instance.removeFromCart(product));
+          try {
+            ScaffoldMessenger.of(context).clearSnackBars();
+          } catch (e) {
+            debugPrint("Order screen: ${e.toString()}");
+          }
         },
-        icon: const Icon(
-          Icons.delete,
-          color: Colors.red,
-          size: 22,
-        ));
+      ),
+    );
   }
 }
