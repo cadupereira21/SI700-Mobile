@@ -34,7 +34,7 @@ class _OrderScreenState extends State<OrderScreen> {
     horizontal: 17.0,
   );
   var _districtAddressFormDropdownValue = Districts.list[0];
-  var customGreenColor = Color.fromRGBO(67, 160, 71, 1);
+  var customGreenColor = const Color.fromRGBO(67, 160, 71, 1);
   final Address _customAddress = Address();
 
   @override
@@ -63,25 +63,26 @@ class _OrderScreenState extends State<OrderScreen> {
       children: [
         orderFields(),
         Expanded(
-            child: Align(
-          alignment: Alignment.bottomCenter,
-          child: bottomContentFields(),
-        )),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: bottomContentFields(),
+          ),
+        ),
       ],
     );
   }
 
   Widget orderFields() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.51,
+      height: MediaQuery.of(context).size.height * 0.48,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
               height: _useRegisteredAddress || !_order.getIsDelivery!
-                ? MediaQuery.of(context).size.height * 0.51
-                : MediaQuery.of(context).size.height * 0.23,
+                  ? MediaQuery.of(context).size.height * 0.48
+                  : MediaQuery.of(context).size.height * 0.23,
               child: productListView(),
             ),
             Padding(
@@ -113,16 +114,19 @@ class _OrderScreenState extends State<OrderScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width*0.3, 
+                width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.06,
-                child: _order.getIsDelivery! ? Form(
-                  key: _deliveryTimeFormKey, 
-                  child: deliveryTime(),
-                ) : null,
+                child: _order.getIsDelivery!
+                    ? Form(
+                        key: _deliveryTimeFormKey,
+                        child: deliveryTime(),
+                      )
+                    : null,
               ),
               Text(
                 "Total: R\$${_order.getValue!.toStringAsFixed(2)}",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -272,9 +276,9 @@ class _OrderScreenState extends State<OrderScreen> {
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedErrorBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         errorBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
       cursorColor: Colors.green,
       onSaved: (value) {
@@ -299,9 +303,9 @@ class _OrderScreenState extends State<OrderScreen> {
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: customGreenColor, width: 1.5)),
         focusedErrorBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
         errorBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+            const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
       cursorColor: Colors.green,
       onSaved: (value) {
@@ -507,6 +511,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   productTile(Map<String, Object> element) {
     Product product = element['Product'] as Product;
+    var productNameStrings = product.name!.split("-");
     int quantity = element['Quantity'] as int;
     return Card(
       //margin: const EdgeInsets.all(7),
@@ -518,11 +523,24 @@ class _OrderScreenState extends State<OrderScreen> {
             fontSize: 18,
           ),
         ),
-        title: Text(
-          "${product.name}",
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              productNameStrings[0],
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              productNameStrings[1],
+              style: const TextStyle(
+                fontSize: 14, 
+                //fontWeight: FontWeight.w600,
+                color: Color.fromRGBO(0, 0, 0, .7)),  
+            ),
+          ],
         ),
-        //subtitle: Text("R\$${product.getValue!.toStringAsFixed(2)}"),
+        //subtitle: Text(productNameStrings[1]),
         trailing: Text(
           "R\$${product.value!.toStringAsFixed(2)}",
           style: TextStyle(color: customGreenColor),
