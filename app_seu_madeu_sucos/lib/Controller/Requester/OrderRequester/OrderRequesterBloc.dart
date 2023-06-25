@@ -1,32 +1,33 @@
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterState.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../Service/OrderServiceImp.dart';
 
 class OrderRequesterBloc
     extends Bloc<OrderRequesterEvent, OrderRequesterState> {
-
-  //var service = OrderServiceImp.instance;
+  var service = OrderServiceImp.instance;
 
   OrderRequesterBloc(super.initialState) {
+    on<CompleteOrderRequest>(
+      (event, emit) {
+        emit(WaitingOrderRequestState());
+      },
+    );
     on<CreateOrderRequest>(
       (event, emit) {
         _createOrderRequest(event, emit);
       },
     );
   }
-  
-  void _createOrderRequest(OrderRequesterEvent event, Emitter emit) {
+
+  Future<void> _createOrderRequest(
+      CreateOrderRequest event, Emitter emit) async {
     emit(ProcessingOrderRequestState());
 
-    //Send request to service
+    await service.createOrder(event.order);
 
-    // try {
-    //   await service.createOrder();
-    //   emit(SuccessfulOrderRequestState(message: "Produtos encontrados com sucesso!"));
-    //   print((state as SuccessfulOrderRequestState).message);
-    // } catch (e) {
-    //   emit(FailedOrderRequestState(message: e.toString()));
-    //   print(e.toString());
-    // }
+    add(CompleteOrderRequest());
   }
 }

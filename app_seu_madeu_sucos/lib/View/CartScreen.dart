@@ -85,7 +85,7 @@ class _CartScreenState extends State<CartScreen> {
                             } else {
                               Order newOrder = Order(
                                 id: "",
-                                requester: _userData.user.getClient,
+                                requester: _userData.user,
                                 products: _cartData.addedProducts,
                                 value: CartData.instance.getTotalValue,
                                 comments: "",

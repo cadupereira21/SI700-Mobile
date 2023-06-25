@@ -1,3 +1,5 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
 import 'package:app_seu_madeu_sucos/Model/Address.dart';
 import 'package:app_seu_madeu_sucos/Model/Districts.dart';
@@ -163,7 +165,8 @@ class _OrderScreenState extends State<OrderScreen> {
               customElevatedButton(
                 buttonText: "Enviar",
                 onPressed: () {
-                  // Enviar requisição de criação de pedido
+                  BlocProvider.of<OrderRequesterBloc>(context)
+                    .add(CreateOrderRequest(order: _orderData.getOrder));
                   debugPrint("Order Screen: Enviei um pedido");
                   Navigator.pop(context);
                 },

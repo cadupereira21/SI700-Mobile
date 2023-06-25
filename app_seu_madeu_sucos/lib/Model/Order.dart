@@ -1,10 +1,9 @@
 import 'package:app_seu_madeu_sucos/Model/Address.dart';
-import 'package:app_seu_madeu_sucos/Model/Client.dart';
-import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
+import 'package:app_seu_madeu_sucos/Model/User.dart';
 
 class Order {
   String? _id;
-  Client? _requester;
+  User? _requester;
   List<Map<String, Object>>? _products;
   String? _comments;
   String? _paymentMethod;
@@ -17,7 +16,7 @@ class Order {
 
   Order({
     String? id,
-    Client? requester,
+    User? requester,
     List<Map<String, Object>>? products,
     String? comments,
     String? paymentMethod,
@@ -42,7 +41,7 @@ class Order {
   }
 
   String? get getId => _id;
-  Client? get getRequester => _requester;
+  User? get getRequester => _requester;
   List<Map<String, Object>>? get getProducts => _products;
   String? get getComments => _comments;
   String? get getPaymentMethod => _paymentMethod;
@@ -54,7 +53,7 @@ class Order {
   String? get getTakeAwayTime => _takeAwayTime;
 
   set setId(String? id) => _id = id;
-  set setRequester(Client? requester) => _requester = requester;
+  set setRequester(User? requester) => _requester = requester;
   set setProducts(List<Map<String, Object>>? products) => _products = products;
   set setComments(String? comments) => _comments = comments;
   set setPaymentMethod(String? paymentMethod) => _paymentMethod = paymentMethod;
