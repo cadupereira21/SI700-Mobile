@@ -44,7 +44,7 @@ class OrderServiceImp extends Service {
       Product product = order.getProducts![i]['Product'] as Product;
       int quantity = int.parse(order.getProducts![i]['Quantity'].toString());
       final createOrderProductResponse = await dio.post(
-        "$baseUrl/orders/${createOrderResponse.data['name'].toString()}/products.json",
+        "$baseUrl/orders/${orderId}/products.json",
         data: json.encode({
           "product": product.getName,
           "quantity": quantity,
