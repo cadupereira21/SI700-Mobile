@@ -14,6 +14,7 @@ import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../Controller/Screen/Bloc/CartController/CartState.dart';
 import '../Model/Order.dart';
 import '../Model/Product.dart';
+import 'CreateOrderMonitorScreen.dart';
 import 'Signup/SignupFormFieldName.dart';
 import 'TextFormFieldFormat.dart';
 
@@ -168,11 +169,19 @@ class _OrderScreenState extends State<OrderScreen> {
               customElevatedButton(
                 buttonText: "Enviar",
                 onPressed: () {
-                  orderRequesterBloc.add(CreateOrderRequest(order: _orderData.getOrder));
-                  
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateOrderMonitorScreen()),
+                  );
+
+                  orderRequesterBloc
+                      .add(CreateOrderRequest(order: _orderData.getOrder));
+
                   debugPrint("[Order Screen] Enviei um pedido");
 
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
                 },
               )
             ],
