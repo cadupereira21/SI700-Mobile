@@ -73,21 +73,14 @@ class _OrderScreenState extends State<OrderScreen> {
 
   Widget orderFields() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.62,
+      height: MediaQuery.of(context).size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
+              height: MediaQuery.of(context).size.height * 0.23,
               child: productListView(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Form(
-                key: _obsFormKey,
-                child: obsForm(),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
@@ -105,6 +98,13 @@ class _OrderScreenState extends State<OrderScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Form(
+            key: _obsFormKey,
+            child: obsForm(),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
           child: Row(
@@ -257,7 +257,7 @@ class _OrderScreenState extends State<OrderScreen> {
       expands: false,
       keyboardType: TextInputType.multiline,
       minLines: 1,
-      maxLines: 3,
+      maxLines: 2,
       decoration: InputDecoration(
         filled: true,
         //fillColor: Colors.white,
