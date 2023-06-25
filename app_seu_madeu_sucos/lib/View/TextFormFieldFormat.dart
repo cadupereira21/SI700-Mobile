@@ -10,12 +10,17 @@ abstract class TextFormFieldFormat {
   static final MaskTextInputFormatter ZIPCODE = MaskTextInputFormatter(
     mask: "#####-###",
   );
+  static final MaskTextInputFormatter TIME = MaskTextInputFormatter(
+    mask: "##:##",
+  );
 
   static bool checkIfStringHasNumber(value) {
     return value.toString().contains(RegExp(r'(\d+)'));
   }
 
   static bool checkIfStringHasSpecialCharacters(value) {
-    return value.toString().contains(RegExp(r'[@#$%^&+=!\*\(\)\[\]\,.\\\/|;:]\-_'));
+    return value
+        .toString()
+        .contains(RegExp(r'[@#$%^&+=!\*\(\)\[\]\,.\\\/|;:]\-_'));
   }
 }

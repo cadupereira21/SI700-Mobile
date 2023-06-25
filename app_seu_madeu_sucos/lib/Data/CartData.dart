@@ -1,9 +1,14 @@
 import '../Model/Product.dart';
 
 class CartData {
-  
   static CartData instance = CartData._createInstance();
 
+  // _addedProducts: [
+  //   {
+  //      "Product" : Product,
+  //      "Quantity" : int,
+  //   }
+  // ]
   List<Map<String, Object>> _addedProducts = [];
 
   List<Map<String, Object>> get addedProducts => List.from(_addedProducts);
@@ -51,4 +56,12 @@ class CartData {
     _addedProducts.clear();
   }
 
+  double get getTotalValue {
+    double totalValue = 0.0;
+    for (int i = 0; i < _addedProducts.length; i++) {
+      Product product = (_addedProducts[i]['Product'] as Product);
+      totalValue += product.getValue!.toDouble();
+    }
+    return totalValue;
+  }
 }
