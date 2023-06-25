@@ -97,7 +97,14 @@ class Order {
       "value": _value,
       "isPlan": _isPlan,
       "isDelivery": _isDelivery,
-      "customDeliveryAddress": _customDeliveryAddress ?? "",
+      "customDeliveryAddress": {
+        "street": _customDeliveryAddress?.getStreet,
+        "streetNumber": _customDeliveryAddress?.getStreetNumber, 
+        "neighbour": _customDeliveryAddress?.getNeighbour,
+        "city": _customDeliveryAddress?.getCity,
+        "district": _customDeliveryAddress?.getDistrict,
+        "cep": _customDeliveryAddress?.getCep,
+      },
       "deliveryTime": _deliveryTime ?? "",
       "takeAwayTime": _takeAwayTime ?? "",
     };

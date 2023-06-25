@@ -30,7 +30,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   final _obsFormKey = GlobalKey<FormState>();
   final _addressFormKey = GlobalKey<FormState>();
-  final _deliveryTimeFormKey = GlobalKey<FormState>();
+  final _deliveryOrTakeAwayTimeFormKey = GlobalKey<FormState>();
 
   bool _useRegisteredAddress = false;
 
@@ -125,7 +125,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: Form(
-                    key: _deliveryTimeFormKey,
+                    key: _deliveryOrTakeAwayTimeFormKey,
                     child: deliveryOrTakeAwayTime(),
                   )),
               Text(
@@ -169,6 +169,15 @@ class _OrderScreenState extends State<OrderScreen> {
               customElevatedButton(
                 buttonText: "Enviar",
                 onPressed: () {
+                  if (_addressFormKey.currentState != null) {
+                    _addressFormKey.currentState!.validate() ? 
+                    _addressFormKey.currentState!.save() : null;
+                  }
+                  _obsFormKey.currentState!.save();
+                  _deliveryOrTakeAwayTimeFormKey.currentState!.save();
+
+                  _order.setCustomDeliveryAddress = _customAddress;
+
                   Navigator.pop(context);
                   Navigator.push(
                     context,
@@ -176,8 +185,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         builder: (context) => const CreateOrderMonitorScreen()),
                   );
 
-                  orderRequesterBloc
-                      .add(CreateOrderRequest(order: _orderData.getOrder));
+                  orderRequesterBloc.add(CreateOrderRequest(order: _order));
 
                   debugPrint("[Order Screen] Enviei um pedido");
                 },
