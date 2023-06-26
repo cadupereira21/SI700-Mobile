@@ -1,7 +1,7 @@
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Data/CartData.dart';
-import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
+import 'package:app_seu_madeu_sucos/Data/NewOrderData.dart';
 import 'package:app_seu_madeu_sucos/Service/OrderServiceImp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +28,7 @@ class OrderMonitorBloc extends Bloc<OrderMonitorEvent, OrderMonitorState> {
     on<ListenToSuccesfulCreateOrderRequest>(
       (event, emit) {
         debugPrint("[Order Monitor] Pedido criado com sucesso!");
-        OrderData.instance.clearData();
+        NewOrderData.instance.clearData();
         emit(OrderRequestSuccesfulState(order: event.order));
       },
     );

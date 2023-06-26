@@ -1,4 +1,4 @@
-import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
+import 'package:app_seu_madeu_sucos/Data/NewOrderData.dart';
 import 'package:app_seu_madeu_sucos/View/OrderScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
   bool _isPlan = false;
 
   final UserData _userData = UserData.instance;
-  final OrderData _orderData = OrderData.instance;
+  final NewOrderData _orderData = NewOrderData.instance;
   final CartData _cartData = CartData.instance;
 
   @override
