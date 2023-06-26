@@ -1,7 +1,7 @@
 import '../Model/Order.dart';
 
 class OrderCollectionData {
-  final List<Order> _allOrders = List.empty();
+  final List<Order> _allOrders = [];
 
   static final OrderCollectionData instance = OrderCollectionData._internal();
   OrderCollectionData._internal();
