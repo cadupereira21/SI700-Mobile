@@ -38,12 +38,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget _historyScreenContent() {
     return BlocBuilder<OrderMonitorBloc, OrderMonitorState>(builder: (context, state) {
-      return state.orderCollection!.length < 1 
+      return state.orderCollection.length < 1 
         ? const Center(child: Text("Você não fez nenhum pedido ainda :("))
         : ListView.builder(
-            itemCount: state.orderCollection!.length,
+            itemCount: state.orderCollection.length,
             itemBuilder: (BuildContext context, int index) =>
-                productTile(state.orderCollection![index]),
+                productTile(state.orderCollection[index]),
           );
     });
   }
