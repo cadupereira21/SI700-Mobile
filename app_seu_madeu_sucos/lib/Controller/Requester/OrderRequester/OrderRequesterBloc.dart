@@ -40,9 +40,11 @@ class OrderRequesterBloc
   void _getAllOrdersRequest(
       GetAllOrdersRequest event, Emitter<OrderRequesterState> emit) async {
     emit(ProcessingOrderRequestState());
+    debugPrint("[Order Requester] Enviando GetAllOrdersRequest");
 
-    await service.getOrdersByUser(UserData.instance.user);
+    await service.getOrdersByUserEmail(UserData.instance.user);
 
     add(CompleteOrderRequest());
+    debugPrint("[Order Requester] GetAllOrdersRequest completada");
   }
 }
