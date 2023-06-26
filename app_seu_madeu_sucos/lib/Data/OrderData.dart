@@ -10,7 +10,7 @@ class OrderData {
 
   Order _order = Order(
     id: "",
-    requester: UserData.instance.user.client,
+    requester: UserData.instance.user,
     products: List.empty(),
     comments: "",
     paymentMethod: PaymentMethod.list[0],
@@ -38,7 +38,7 @@ class OrderData {
   void clearData() {
     Order auxOrder = Order(
       id: "",
-      requester: UserData.instance.user.client,
+      requester: UserData.instance.user,
       products: List.empty(),
       comments: "",
       paymentMethod: PaymentMethod.list[0],
