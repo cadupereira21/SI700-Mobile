@@ -11,6 +11,6 @@ class CreateOrderRequest extends OrderRequesterEvent {
   CreateOrderRequest({required this.order});
 }
 
-class GetOrderRequest extends OrderRequesterEvent {
-  GetOrderRequest();
+class GetAllOrdersRequest extends OrderRequesterEvent {
+  GetAllOrdersRequest();
 }

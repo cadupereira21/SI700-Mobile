@@ -3,6 +3,7 @@ import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderReq
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Data/UserData.dart';
 import '../../../Service/OrderServiceImp.dart';
 
 class OrderRequesterBloc
@@ -20,6 +21,11 @@ class OrderRequesterBloc
         _createOrderRequest(event, emit);
       },
     );
+    on<GetAllOrdersRequest>(
+      (event, emit) {
+        _getAllOrdersRequest(event, emit);
+      },
+    );
   }
 
   Future<void> _createOrderRequest(
@@ -27,6 +33,15 @@ class OrderRequesterBloc
     emit(ProcessingOrderRequestState());
 
     await service.createOrder(event.order);
+
+    add(CompleteOrderRequest());
+  }
+
+  void _getAllOrdersRequest(
+      GetAllOrdersRequest event, Emitter<OrderRequesterState> emit) async {
+    emit(ProcessingOrderRequestState());
+
+    await service.getOrdersByUser(UserData.instance.user);
 
     add(CompleteOrderRequest());
   }
