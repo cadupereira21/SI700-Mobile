@@ -8,6 +8,16 @@ class ListenToSuccesfulCreateOrderRequest extends OrderMonitorEvent {
 }
 
 class ListenToFailedCreateOrderRequest extends OrderMonitorEvent {
-  String message = "[Order Monitor] Falha na criação do pedido!";
+  String message = "Falha na criação do pedido!";
   ListenToFailedCreateOrderRequest();
+}
+
+class ListenToSuccesfulGetAllOrdersRequest extends OrderMonitorEvent {
+  List<Order> orderCollection;
+  ListenToSuccesfulGetAllOrdersRequest({required this.orderCollection});
+}
+
+class ListenToFailedGetAllOrdersRequest extends OrderMonitorEvent {
+  String message = "Falha na busca por pedidos";
+  ListenToFailedGetAllOrdersRequest();
 }
