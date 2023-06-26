@@ -1,9 +1,9 @@
 import '../../../Model/Order.dart';
 
 class OrderMonitorState {
-  String? message;
-  Order? order;
-  List<Order>? orderCollection;
+  String? message = "";
+  Order? order = Order();
+  List<Order>? orderCollection = [];
   OrderMonitorState({this.order, this.message, this.orderCollection});
 }
 
