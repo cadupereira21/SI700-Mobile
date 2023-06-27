@@ -67,7 +67,7 @@ class OrderMonitorBloc extends Bloc<OrderMonitorEvent, OrderMonitorState> {
     RequestStatus responseStatus = event[1];
     String orderId = event[2][0];
     Order order = event[2][1] as Order;
-    order.setId = orderId;
+    order.setId = orderId.split("-")[0].toUpperCase();
     if (responseStatus == RequestStatus.SUCCESSFUL) {
       add(ListenToSuccesfulCreateOrderRequest(order: order));
     } else {

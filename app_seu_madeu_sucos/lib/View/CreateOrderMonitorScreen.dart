@@ -63,7 +63,7 @@ class _CreateOrderMonitorScreenState extends State<CreateOrderMonitorScreen> {
         Center(
           child: Text(
             orderMonitorBloc.state is OrderRequestSuccesfulState
-                ? "Número do pedido: ${orderMonitorBloc.state.orderCollection.last.getId!.split("-")[0].toUpperCase()}"
+                ? "Número do pedido: ${orderMonitorBloc.state.orderCollection.last.getId!}"
                 : "Descrição: ${orderMonitorBloc.state.message}",
             style: const TextStyle(
                 fontSize: 14, color: Color.fromRGBO(0, 0, 0, 0.7)),
