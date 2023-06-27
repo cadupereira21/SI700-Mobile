@@ -65,17 +65,17 @@ class _ProductScreenState extends State<ProductScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
               child: Text(
-                product.name!,
+                product.name!.split("-")[0],
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
               child: Text(
-                "1L",
+                product.name!.split("-")[1].replaceAll(" ", ""),
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
