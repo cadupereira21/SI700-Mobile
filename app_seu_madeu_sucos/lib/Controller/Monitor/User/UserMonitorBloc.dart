@@ -1,8 +1,10 @@
+import 'package:app_seu_madeu_sucos/Data/OrderCollectionData.dart';
 import 'package:app_seu_madeu_sucos/Data/UserData.dart';
 import 'package:app_seu_madeu_sucos/Model/User.dart';
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../Data/NewOrderData.dart';
 import '../../../Service/RequestStatus.dart';
 import 'UserMonitorEvent.dart';
 import 'UserMonitorState.dart';
@@ -22,6 +24,8 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     on<LogOutButtonClick>(
       (event, emit) {
         UserData.instance.clearData();
+        NewOrderData.instance.clearData();
+        OrderCollectionData.instance.clearOrders();
         emit(LogInState());
       },
     );

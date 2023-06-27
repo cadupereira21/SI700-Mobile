@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../Model/Product.dart';
 
 class CartData {
@@ -23,9 +25,8 @@ class CartData {
       _addedProducts[auxIndex]
           .update('Quantity', (value) => int.parse(value.toString()) + 1);
     }
-    // ignore: avoid_print
-    print(
-        "Added ${product.toString()} to cart\nQuantidade de produtos adicionados: ${_addedProducts.length.toString()}\n${_addedProducts.toString()}");
+    debugPrint(
+        "[Cart Data] Added ${product.name.toString()} to cart");
   }
 
   void removeFromCart(Product product) {
@@ -41,8 +42,8 @@ class CartData {
         }
       }
     }
-    // ignore: avoid_print
-    print("Removed ${product}from cart\n$_addedProducts");
+    
+    debugPrint("[Cart Data] Removed ${product}from cart");
   }
 
   int? _productExists(Product product) {

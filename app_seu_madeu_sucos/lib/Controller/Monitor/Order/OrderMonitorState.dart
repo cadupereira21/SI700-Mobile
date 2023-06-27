@@ -1,15 +1,19 @@
 import '../../../Model/Order.dart';
 
 class OrderMonitorState {
-  String? message;
-  Order? order;
-  OrderMonitorState({this.order, this.message});
+  String message = "";
+  List<Order> orderCollection = [];
+  OrderMonitorState({message, orderCollection}) {
+    this.message = message ?? "";
+    this.orderCollection = orderCollection ?? [];
+  }
 }
 
 class OrderRequestSuccesfulState extends OrderMonitorState {
-  OrderRequestSuccesfulState({super.order, super.message});
+  OrderRequestSuccesfulState(
+      {super.message, super.orderCollection});
 }
 
 class OrderRequestFailedState extends OrderMonitorState {
-  OrderRequestFailedState({super.order, super.message});
+  OrderRequestFailedState({super.message, super.orderCollection});
 }

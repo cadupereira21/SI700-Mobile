@@ -4,9 +4,9 @@ import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
 import '../Model/Order.dart';
 import 'UserData.dart';
 
-class OrderData {
-  static OrderData instance = OrderData._createInstance();
-  OrderData._createInstance();
+class NewOrderData {
+  static NewOrderData instance = NewOrderData._createInstance();
+  NewOrderData._createInstance();
 
   Order _order = Order(
     id: "",

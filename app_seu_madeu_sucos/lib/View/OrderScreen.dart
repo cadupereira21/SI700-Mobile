@@ -1,6 +1,6 @@
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterEvent.dart';
-import 'package:app_seu_madeu_sucos/Data/OrderData.dart';
+import 'package:app_seu_madeu_sucos/Data/NewOrderData.dart';
 import 'package:app_seu_madeu_sucos/Model/Address.dart';
 import 'package:app_seu_madeu_sucos/Model/Districts.dart';
 import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
@@ -26,7 +26,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  final OrderData _orderData = OrderData.instance;
+  final NewOrderData _orderData = NewOrderData.instance;
 
   final _obsFormKey = GlobalKey<FormState>();
   final _addressFormKey = GlobalKey<FormState>();
@@ -34,7 +34,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   bool _useRegisteredAddress = false;
 
-  final Order _order = OrderData.instance.getOrder;
+  final Order _order = NewOrderData.instance.getOrder;
   final EdgeInsets _buttonSizePadding = const EdgeInsets.symmetric(
     vertical: 12.0,
     horizontal: 17.0,
