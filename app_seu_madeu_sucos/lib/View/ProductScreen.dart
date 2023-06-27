@@ -19,10 +19,12 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+
   List<Product> allProducts = ProductData.instance.allProducts;
 
   @override
   Widget build(BuildContext context) {
+    var _screenWidth = MediaQuery.of(context).size.width;
     var productMonitorBloc = BlocProvider.of<ProductMonitorBloc>(context);
     var productRequesterBloc = BlocProvider.of<ProductRequesterBloc>(context);
     if (allProducts.isEmpty) {
@@ -37,17 +39,17 @@ class _ProductScreenState extends State<ProductScreen> {
           : Container(
               color: const Color.fromRGBO(67, 160, 71, 1),
               child: GridView.count(
-                childAspectRatio: MediaQuery.of(context).size.width*0.0016,
+                childAspectRatio: _screenWidth*0.0016,
                 crossAxisCount: 2,
                 children: List.generate(state.productColletion.length, (index) {
-                  return productTile(state.productColletion[index]);
+                  return productTile(state.productColletion[index], _screenWidth*0.025, _screenWidth*0.055);
                 }),
               ),
             );
     });
   }
 
-  Widget productTile(Product product) {
+  Widget productTile(Product product, buttonPadding, buttonIconSize) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -112,7 +114,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: addToCartButton(product),
+                      child: addToCartButton(product, buttonPadding, buttonIconSize),
                     ),
                   ],
                 ),
@@ -150,11 +152,11 @@ class _ProductScreenState extends State<ProductScreen> {
     );
   }
 
-  Widget addToCartButton(Product product) {
+  Widget addToCartButton(Product product, buttonPadding, buttonIconSize) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green.shade800,
-          padding: const EdgeInsets.all(17),
+          padding: EdgeInsets.all(buttonPadding),
           shape: const CircleBorder(),
         ),
         onPressed: () {
@@ -163,9 +165,9 @@ class _ProductScreenState extends State<ProductScreen> {
           ScaffoldMessenger.of(context)
               .showSnackBar(addedToCartSnackbar(product));
         },
-        child: const Icon(
+        child: Icon(
           Icons.add_shopping_cart_sharp,
-          size: 20,
+          size: buttonIconSize,
         ));
   }
 }
