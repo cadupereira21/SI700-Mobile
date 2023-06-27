@@ -37,7 +37,7 @@ class _ProductScreenState extends State<ProductScreen> {
           : Container(
               color: const Color.fromRGBO(67, 160, 71, 1),
               child: GridView.count(
-                childAspectRatio: 0.85,
+                childAspectRatio: MediaQuery.of(context).size.width*0.0016,
                 crossAxisCount: 2,
                 children: List.generate(state.productColletion.length, (index) {
                   return productTile(state.productColletion[index]);
