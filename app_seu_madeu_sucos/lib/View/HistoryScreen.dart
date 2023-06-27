@@ -19,6 +19,8 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   var _orderCollectionData = OrderCollectionData.instance;
 
+  var customGreenColor = const Color.fromRGBO(67, 160, 71, 1);
+
   @override
   Widget build(BuildContext context) {
     var _allOrders = _orderCollectionData.getAllOrders;
@@ -50,10 +52,71 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   orderTile(Order order) {
-    return Card(
-      child: ListTile(
-        title: Text("${order.getId}"),
-      ),
+    // return Card(
+    //   child: ListTile(
+    //     title: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //       children: [
+    //         Text(
+    //           "${order.getId}",
+    //           style: TextStyle(
+    //             color: customGreenColor,
+    //             fontSize: 18,
+    //           ),
+    //         ),
+    //         Row(
+    //           mainAxisAlignment: MainAxisAlignment.end,
+    //           children: [
+    //             Text(
+    //               "${order.getPaymentMethod} - ",
+    //               style: TextStyle(
+    //                 color: Color.fromRGBO(0, 0, 0, .5),
+    //                 fontSize: 14,
+    //               ),
+    //             ),
+    //             Text(
+    //               "R\$${order.getValue!.toStringAsFixed(2)}",
+    //               style: TextStyle(
+    //                 color: Colors.orange,
+    //                 fontSize: 14,
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //     subtitle: Padding(
+    //       padding: const EdgeInsets.only(top: 10.0),
+    //       child: SizedBox(
+    //         height: order.getProducts!.length * 18,
+    //         child: ListView.builder(
+    //           itemCount: order.getProducts!.length,
+    //           itemBuilder: (context, index) =>
+    //             _productRow(order.getProducts![index])
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
+    return Padding(
+      padding: const EdgeInsets.only(top: 5.0),
+      child: Center(
+          child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: customGreenColor))),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+            child: Column(
+              children: [
+                _idAndValueRow(order),
+                _productsList(order),
+              ],
+            ),
+          ),
+        ),
+      )),
     );
   }
 
@@ -78,5 +141,61 @@ class _HistoryScreenState extends State<HistoryScreen> {
         )
       ],
     ));
+  }
+
+  Widget _idAndValueRow(Order order) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "${order.getId}",
+          style: TextStyle(
+            color: customGreenColor,
+            fontSize: 18,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              "${order.getPaymentMethod} - ",
+              style: const TextStyle(
+                color: Color.fromRGBO(0, 0, 0, .5),
+                fontSize: 14,
+              ),
+            ),
+            Text(
+              "R\$${order.getValue!.toStringAsFixed(2)}",
+              style: const TextStyle(
+                color: Colors.orange,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _productsList(Order order) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: SizedBox(
+        height: order.getProducts!.length * 18,
+        child: ListView.builder(
+            itemCount: order.getProducts!.length,
+            itemBuilder: (context, index) =>
+                _productRow(order.getProducts![index])),
+      ),
+    );
+  }
+
+  Widget _productRow(Map<String, Object> productMap) {
+    return Text(
+      "${productMap['Quantity'].toString()}x   ${productMap['Product'].toString()}",
+      style: const TextStyle(
+        color: Color.fromRGBO(0, 0, 0, .6)
+      ),
+    );
   }
 }
