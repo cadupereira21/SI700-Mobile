@@ -111,6 +111,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
             child: Column(
               children: [
                 _idAndValueRow(order),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft, 
+                    child: Text(
+                      order.getIsPlan! 
+                        ? "Pedido de plano"
+                        : "",
+                      style: TextStyle(color: customGreenColor),
+                    ),
+                  ),
+                ),
                 _productsList(order),
               ],
             ),
@@ -151,7 +163,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           "${order.getId}",
           style: TextStyle(
             color: customGreenColor,
-            fontSize: 18,
+            fontSize: 20,
+            fontWeight: FontWeight.w600
           ),
         ),
         Row(
@@ -179,7 +192,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget _productsList(Order order) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: order.getIsPlan!
+        ? const EdgeInsets.only(top: 15.0)
+        : const EdgeInsets.only(top: 0.0),
       child: SizedBox(
         height: order.getProducts!.length * 18,
         child: ListView.builder(
