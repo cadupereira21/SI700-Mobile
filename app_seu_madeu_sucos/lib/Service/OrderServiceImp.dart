@@ -26,6 +26,8 @@ class OrderServiceImp extends Service {
       data: order.toMap(),
     );
 
+    _transformOrderModelProductList(order);
+
     notify(
       requestTitle: OrderServiceImp.REQ_TITLE_CREATE_ORDER,
       responseStatus: createOrderResponse.statusCode!.toInt() / 100 == 2
@@ -133,5 +135,20 @@ class OrderServiceImp extends Service {
       });
     });
     return products;
+  }
+  
+  void _transformOrderModelProductList(Order order) {
+    List<Map<String, Object>> newOrderProductsModel = [];
+    var orderProducts = order.getProducts!;
+    orderProducts.forEach(
+      (element) {
+        newOrderProductsModel.add({
+          "Product":(element['Product'] as Product).getName!,
+          "Quantity": int.parse(element['Quantity']!.toString()),  
+        });
+      },
+    );
+
+    order.setProducts = newOrderProductsModel;
   }
 }
