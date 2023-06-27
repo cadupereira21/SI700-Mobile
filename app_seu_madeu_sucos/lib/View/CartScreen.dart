@@ -31,7 +31,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * 2 / 3,
           child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
             return ListView.builder(
@@ -42,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         Expanded(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
             //color: Colors.red,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,7 +55,7 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       Text(
                         "Total: R\$${CartData.instance.getTotalValue}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500
                         ),
@@ -82,23 +82,22 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         child: ElevatedButton(
-                          style: ButtonStyle(
+                          style: const ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(Colors.red),
                           ),
                           onPressed: () {
                             BlocProvider.of<CartBloc>(context).add(ClearCart());
-                            //TODO: Mudar para a tela de produtos
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: const Text("Cancelar"),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Cancelar"),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         child: ElevatedButton(
                             onPressed: () {
                               if (CartData.instance.addedProducts.isEmpty) {
@@ -125,9 +124,9 @@ class _CartScreenState extends State<CartScreen> {
                                 );
                               }
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: const Text("Continuar"),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text("Continuar"),
                             )),
                       ),
                     ],
