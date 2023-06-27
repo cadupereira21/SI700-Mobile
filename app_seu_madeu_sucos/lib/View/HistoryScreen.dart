@@ -52,52 +52,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   orderTile(Order order) {
-    // return Card(
-    //   child: ListTile(
-    //     title: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-    //         Text(
-    //           "${order.getId}",
-    //           style: TextStyle(
-    //             color: customGreenColor,
-    //             fontSize: 18,
-    //           ),
-    //         ),
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children: [
-    //             Text(
-    //               "${order.getPaymentMethod} - ",
-    //               style: TextStyle(
-    //                 color: Color.fromRGBO(0, 0, 0, .5),
-    //                 fontSize: 14,
-    //               ),
-    //             ),
-    //             Text(
-    //               "R\$${order.getValue!.toStringAsFixed(2)}",
-    //               style: TextStyle(
-    //                 color: Colors.orange,
-    //                 fontSize: 14,
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //     subtitle: Padding(
-    //       padding: const EdgeInsets.only(top: 10.0),
-    //       child: SizedBox(
-    //         height: order.getProducts!.length * 18,
-    //         child: ListView.builder(
-    //           itemCount: order.getProducts!.length,
-    //           itemBuilder: (context, index) =>
-    //             _productRow(order.getProducts![index])
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
     return Padding(
       padding: const EdgeInsets.only(top: 5.0),
       child: Center(
