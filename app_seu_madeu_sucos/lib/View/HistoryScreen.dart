@@ -37,22 +37,46 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget _historyScreenContent() {
-    return BlocBuilder<OrderMonitorBloc, OrderMonitorState>(builder: (context, state) {
-      return state.orderCollection.length < 1 
-        ? const Center(child: Text("Você não fez nenhum pedido ainda :("))
-        : ListView.builder(
-            itemCount: state.orderCollection.length,
-            itemBuilder: (BuildContext context, int index) =>
-                productTile(state.orderCollection[index]),
-          );
+    return BlocBuilder<OrderMonitorBloc, OrderMonitorState>(
+        builder: (context, state) {
+      return state.orderCollection.length < 1
+          ? _noOrderScreen()
+          : ListView.builder(
+              itemCount: state.orderCollection.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  orderTile(state.orderCollection[index]),
+            );
     });
   }
 
-  productTile(Order order) {
+  orderTile(Order order) {
     return Card(
       child: ListTile(
         title: Text("${order.getId}"),
       ),
     );
+  }
+
+  Widget _noOrderScreen() {
+    var textPaddingTop = const EdgeInsets.only(top: 10.0);
+    const textStyle = TextStyle(
+      color: Color.fromRGBO(0, 0, 0, .6),
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    );
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "Você não fez nenhum pedido ainda",
+          style: textStyle,
+        ),
+        Padding(
+          padding: textPaddingTop,
+          child: const Text(":(", style: textStyle),
+        )
+      ],
+    ));
   }
 }
