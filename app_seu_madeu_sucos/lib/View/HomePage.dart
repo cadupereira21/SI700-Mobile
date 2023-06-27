@@ -25,7 +25,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(
+            currentScreen == 0
+              ? "Pedidos feitos"
+              : currentScreen == 1
+                ? "Escolha seu produto"
+                : "Carrinho"
+          ),
         ),
         drawer: drawer(),
         body: IndexedStack(
