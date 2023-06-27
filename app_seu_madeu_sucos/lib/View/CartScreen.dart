@@ -47,65 +47,91 @@ class _CartScreenState extends State<CartScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  padding: EdgeInsets.only(left: 20, top: 10),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("Pedido de plano"),
-                      Switch(
-                          value: _isPlan,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _isPlan = value;
-                            });
-                          }),
+                      Text(
+                        "Total: R\$${CartData.instance.getTotalValue}",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text("Pedido de plano"),
+                          Switch(
+                            value: _isPlan,
+                            onChanged: (bool value) {
+                              setState(() {
+                                _isPlan = value;
+                              });
+                            }),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: ElevatedButton(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(Colors.red),
+                          ),
                           onPressed: () {
                             BlocProvider.of<CartBloc>(context).add(ClearCart());
                             //TODO: Mudar para a tela de produtos
                           },
-                          child: const Text("Cancelar")),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if (CartData.instance.addedProducts.isEmpty) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(noProductSnackbar());
-                            } else {
-                              Order newOrder = Order(
-                                id: "",
-                                requester: _userData.user,
-                                products: _cartData.addedProducts,
-                                value: CartData.instance.getTotalValue,
-                                comments: "",
-                                paymentMethod: PaymentMethod.list[0],
-                                isPlan: _isPlan,
-                                isDelivery: false,
-                                customDeliveryAddress: null,
-                                deliveryTime: "",
-                              );
-                              _orderData.setOrder = newOrder;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const OrderScreen()),
-                              );
-                            }
-                          },
-                          child: const Text("Continuar")),
-                    ),
-                  ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Text("Cancelar"),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (CartData.instance.addedProducts.isEmpty) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(noProductSnackbar());
+                              } else {
+                                Order newOrder = Order(
+                                  id: "",
+                                  requester: _userData.user,
+                                  products: _cartData.addedProducts,
+                                  value: CartData.instance.getTotalValue,
+                                  comments: "",
+                                  paymentMethod: PaymentMethod.list[0],
+                                  isPlan: _isPlan,
+                                  isDelivery: false,
+                                  customDeliveryAddress: null,
+                                  deliveryTime: "",
+                                );
+                                _orderData.setOrder = newOrder;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const OrderScreen()),
+                                );
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: const Text("Continuar"),
+                            )),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
