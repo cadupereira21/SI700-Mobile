@@ -11,8 +11,7 @@ import 'HistoryScreen.dart';
 import 'ProductScreen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-  final String title;
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
