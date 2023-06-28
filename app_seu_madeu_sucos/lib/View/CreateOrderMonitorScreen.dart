@@ -23,7 +23,7 @@ class _CreateOrderMonitorScreenState extends State<CreateOrderMonitorScreen> {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: 80, vertical: MediaQuery.of(context).size.height * 0.37),
+          horizontal:  MediaQuery.of(context).size.width*0.06, vertical: MediaQuery.of(context).size.height * 0.37),
       child: Card(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
