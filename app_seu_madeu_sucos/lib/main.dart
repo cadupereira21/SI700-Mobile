@@ -57,7 +57,13 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: CustomColor.getGreenColor(),
             ),
-            home: switchPage(authState),
+            home: BlocBuilder<AuthRequesterBloc, AuthRequesterState>(
+              builder: (context, requesterState) {
+                return requesterState is ProcessingAuthRequestState
+                  ? Container(color: Colors.white, child: const Center(child: CircularProgressIndicator()))
+                  : switchPage(authState);
+              }
+            ),
           );
         }
       ),
@@ -67,7 +73,7 @@ class MyApp extends StatelessWidget {
 
 Widget switchPage(AuthMonitorState state){
   return state is AuthenticatedState 
-    ? HomePage()
-    : LoginScreen();
+    ? const HomePage()
+    : const LoginScreen();
 
 }

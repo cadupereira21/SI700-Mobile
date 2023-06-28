@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var userMonitorBloc = BlocProvider.of<UserMonitorBloc>(context); // Para inicializar o user monitor
     if(UserData.instance.user.getClient.getName == ""){
       BlocProvider.of<UserRequesterBloc>(context).add(GetUserRequest(userEmail: UserData.instance.user.getEmail));
