@@ -12,8 +12,8 @@ class CreateUserRequest extends UserRequesterEvent {
 }
 
 class GetUserRequest extends UserRequesterEvent {
-  String? userId;
-  GetUserRequest({required this.userId});
+  String? userEmail;
+  GetUserRequest({required this.userEmail});
 }
 
 class UpdateUserRequest extends UserRequesterEvent {

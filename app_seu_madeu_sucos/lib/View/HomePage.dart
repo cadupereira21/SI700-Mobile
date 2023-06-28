@@ -1,10 +1,13 @@
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/View/UserPlanScreen.dart';
 import 'package:app_seu_madeu_sucos/View/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Controller/Monitor/User/UserMonitorBloc.dart';
 import '../Data/UserData.dart';
 import 'CartScreen.dart';
 import 'HistoryScreen.dart';
@@ -22,6 +25,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var userMonitorBloc = BlocProvider.of<UserMonitorBloc>(context); // Para inicializar o user monitor
+    if(UserData.instance.user.getClient.getName == ""){
+      BlocProvider.of<UserRequesterBloc>(context).add(GetUserRequest(userEmail: UserData.instance.user.getEmail));
+    }
     return Scaffold(
         appBar: AppBar(
           title: Text(

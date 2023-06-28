@@ -32,6 +32,7 @@ class _SignupFormState extends State<SignupForm> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var userMonitorBloc = BlocProvider.of<UserMonitorBloc>(context); //Used to initialize monitor bloc
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;

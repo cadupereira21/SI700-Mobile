@@ -31,7 +31,7 @@ class UserRequesterBloc extends Bloc<UserRequesterEvent, UserRequesterState> {
 
     debugPrint("[User Requester] Sending get user request");
 
-    await service.getUserById(event.userId);
+    await service.getUserByEmail(event.userEmail!);
 
     add(CompleteUserRequest());
     debugPrint("[User Requester] Complete get user request");

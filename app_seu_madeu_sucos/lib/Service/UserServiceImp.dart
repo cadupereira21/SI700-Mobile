@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:app_seu_madeu_sucos/Model/Address.dart';
+import 'package:dio/dio.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Model/Client.dart';
@@ -35,24 +37,22 @@ class UserServiceImp extends Service {
     );
   }
 
-  Future<void> getUserById(String? userId) async {
-    UserModel user = UserModel();
-    Client client = Client();
-    final response = await dio.get("$baseUrl/users/$userId.json");
-    //{client: {address: f, f, f, f-f, f, name: f, phone: f}, email: f, password: f}
+  Future<Response> getAllUsers() async {
+    final response = await dio.get("$baseUrl/users.json");
+    return response;
+  }
 
-    client.setAddress = response.data['client']['address'];
-    client.setName = response.data['client']['name'];
-    client.setPhone = response.data['client']['phone'];
-    user.setClient = client;
-    user.setEmail = response.data['email'];
+  Future<void> getUserByEmail(String userEmail) async {
+    var response = await getAllUsers();
+    final userIds = (response.data as Map<String, dynamic>).keys;
+    final userCollection = (response.data as Map<String, dynamic>).values;
 
     notify(
       requestTitle: UserServiceImp.REQ_TITLE_GET_USER,
       responseStatus: response.statusCode!.toInt() / 100 == 2
           ? RequestStatus.SUCCESSFUL
           : RequestStatus.FAILED,
-      object: [user],
+      object: [_findUser(userIds, userCollection, userEmail)],
     );
   }
 
@@ -95,5 +95,36 @@ class UserServiceImp extends Service {
           : RequestStatus.FAILED,
       object: [],
     );
+  }
+  
+  UserModel _findUser(Iterable userIds, Iterable userCollection, String userEmail) {
+    var index = 0;
+    UserModel user = UserModel();
+    userCollection.forEach((element){
+      (element as Map<String, dynamic>).values.forEach((element) {
+        if(userEmail == element['email'].toString()){
+          Client client = Client();
+          Address address = Address();
+
+          address.setStreet = element['client']['address']['street'];
+          address.setStreetNumber = element['client']['address']['streetNumber'];
+          address.setNeighbour = element['client']['address']['neighbour'];
+          address.setCity = element['client']['address']['city'];
+          address.setDistrict = element['client']['address']['district'];
+          address.setCep = element['client']['address']['zipcode'];
+
+          client.setName = element['client']['name'].toString();
+          client.setPhone = element['client']['phone'].toString();
+          //client.setActivePlan = element['client']['activePlan']
+          client.setAddress = address;
+
+          user.setId = userIds.elementAt(index);
+          user.setEmail = element['email'].toString();
+          user.setClient = client;
+        }
+      });
+      index++;
+    });
+    return user;
   }
 }

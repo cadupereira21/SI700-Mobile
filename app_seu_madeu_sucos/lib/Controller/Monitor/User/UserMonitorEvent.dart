@@ -6,12 +6,19 @@ abstract class UserMonitorEvent {
 }
 
 class ListenToCreateUserRequestSuccessful extends UserMonitorEvent {
-  String? userId;
   UserModel? user;
-  ListenToCreateUserRequestSuccessful({this.userId, this.user});
+  ListenToCreateUserRequestSuccessful({this.user});
 }
 
 class ListenToCreateUserRequestFailed extends UserMonitorEvent {
   ListenToCreateUserRequestFailed();
 }
 
+class ListenToGetUserRequestSuccessful extends UserMonitorEvent {
+  UserModel? user;
+  ListenToGetUserRequestSuccessful({this.user});
+}
+
+class ListenToGetUserRequestFailed extends UserMonitorEvent {
+  ListenToGetUserRequestFailed();
+}
