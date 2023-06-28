@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
@@ -8,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Controller/Monitor/User/UserMonitorBloc.dart';
+import '../Controller/Requester/UserRequester/UserRequesterState.dart';
 import '../Data/UserData.dart';
 import 'CartScreen.dart';
 import 'HistoryScreen.dart';
@@ -75,36 +79,42 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget drawer() {
-    return Drawer(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          drawerHeader(),
-          drawerTile("Perfil", const UserProfileScreen()),
-          drawerTile("Planos", const UserPlanScreen()),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                margin: const EdgeInsets.all(12.0),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
+    return BlocBuilder<UserRequesterBloc, UserRequesterState>(
+      builder: (context, state) {
+        return state is ProcessingUserRequestState
+          ? const Center(child: CircularProgressIndicator(),)
+          : Drawer(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                drawerHeader(),
+                drawerTile("Perfil", const UserProfileScreen()),
+                drawerTile("Planos", const UserPlanScreen()),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: const EdgeInsets.all(12.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.red),
+                        ),
+                        onPressed: (){
+                          AuthRequesterBloc authBloc = BlocProvider.of<AuthRequesterBloc>(context);
+                          authBloc.add(SignOutRequest());
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+                          child: Text("Sair"),
+                        ),
+                      ),
+                    ),
                   ),
-                  onPressed: (){
-                    AuthRequesterBloc authBloc = BlocProvider.of<AuthRequesterBloc>(context);
-                    authBloc.add(SignOutRequest());
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
-                    child: Text("Sair"),
-                  ),
-                ),
-              ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+      }
     );
   }
 
