@@ -3,31 +3,36 @@ import 'Address.dart';
 
 class Client {
 
-  String? name;
-  Address? address;
-  String? phone;
-  ActivePlan? activePlan;
+  String? _name;
+  Address? _address;
+  String? _phone;
+  ActivePlan? _activePlan;
 
   Client({
-    this.name,
-    this.address,
-    this.phone,
-    this.activePlan,
-  });
+    name = "",
+    address,
+    phone = "",
+    activePlan,
+  }){
+    _name = name;
+    _address = address;
+    _phone = phone;
+    _activePlan = activePlan;
+  }
 
   //create getters and setters
-  String? get getName => name;
-  set setName(String? name) => this.name = name;
-  Address? get getAddress => address;
-  set setAddress(Address? address) => this.address = address;
-  String? get getPhone => phone;
-  set setPhone(String? phone) => this.phone = phone;
-  ActivePlan? get getActivePlan => activePlan;
-  set setActivePlan(ActivePlan? activePlan) => this.activePlan = activePlan;
+  String get getName => _name ?? "";
+  set setName(String name) => _name = name;
+  Address get getAddress => _address ?? Address();
+  set setAddress(Address address) => _address = address;
+  String get getPhone => _phone ?? "";
+  set setPhone(String phone) => _phone = phone;
+  ActivePlan get getActivePlan => _activePlan ?? ActivePlan();
+  set setActivePlan(ActivePlan activePlan) => _activePlan = activePlan;
 
   //Create to string
   @override
   String toString() {
-    return "Client: {name: $name, address: ${address.toString()}, phone: $phone, activePlan: ${activePlan.toString()}}";
+    return "Client: {name: $_name, address: ${_address.toString()}, phone: $_phone, activePlan: ${_activePlan.toString()}}";
   }
 }

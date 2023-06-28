@@ -22,7 +22,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   UserModel user = UserData.instance.user;
-  String _dropdownValue = UserData.instance.user.getClient.address!.district!;
+  String _dropdownValue = UserData.instance.user.getClient.getAddress.getDistrict;
   //var clientAddress = UserData.instance.user.getClient.address!;
 
   @override
@@ -43,7 +43,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 formTextField(
                   text: SignupFormFieldName.NAME,
                   inputType: TextInputType.name,
-                  initialValue: user.getClient.name!,
+                  initialValue: user.getClient.getName,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira seu nome';
@@ -56,14 +56,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.getClient.name = value;
+                    user.getClient.setName = value!;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.PHONE,
                   mask: TextFormFieldFormat.PHONE,
                   inputType: TextInputType.phone,
-                  initialValue: user.getClient.phone!,
+                  initialValue: user.getClient.getPhone,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu número de telefone";
@@ -73,12 +73,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.getClient.phone = value;
+                    user.getClient.setPhone = value!;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET,
-                  initialValue: user.getClient.address!.street!,
+                  initialValue: user.getClient.getAddress.getStreet,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu endereço";
@@ -94,13 +94,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
     
-                    user.getClient.address!.street = value;
+                    user.getClient.getAddress.setStreet = value!;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET_NUMBER,
                   initialValue:
-                      user.getClient.address!.streetNumber!.toString(),
+                      user.getClient.getAddress.getStreetNumber.toString(),
                   mask: TextFormFieldFormat.STREET_NUMBER,
                   inputType: TextInputType.number,
                   validator: (value) {
@@ -110,12 +110,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.getClient.address!.streetNumber = int.parse(value!);
+                    user.getClient.getAddress.setStreetNumber = int.parse(value!);
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.NEIGHBOUR,
-                  initialValue: user.getClient.address!.neighbour!,
+                  initialValue: user.getClient.getAddress.getNeighbour,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu bairro";
@@ -131,13 +131,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
     
-                    user.getClient.address!.neighbour = value;
+                    user.getClient.getAddress.setNeighbour = value!;
                   },
                 ),
                 dropdownButton(),
                 formTextField(
                   text: SignupFormFieldName.CITY,
-                  initialValue: user.getClient.address!.city!,
+                  initialValue: user.getClient.getAddress.getCity,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira sua cidade";
@@ -145,13 +145,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.getClient.address!.city =
+                    user.getClient.getAddress.setCity =
                         "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
-                  initialValue: user.getClient.address!.cep!,
+                  initialValue: user.getClient.getAddress.getCep,
                   mask: TextFormFieldFormat.ZIPCODE,
                   inputType: TextInputType.number,
                   validator: (value) {
@@ -163,7 +163,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.getClient.address!.cep = value;
+                    user.getClient.getAddress.setCep = value!;
                   },
                 ),
                 formTextField(
@@ -217,7 +217,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           );
         }).toList(),
         onSaved: (value) {
-          user.getClient.address!.district = value;
+          user.getClient.getAddress.setDistrict = value!;
         },
         onChanged: (value) {
           setState(() {

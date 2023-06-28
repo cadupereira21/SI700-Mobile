@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget drawerHeader() {
     return UserAccountsDrawerHeader(
-      accountName: Text(UserData.instance.user.getClient.name!),
+      accountName: Text(UserData.instance.user.getClient.getName),
       accountEmail: Text(
         UserData.instance.user.getEmail,
         style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),

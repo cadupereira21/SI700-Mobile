@@ -61,7 +61,7 @@ class _SignupFormState extends State<SignupForm> {
                           "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
-                    client.name = value;
+                    client.setName = value!;
                   },
                 ),
                 formTextField(
@@ -77,7 +77,7 @@ class _SignupFormState extends State<SignupForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    client.phone = TextFormFieldFormat.PHONE.getMaskedText();
+                    client.setPhone = TextFormFieldFormat.PHONE.getMaskedText();
                   },
                 ),
                 formTextField(
@@ -97,7 +97,7 @@ class _SignupFormState extends State<SignupForm> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
       
-                    address.street = value;
+                    address.setStreet = value!;
                   },
                 ),
                 Row(
@@ -116,7 +116,7 @@ class _SignupFormState extends State<SignupForm> {
                           return null;
                         },
                         onSaved: (value) {
-                          address.streetNumber = int.parse(value!);
+                          address.setStreetNumber = int.parse(value!);
                         },
                       ),
                     ),
@@ -140,7 +140,7 @@ class _SignupFormState extends State<SignupForm> {
                                 i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                           }
       
-                          address.neighbour = value;
+                          address.setNeighbour = value!;
                         },
                       ),
                     ),
@@ -164,7 +164,7 @@ class _SignupFormState extends State<SignupForm> {
                           return null;
                         },
                         onSaved: (value) {
-                          address.city =
+                          address.setCity =
                               "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                         },
                       ),
@@ -184,7 +184,7 @@ class _SignupFormState extends State<SignupForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    address.cep = value;
+                    address.setCep = value!;
                   },
                 ),
                 formTextField(
@@ -242,7 +242,7 @@ class _SignupFormState extends State<SignupForm> {
           );
         }).toList(),
         onSaved: (value) {
-          address.district = value;
+          address.setDistrict = value!;
         },
         onChanged: (value) {
           setState(() {
@@ -343,7 +343,7 @@ class _SignupFormState extends State<SignupForm> {
   void _signUpAction() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      client.address = address;
+      client.setAddress = address;
       user.setClient = client;
       UserRequesterBloc userRequesterBloc =
           BlocProvider.of<UserRequesterBloc>(context);

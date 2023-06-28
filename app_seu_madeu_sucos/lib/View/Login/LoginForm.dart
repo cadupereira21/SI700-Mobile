@@ -2,9 +2,9 @@ import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../Controller/Monitor/User/UserMonitorBloc.dart';
-import '../../Controller/Monitor/User/UserMonitorEvent.dart';
-import '../../Data/UserData.dart';
+import '../../Controller/Requester/Authentication/AuthRequesterBloc.dart';
+import '../../Controller/Requester/Authentication/AuthRequesterEvent.dart';
+import '../../Model/UserModel.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -15,6 +15,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+
+  final UserModel _user = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class _LoginFormState extends State<LoginForm> {
           return null;
         },
         onSaved: (value) {
-          UserData.instance.user.email = value!;
+          _user.setEmail = value!;
         },
       ),
     );
@@ -112,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
           return null;
         },
         onSaved: (value) {
-          UserData.instance.user.password = value!;
+          _user.setPassword = value!;
         },
       ),
     );
@@ -145,8 +147,8 @@ class _LoginFormState extends State<LoginForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
-      accessBloc.add(LogInButtonClick());
+      AuthRequesterBloc authBloc = BlocProvider.of<AuthRequesterBloc>(context);
+      authBloc.add(AuthenticateRequest(user: _user));
     }
   }
 

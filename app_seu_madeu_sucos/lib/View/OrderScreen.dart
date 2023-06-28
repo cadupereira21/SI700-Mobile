@@ -374,7 +374,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
               }
 
-              _customAddress.street = value;
+              _customAddress.setStreet = value!;
             },
           ),
           Row(
@@ -393,7 +393,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    _customAddress.streetNumber = int.parse(value!);
+                    _customAddress.setStreetNumber = int.parse(value!);
                   },
                 ),
               ),
@@ -416,7 +416,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
 
-                    _customAddress.neighbour = value;
+                    _customAddress.setNeighbour = value!;
                   },
                 ),
               ),
@@ -440,7 +440,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    _customAddress.city =
+                    _customAddress.setCity =
                         "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                   },
                 ),
@@ -460,7 +460,7 @@ class _OrderScreenState extends State<OrderScreen> {
               return null;
             },
             onSaved: (value) {
-              _customAddress.cep = value;
+              _customAddress.setCep = value!;
             },
           ),
         ],
@@ -527,7 +527,7 @@ class _OrderScreenState extends State<OrderScreen> {
           );
         }).toList(),
         onSaved: (value) {
-          customAddress.district = value;
+          customAddress.setDistrict = value!;
         },
         onChanged: (value) {
           setState(() {

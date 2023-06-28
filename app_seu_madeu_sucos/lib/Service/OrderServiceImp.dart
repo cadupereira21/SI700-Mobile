@@ -120,7 +120,7 @@ class OrderServiceImp extends Service {
     addressModel.setNeighbour = addressAuxMap['neighbour'].toString();
     addressModel.setDistrict = addressAuxMap['district'].toString();
     addressModel.setCity = addressAuxMap['city'].toString();
-    addressModel.cep = addressAuxMap['cep'].toString();
+    addressModel.setCep = addressAuxMap['cep'].toString();
     return addressModel;
   }
 

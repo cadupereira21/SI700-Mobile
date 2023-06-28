@@ -21,16 +21,16 @@ class UserServiceImp extends Service {
           "email": user.getEmail,
           "password": user.getPassword,
           "client": {
-            "name": user.getClient.name,
+            "name": user.getClient.getName,
             "address": {
-              "street": user.getClient.address!.street!,
-              "streetNumber": user.getClient.address!.streetNumber!,
-              "neighbour" : user.getClient.address!.neighbour!,
-              "district" : user.getClient.address!.district!,
-              "city" : user.getClient.address!.city,
-              "zipcode" : user.getClient.address!.cep,
+              "street": user.getClient.getAddress.getStreet,
+              "streetNumber": user.getClient.getAddress.getStreetNumber,
+              "neighbour" : user.getClient.getAddress.getNeighbour,
+              "district" : user.getClient.getAddress.getDistrict,
+              "city" : user.getClient.getAddress.getCity,
+              "zipcode" : user.getClient.getAddress.getCep,
             },
-            "phone": user.getClient.phone,
+            "phone": user.getClient.getPhone,
           },
           "activePlan": null
         }));
@@ -50,9 +50,9 @@ class UserServiceImp extends Service {
     final response = await dio.get("$baseUrl/users/$userId.json");
     //{client: {address: f, f, f, f-f, f, name: f, phone: f}, email: f, password: f}
 
-    client.address = response.data['client']['address'];
-    client.name = response.data['client']['name'];
-    client.phone = response.data['client']['phone'];
+    client.setAddress = response.data['client']['address'];
+    client.setName = response.data['client']['name'];
+    client.setPhone = response.data['client']['phone'];
     user.setClient = client;
     user.setEmail = response.data['email'];
 
@@ -71,18 +71,18 @@ class UserServiceImp extends Service {
           "email": user.getEmail,
           "password": user.getPassword,
           "client": {
-            "name": user.getClient.name,
+            "name": user.getClient.getName,
             "address": {
-              "street": user.getClient.address!.street!,
-              "streetNumber": user.getClient.address!.streetNumber!,
-              "neighbour" : user.getClient.address!.neighbour!,
-              "district" : user.getClient.address!.district!,
-              "city" : user.getClient.address!.city,
-              "zipcode" : user.getClient.address!.cep,
+              "street": user.getClient.getAddress.getStreet,
+              "streetNumber": user.getClient.getAddress.getStreetNumber,
+              "neighbour" : user.getClient.getAddress.getNeighbour,
+              "district" : user.getClient.getAddress.getDistrict,
+              "city" : user.getClient.getAddress.getCity,
+              "zipcode" : user.getClient.getAddress.getCep,
             },
-            "phone": user.getClient.phone,
+            "phone": user.getClient.getPhone,
           },
-          "activePlan": user.getClient.activePlan
+          "activePlan": user.getClient.getActivePlan
         }));
 
     notify(
