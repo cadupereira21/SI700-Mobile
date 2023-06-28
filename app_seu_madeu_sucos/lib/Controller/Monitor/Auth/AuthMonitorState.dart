@@ -10,3 +10,11 @@ class AuthenticatedState extends AuthMonitorState {
 class UnauthenticatedState extends AuthMonitorState  {
   UnauthenticatedState({super.message});
 }
+
+class AuthenticateRequestSuccessful extends AuthMonitorState {
+  AuthenticateRequestSuccessful({super.message});
+}
+
+class AuthenticateRequestFailed extends AuthMonitorState {
+  AuthenticateRequestFailed({super.message});
+}

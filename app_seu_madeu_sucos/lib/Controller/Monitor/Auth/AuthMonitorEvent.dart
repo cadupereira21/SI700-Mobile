@@ -2,14 +2,22 @@ import 'package:app_seu_madeu_sucos/Model/UserModel.dart';
 
 class AuthMonitorEvent {}
 
-class AuthenticateRequestSuccessful extends AuthMonitorEvent {
+class Authenticate extends AuthMonitorEvent {
   UserModel user;
-  AuthenticateRequestSuccessful({required this.user});
+  Authenticate({required this.user});
 }
 
-class AuthenticateRequestFailed extends AuthMonitorEvent {
-  String message = "<AuthFailedMessage>";
-  AuthenticateRequestFailed({required this.message});
+class Unauthenticate extends AuthMonitorEvent {
+
+}
+
+class ListenToAuthenticateRequestSuccessful extends AuthMonitorEvent {
+  UserModel user;
+  ListenToAuthenticateRequestSuccessful({required this.user});
+}
+
+class ListenToAuthenticateRequestFailed extends AuthMonitorEvent {
+  ListenToAuthenticateRequestFailed();
 }
 
 class SignOutRequestSuccessful extends AuthMonitorEvent {}

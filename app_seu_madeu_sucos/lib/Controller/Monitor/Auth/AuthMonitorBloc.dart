@@ -33,17 +33,29 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
       }
     });
 
-    on<AuthenticateRequestSuccessful>((event, emit) {
+    on<Authenticate>((event, emit) {
         debugPrint("[Auth Monitor] Authenticated");
         UserData.instance.setUser(event.user);
         emit(AuthenticatedState());
       },
     );
 
-    on<AuthenticateRequestFailed>((event, emit) {
-      debugPrint("[Auth Monitor] Authentication failed! Description: ${event.message}");
-      emit(UnauthenticatedState(message: "Falha na autenticação! Descrição: ${event.message}"));
+    on<Unauthenticate>((event, emit) {
+      debugPrint("[Auth Monitor] Unauthenticated");
+      emit(UnauthenticatedState());
     });
+
+    on<ListenToAuthenticateRequestSuccessful>((event, emit) {
+      debugPrint("[Auth Monitor] Authenticate request successful");
+      UserData.instance.setUser(event.user);
+      emit(AuthenticateRequestSuccessful());
+      add(Authenticate(user: event.user));
+    },);
+
+    on<ListenToAuthenticateRequestFailed>((event, emit) {
+      emit(AuthenticateRequestFailed(message: "Usuário ou senha incorretos"));
+      add(Unauthenticate());
+    },);
 
     on<SignOutRequestSuccessful>((event, emit) {
       debugPrint("[Auth Monitor] Signed Out");
@@ -75,10 +87,9 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
 
     if (responseStatus == RequestStatus.SUCCESSFUL) {
       UserModel user = event[2][0] as UserModel;
-      add(AuthenticateRequestSuccessful(user: user));
+      add(ListenToAuthenticateRequestSuccessful(user: user));
     } else {
-      String message = event[2][0].toString();
-      add(AuthenticateRequestFailed(message: message));
+      add(ListenToAuthenticateRequestFailed());
     }
   }
   
