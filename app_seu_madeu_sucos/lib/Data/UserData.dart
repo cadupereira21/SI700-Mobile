@@ -13,7 +13,7 @@ class UserData {
         street: "",
         streetNumber: 0,
         neighbour: "",
-        district: "",
+        district: "AC",
         city: "",
         cep: "",
       ),

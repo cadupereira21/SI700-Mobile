@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
-import '../Controller/Requester/UserRequester/UserRequesterState.dart';
 import '../Data/UserData.dart';
 import '../Model/Districts.dart';
 import '../Model/User.dart';
@@ -28,174 +27,176 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(50.0),
-      child: Card(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(40, 0, 40, 0),
-              child: Column(
-                children: [
-                  formTextField(
-                    text: SignupFormFieldName.NAME,
-                    inputType: TextInputType.name,
-                    initialValue: user.client!.name!,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira seu nome';
-                      } else if (TextFormFieldFormat.checkIfStringHasNumber(
-                              value) ||
-                          TextFormFieldFormat.checkIfStringHasSpecialCharacters(
-                              value)) {
-                        return "Esse campo só aceita letras!";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.client!.name = value;
-                    },
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Informações da conta"),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: EdgeInsets.fromLTRB(screenWidth*0.04, 0, screenWidth*0.04, 0),
+            child: Column(
+              children: [
+                formTextField(
+                  text: SignupFormFieldName.NAME,
+                  inputType: TextInputType.name,
+                  initialValue: user.client!.name!,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, insira seu nome';
+                    } else if (TextFormFieldFormat.checkIfStringHasNumber(
+                            value) ||
+                        TextFormFieldFormat.checkIfStringHasSpecialCharacters(
+                            value)) {
+                      return "Esse campo só aceita letras!";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.client!.name = value;
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.PHONE,
+                  mask: TextFormFieldFormat.PHONE,
+                  inputType: TextInputType.phone,
+                  initialValue: user.client!.phone!,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu número de telefone";
+                    } else if (value.length < 16) {
+                      return "Número incompleto!";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.client!.phone = value;
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.STREET,
+                  initialValue: user.client!.address!.street!,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu endereço";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    var auxValue = value!.split(" ");
+                    value = "";
+                    for (int i = 0; i < auxValue.length; i++) {
+                      auxValue[i] =
+                          "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                      value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                    }
+    
+                    user.client!.address!.street = value;
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.STREET_NUMBER,
+                  initialValue:
+                      user.client!.address!.streetNumber!.toString(),
+                  mask: TextFormFieldFormat.STREET_NUMBER,
+                  inputType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira o número do seu endereço";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.client!.address!.streetNumber = int.parse(value!);
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.NEIGHBOUR,
+                  initialValue: user.client!.address!.neighbour!,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira seu bairro";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    var auxValue = value!.split(" ");
+                    value = "";
+                    for (int i = 0; i < auxValue.length; i++) {
+                      auxValue[i] =
+                          "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
+                      value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
+                    }
+    
+                    user.client!.address!.neighbour = value;
+                  },
+                ),
+                dropdownButton(),
+                formTextField(
+                  text: SignupFormFieldName.CITY,
+                  initialValue: user.client!.address!.city!,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira sua cidade";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.client!.address!.city =
+                        "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.ZIPCODE,
+                  initialValue: user.client!.address!.cep!,
+                  mask: TextFormFieldFormat.ZIPCODE,
+                  inputType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Por favor insira o seu CEP";
+                    } else if (value.length < 9) {
+                      return "CEP incompleto";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.client!.address!.cep = value;
+                  },
+                ),
+                formTextField(
+                  text: SignupFormFieldName.EMAIL,
+                  initialValue: user.email!,
+                  inputType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, insira um email';
+                    } else if (!value.contains("@") || !value.contains(".")) {
+                      return "Por favor insira um email válido!";
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    user.email = value;
+                  },
+                ),
+                formNewPasswordField(),
+                deleteUserButton(),
+                Padding(
+                  padding: EdgeInsets.only(top: screenHeight*0.02),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      formButton("Voltar", () {
+                        Navigator.pop(context);
+                      }),
+                      formButton("Salvar", _updateAction),
+                    ],
                   ),
-                  formTextField(
-                    text: SignupFormFieldName.PHONE,
-                    mask: TextFormFieldFormat.PHONE,
-                    inputType: TextInputType.phone,
-                    initialValue: user.client!.phone!,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira seu número de telefone";
-                      } else if (value.length < 16) {
-                        return "Número incompleto!";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.client!.phone = value;
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.STREET,
-                    initialValue: user.client!.address!.street!,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira seu endereço";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      var auxValue = value!.split(" ");
-                      value = "";
-                      for (int i = 0; i < auxValue.length; i++) {
-                        auxValue[i] =
-                            "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
-                        value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
-                      }
-
-                      user.client!.address!.street = value;
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.STREET_NUMBER,
-                    initialValue:
-                        user.client!.address!.streetNumber!.toString(),
-                    mask: TextFormFieldFormat.STREET_NUMBER,
-                    inputType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira o número do seu endereço";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.client!.address!.streetNumber = int.parse(value!);
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.NEIGHBOUR,
-                    initialValue: user.client!.address!.neighbour!,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira seu bairro";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      var auxValue = value!.split(" ");
-                      value = "";
-                      for (int i = 0; i < auxValue.length; i++) {
-                        auxValue[i] =
-                            "${auxValue[i].substring(0, 1).toUpperCase()}${auxValue[i].substring(1).toLowerCase()}";
-                        value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
-                      }
-
-                      user.client!.address!.neighbour = value;
-                    },
-                  ),
-                  dropdownButton(),
-                  formTextField(
-                    text: SignupFormFieldName.CITY,
-                    initialValue: user.client!.address!.city!,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira sua cidade";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.client!.address!.city =
-                          "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.ZIPCODE,
-                    initialValue: user.client!.address!.cep!,
-                    mask: TextFormFieldFormat.ZIPCODE,
-                    inputType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Por favor insira o seu CEP";
-                      } else if (value.length < 9) {
-                        return "CEP incompleto";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.client!.address!.cep = value;
-                    },
-                  ),
-                  formTextField(
-                    text: SignupFormFieldName.EMAIL,
-                    initialValue: user.email!,
-                    inputType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira um email';
-                      } else if (!value.contains("@") || !value.contains(".")) {
-                        return "Por favor insira um email válido!";
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      user.email = value;
-                    },
-                  ),
-                  formNewPasswordField(),
-                  deleteUserButton(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        formButton("Salvar", _updateAction),
-                        formButton("Voltar", () {
-                          Navigator.pop(context);
-                        }),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1,8 +1,5 @@
-import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
-import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterState.dart';
 import 'package:app_seu_madeu_sucos/View/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UpdateUserInfoErrorScreen extends StatelessWidget {
   const UpdateUserInfoErrorScreen({super.key});
