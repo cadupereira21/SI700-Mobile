@@ -1,10 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:app_seu_madeu_sucos/Controller/Requester/RequestState.dart';
-import 'package:dio/dio.dart';
-
-import '../Interface/Notifier.dart';
 import '../Model/Client.dart';
 import '../Model/User.dart';
 import 'RequestStatus.dart';

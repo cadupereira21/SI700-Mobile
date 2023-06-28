@@ -1,4 +1,3 @@
-import '../../../Model/Client.dart';
 import '../../../Model/User.dart';
 
 abstract class UserMonitorEvent {}

@@ -1,6 +1,5 @@
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorState.dart';
-import 'package:app_seu_madeu_sucos/Data/CartData.dart';
 import 'package:app_seu_madeu_sucos/Data/NewOrderData.dart';
 import 'package:app_seu_madeu_sucos/Data/OrderCollectionData.dart';
 import 'package:app_seu_madeu_sucos/Service/OrderServiceImp.dart';

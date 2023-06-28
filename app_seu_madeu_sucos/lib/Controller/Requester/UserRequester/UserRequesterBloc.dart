@@ -1,7 +1,6 @@
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../Data/UserData.dart';
 import '../RequestState.dart';
 import 'UserRequesterEvent.dart';
 import 'UserRequesterState.dart';

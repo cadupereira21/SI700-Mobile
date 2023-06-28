@@ -1,7 +1,6 @@
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Order/OrderMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartEvent.dart';
-import 'package:app_seu_madeu_sucos/View/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +19,6 @@ class CreateOrderMonitorScreen extends StatefulWidget {
 class _CreateOrderMonitorScreenState extends State<CreateOrderMonitorScreen> {
   @override
   Widget build(BuildContext context) {
-    final orderRequester = BlocProvider.of<OrderRequesterBloc>(context);
     final orderMonitor = BlocProvider.of<OrderMonitorBloc>(context);
 
     return Padding(

@@ -1,4 +1,3 @@
-import 'package:app_seu_madeu_sucos/Model/Client.dart';
 import 'package:app_seu_madeu_sucos/Model/PaymentMethod.dart';
 
 import '../Model/Order.dart';

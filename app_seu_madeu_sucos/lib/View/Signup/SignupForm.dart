@@ -76,6 +76,7 @@ class _SignupFormState extends State<SignupForm> {
                     } else if (value.length < 16) {
                       return "Número incompleto!";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     client.phone = TextFormFieldFormat.PHONE.getMaskedText();
@@ -87,6 +88,7 @@ class _SignupFormState extends State<SignupForm> {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu endereço";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     var auxValue = value!.split(" ");
@@ -113,6 +115,7 @@ class _SignupFormState extends State<SignupForm> {
                           if (value == null || value.isEmpty) {
                             return "*";
                           }
+                          return null;
                         },
                         onSaved: (value) {
                           address.streetNumber = int.parse(value!);
@@ -127,6 +130,7 @@ class _SignupFormState extends State<SignupForm> {
                           if (value == null || value.isEmpty) {
                             return "Por favor insira seu bairro";
                           }
+                          return null;
                         },
                         onSaved: (value) {
                           var auxValue = value!.split(" ");
@@ -159,6 +163,7 @@ class _SignupFormState extends State<SignupForm> {
                           if (value == null || value.isEmpty) {
                             return "Por favor insira sua cidade";
                           }
+                          return null;
                         },
                         onSaved: (value) {
                           address.city =
@@ -178,6 +183,7 @@ class _SignupFormState extends State<SignupForm> {
                     } else if (value.length < 9) {
                       return "CEP incompleto";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     address.cep = value;
@@ -204,7 +210,7 @@ class _SignupFormState extends State<SignupForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      formButton("Cadastrar", SignUpAction),
+                      formButton("Cadastrar", _signUpAction),
                       formButton("Cancelar", cancelAction),
                     ],
                   ),
@@ -336,7 +342,7 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  void SignUpAction() {
+  void _signUpAction() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       client.address = address;

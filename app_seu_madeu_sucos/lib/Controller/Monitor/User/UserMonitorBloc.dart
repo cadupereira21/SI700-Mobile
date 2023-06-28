@@ -20,7 +20,7 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     on<FetchUserDataEvent>((event, emit) {
       emit(UserMonitorState(user: event.user));
     });
-    on<LogInButtonClick>((event, emit) => {emit(LoggedInState())});
+    on<LogInButtonClick>((event, emit) => emit(LoggedInState()));
     on<LogOutButtonClick>(
       (event, emit) {
         UserData.instance.clearData();

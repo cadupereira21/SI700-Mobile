@@ -17,17 +17,16 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  var _orderCollectionData = OrderCollectionData.instance;
+  final _orderCollectionData = OrderCollectionData.instance;
 
   var customGreenColor = const Color.fromRGBO(67, 160, 71, 1);
 
   @override
   Widget build(BuildContext context) {
-    var _allOrders = _orderCollectionData.getAllOrders;
+    var allOrders = _orderCollectionData.getAllOrders;
     var orderRequesterBloc = BlocProvider.of<OrderRequesterBloc>(context);
-    var orderMonitorBloc = BlocProvider.of<OrderMonitorBloc>(context);
 
-    if (_allOrders.isEmpty) {
+    if (allOrders.isEmpty) {
       orderRequesterBloc.add(GetAllOrdersRequest());
     }
 
@@ -41,7 +40,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget _historyScreenContent() {
     return BlocBuilder<OrderMonitorBloc, OrderMonitorState>(
         builder: (context, state) {
-      return state.orderCollection.length < 1
+      return state.orderCollection.isEmpty
           ? _noOrderScreen()
           : ListView.builder(
               itemCount: state.orderCollection.length,

@@ -1,6 +1,5 @@
 import 'ActivePlan.dart';
 import 'Address.dart';
-import 'User.dart';
 
 class Client {
 
