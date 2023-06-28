@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../Controller/Monitor/Order/OrderMonitorBloc.dart';
 import '../Controller/Screen/Bloc/CartController/CartBloc.dart';
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../Controller/Screen/Bloc/CartController/CartState.dart';
@@ -32,7 +31,7 @@ class _OrderScreenState extends State<OrderScreen> {
   final _addressFormKey = GlobalKey<FormState>();
   final _deliveryOrTakeAwayTimeFormKey = GlobalKey<FormState>();
 
-  bool _useRegisteredAddress = false;
+  bool _useAnotherAddress = false;
 
   final Order _order = NewOrderData.instance.getOrder;
   final EdgeInsets _buttonSizePadding = const EdgeInsets.symmetric(
@@ -45,6 +44,8 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Finalizar Pedido"),
@@ -58,42 +59,36 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0),
-        child: scaffoldContent(),
+        padding: EdgeInsets.only(top: 15.0, left: screenWidth*0.04, right: screenWidth*0.04),
+        child: scaffoldContent(screenHeight, screenWidth),
       ),
     );
   }
 
-  Widget scaffoldContent() {
+  Widget scaffoldContent(double screenHeight, double screenWidth) {
     return Column(
       children: [
-        orderFields(),
+        orderFields(screenHeight, screenWidth),
         Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: bottomContentFields(),
+            child: bottomContentFields(screenHeight, screenWidth),
           ),
         ),
       ],
     );
   }
 
-  Widget orderFields() {
+  Widget orderFields(double screenHeight, double screenWidth) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: screenHeight * 0.4,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: productListView(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: !_order.getIsDelivery! || _useRegisteredAddress
-                  ? null
-                  : addressForm(),
+              height: screenHeight * 0.4,
+              child: productListView(screenWidth),
             ),
           ],
         ),
@@ -101,7 +96,7 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget bottomContentFields() {
+  Widget bottomContentFields(double screenHeight, double screenWidth) {
     var orderRequesterBloc = BlocProvider.of<OrderRequesterBloc>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -120,7 +115,7 @@ class _OrderScreenState extends State<OrderScreen> {
             children: [
               SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
-                  height: MediaQuery.of(context).size.height * 0.06,
+                  height: screenHeight * 0.06,
                   child: Form(
                     key: _deliveryOrTakeAwayTimeFormKey,
                     child: deliveryOrTakeAwayTime(),
@@ -143,8 +138,8 @@ class _OrderScreenState extends State<OrderScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  isDeliveryCheckbox(),
-                  useRegisteredAddress(),
+                  isDeliveryCheckbox(screenWidth),
+                  useAnotherAddress(screenWidth),
                 ],
               ),
             ],
@@ -172,18 +167,18 @@ class _OrderScreenState extends State<OrderScreen> {
                   }
                   _obsFormKey.currentState!.save();
                   _deliveryOrTakeAwayTimeFormKey.currentState!.save();
-
+    
                   _order.setCustomDeliveryAddress = _customAddress;
-
+    
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const CreateOrderMonitorScreen()),
                   );
-
+    
                   orderRequesterBloc.add(CreateOrderRequest(order: _order));
-
+    
                   debugPrint("[Order Screen] Enviei um pedido");
                 },
               )
@@ -221,7 +216,7 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget isDeliveryCheckbox() {
+  Widget isDeliveryCheckbox(double screenWidth) {
     return Row(
       children: [
         const Text("Quero que entregue"),
@@ -231,7 +226,16 @@ class _OrderScreenState extends State<OrderScreen> {
           onChanged: (bool? value) {
             setState(() {
               _order.setIsDelivery = value!;
-              _useRegisteredAddress = value;
+              _useAnotherAddress = value;
+
+              if(_useAnotherAddress){
+                Navigator.push(
+                  context, MaterialPageRoute(
+                    builder: (context) {
+                      return _addressFormScreen(screenWidth);
+                    }),
+                );
+              }
             });
           },
         ),
@@ -239,22 +243,31 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget useRegisteredAddress() {
+  Widget useAnotherAddress(double screenWidth) {
     bool isDisabled = !_order.getIsDelivery!;
     return Row(
       children: [
         Text(
-          "Usar endereço cadastrado",
+          "Usar outro endereço",
           style: TextStyle(color: isDisabled ? Colors.black54 : Colors.black),
         ),
         Checkbox(
           checkColor: Colors.white,
-          value: _useRegisteredAddress,
+          value: _useAnotherAddress,
           onChanged: isDisabled
               ? null
               : (bool? value) {
                   setState(() {
-                    _useRegisteredAddress = value!;
+                    _useAnotherAddress = value!;
+
+                    if(_useAnotherAddress){
+                      Navigator.push(
+                        context, MaterialPageRoute(
+                          builder: (context) {
+                            return _addressFormScreen(screenWidth);
+                          }),
+                      );
+                    }
                   });
                 },
         ),
@@ -461,7 +474,7 @@ class _OrderScreenState extends State<OrderScreen> {
       String? Function(String?)? validator,
       void Function(String?)? onSaved}) {
     return Container(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 20),
         child: TextFormField(
           inputFormatters: mask != null ? [mask] : [],
           keyboardType: inputType ?? TextInputType.text,
@@ -524,16 +537,16 @@ class _OrderScreenState extends State<OrderScreen> {
     );
   }
 
-  Widget productListView() {
+  Widget productListView(double screenWidth) {
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       return ListView.builder(
           itemCount: state.addedProducts.length,
           itemBuilder: (BuildContext context, int index) =>
-              productTile(state.addedProducts[index]));
+              productTile(state.addedProducts[index], screenWidth));
     });
   }
 
-  productTile(Map<String, Object> element) {
+  productTile(Map<String, Object> element, double screenWidth) {
     Product product = element['Product'] as Product;
     var productNameStrings = product.name!.split("-");
     int quantity = element['Quantity'] as int;
@@ -551,9 +564,12 @@ class _OrderScreenState extends State<OrderScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              productNameStrings[0],
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            Flexible(
+              child: Text(
+                productNameStrings[0],
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.visible,
+              ),
             ),
             Text(
               productNameStrings[1],
@@ -570,6 +586,76 @@ class _OrderScreenState extends State<OrderScreen> {
           style: TextStyle(color: customGreenColor),
         ),
         //contentPadding: const EdgeInsets.all(10),
+      ),
+    );
+  }
+  
+  Widget _addressFormScreen(double screenWidth) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Insira seu endereço!"),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            setState(() {
+              _useAnotherAddress = false;
+            });
+          },
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(screenWidth*0.04),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            addressForm(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30.0),
+                      child: ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(Colors.red),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text("Cancelar"),
+                        ),
+                        onPressed: (){
+                          Navigator.pop(context);
+                          setState(() {
+                            _useAnotherAddress = false;
+                          });
+                        },
+                      ),
+                    ),
+                    ElevatedButton(
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text("Salvar"),
+                      ),
+                      onPressed: (){
+                        if (_addressFormKey.currentState != null) {
+                          _addressFormKey.currentState!.validate() ? 
+                          _addressFormKey.currentState!.save() : null;
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
