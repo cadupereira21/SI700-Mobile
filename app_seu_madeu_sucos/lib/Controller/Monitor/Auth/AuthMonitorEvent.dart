@@ -18,3 +18,13 @@ class SignOutRequestFailed extends AuthMonitorEvent {
   String message = "<SignOutFailedMessage>";
   SignOutRequestFailed({required this.message});
 }
+
+class CreateUserRequestSuccessful extends AuthMonitorEvent {
+  UserModel user;
+  CreateUserRequestSuccessful({required this.user});
+}
+
+class CreateUserRequestFailed extends AuthMonitorEvent {
+  String message = "<AuthFailedMessage>";
+  CreateUserRequestFailed({required this.message});
+}

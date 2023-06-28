@@ -8,6 +8,7 @@ import 'RequestStatus.dart';
 class AuthServiceImp extends Service {
   static const REQ_TITLE_AUTHENTICATE = "Authenticate Request";
   static const REQ_TITLE_SIGNOUT = "Sign Out Request";
+  static const REQ_TITLE_CREATE_USER = "Create User Request";
 
   static final AuthServiceImp instance = AuthServiceImp._internal();
   AuthServiceImp._internal();
@@ -53,6 +54,24 @@ class AuthServiceImp extends Service {
       debugPrint("[Auth Service] signOut error: ${e.code.toString()}");
       notify(
         requestTitle: AuthServiceImp.REQ_TITLE_SIGNOUT,
+        responseStatus: RequestStatus.FAILED,
+        object: [e.code.toString()],
+      );
+    }
+  }
+
+  Future createUser(UserModel user) async {
+    try{
+      await _firebaseAuth.createUserWithEmailAndPassword(email: user.getEmail, password: user.getPassword,);
+      notify(
+        requestTitle: AuthServiceImp.REQ_TITLE_CREATE_USER,
+        responseStatus: RequestStatus.SUCCESSFUL,
+        object: [user],
+      );
+    } on FirebaseAuthException catch(e){
+      debugPrint("[Auth Service] create user error: ${e.code.toString()}");
+      notify(
+        requestTitle: AuthServiceImp.REQ_TITLE_CREATE_USER,
         responseStatus: RequestStatus.FAILED,
         object: [e.code.toString()],
       );

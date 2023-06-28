@@ -1,14 +1,17 @@
 import '../../../Model/UserModel.dart';
 
-abstract class UserMonitorEvent {}
-
-class SignUpRequestSuccessful extends UserMonitorEvent {
-  String? userId;
-  UserModel? user;
-  SignUpRequestSuccessful({this.userId, this.user});
+abstract class UserMonitorEvent {
+  String? message;
+  UserMonitorEvent({this.message});
 }
 
-class SignUpRequestFailed extends UserMonitorEvent {
-  SignUpRequestFailed();
+class ListenToCreateUserRequestSuccessful extends UserMonitorEvent {
+  String? userId;
+  UserModel? user;
+  ListenToCreateUserRequestSuccessful({this.userId, this.user});
+}
+
+class ListenToCreateUserRequestFailed extends UserMonitorEvent {
+  ListenToCreateUserRequestFailed();
 }
 

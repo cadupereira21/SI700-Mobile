@@ -1,23 +1,16 @@
 import '../../../Model/UserModel.dart';
 
 class UserMonitorState {
+  String? message;
   UserModel? user;
-  UserMonitorState({this.user});
+  UserMonitorState({this.message, this.user});
 }
 
-class LogInState extends UserMonitorState {
-  LogInState({UserModel? user}) : super(user: user);
+class UserRequestSuccesful extends UserMonitorState {
+  UserRequestSuccesful(
+      {super.message, super.user});
 }
 
-class LoggedInState extends UserMonitorState {
-  LoggedInState({UserModel? user}) : super(user: user);
-}
-
-class SignUpState extends UserMonitorState {
-  SignUpState({UserModel? user}) : super(user: user);
-}
-
-class SignUpFailedState extends UserMonitorState {
-  String message;
-  SignUpFailedState({required this.message, UserModel? user}) : super(user: user);
+class UserRequestFailed extends UserMonitorState {
+  UserRequestFailed({super.message, super.user});
 }

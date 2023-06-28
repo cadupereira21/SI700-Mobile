@@ -4,6 +4,7 @@ import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorSta
 import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterState.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterState.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => AuthMonitorBloc(UnauthenticatedState())),
         BlocProvider(create: (BuildContext context) => AuthRequesterBloc(WaitingAuthRequestState())),
         BlocProvider(create: (BuildContext context) => CartBloc(CartState())),
-        BlocProvider(create: (BuildContext context) => UserRequesterBloc(WaitingRequest())),
-        BlocProvider(create: (BuildContext context) => UserMonitorBloc(LogInState())),
+        BlocProvider(create: (BuildContext context) => UserRequesterBloc(WaitingUserRequestState())),
+        BlocProvider(create: (BuildContext context) => UserMonitorBloc(UserMonitorState())),
         BlocProvider(create: (BuildContext context) => ProductMonitorBloc(ProductMonitorState(productColletion: []))),
         BlocProvider(create: (BuildContext context) => ProductRequesterBloc(WaitingRequest())),
         BlocProvider(create: (BuildContext context) => OrderRequesterBloc(WaitingOrderRequestState())),

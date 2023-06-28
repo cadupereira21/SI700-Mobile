@@ -1,3 +1,6 @@
+import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/View/Signup/SignupFormFieldName.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +32,17 @@ class _SignupFormState extends State<SignupForm> {
 
   @override
   Widget build(BuildContext context) {
+    var userMonitorBloc = BlocProvider.of<UserMonitorBloc>(context); //Used to initialize monitor bloc
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: screenHeight,
       color: Colors.green.shade600,
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Container(
-            margin: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+            margin: EdgeInsets.fromLTRB(screenWidth*0.02, screenWidth*0.08, screenWidth*0.02, 0),
             child: Column(
               children: [
                 formTextField(
@@ -104,7 +110,7 @@ class _SignupFormState extends State<SignupForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: screenWidth*0.3,
                       child: formTextField(
                         text: SignupFormFieldName.STREET_NUMBER,
                         mask: TextFormFieldFormat.STREET_NUMBER,
@@ -121,7 +127,7 @@ class _SignupFormState extends State<SignupForm> {
                       ),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width - 200,
+                      width: screenWidth*0.6,
                       child: formTextField(
                         text: SignupFormFieldName.NEIGHBOUR,
                         validator: (value) {
@@ -150,11 +156,11 @@ class _SignupFormState extends State<SignupForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 100,
+                      width: screenWidth*0.3,
                       child: dropdownButton(),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width - 200,
+                      width: screenWidth*0.6,
                       child: formTextField(
                         text: SignupFormFieldName.CITY,
                         validator: (value) {
@@ -208,8 +214,8 @@ class _SignupFormState extends State<SignupForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      formButton("Cadastrar", _signUpAction),
                       formButton("Cancelar", cancelAction),
+                      formButton("Cadastrar", _signUpAction),
                     ],
                   ),
                 ),
@@ -223,7 +229,7 @@ class _SignupFormState extends State<SignupForm> {
 
   Widget dropdownButton() {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.height*0.013),
       child: DropdownButtonFormField(
         value: _dropdownValue,
         decoration: const InputDecoration(
@@ -253,14 +259,15 @@ class _SignupFormState extends State<SignupForm> {
     );
   }
 
-  Widget formTextField(
-      {String? text,
-      MaskTextInputFormatter? mask,
-      TextInputType? inputType,
-      String? Function(String?)? validator,
-      void Function(String?)? onSaved}) {
+  Widget formTextField({
+    String? text,
+    MaskTextInputFormatter? mask,
+    TextInputType? inputType,
+    String? Function(String?)? validator,
+    void Function(String?)? onSaved,
+  }) {
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height*0.013),
         child: TextFormField(
           inputFormatters: mask != null ? [mask] : [],
           keyboardType: inputType ?? TextInputType.text,
@@ -289,7 +296,7 @@ class _SignupFormState extends State<SignupForm> {
 
   Widget formPasswordField() {
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height*0.013),
         child: TextFormField(
           decoration: const InputDecoration(
             filled: true,
@@ -323,11 +330,11 @@ class _SignupFormState extends State<SignupForm> {
 
   Widget formButton(String text, void Function() onPressed) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height*0.013),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor:
-              text == "Cadastrar" ? Colors.orange.shade600 : Colors.grey,
+              text == "Cadastrar" ? Colors.green.shade900 : Colors.red,
         ),
         onPressed: onPressed,
         child: Padding(
@@ -345,9 +352,13 @@ class _SignupFormState extends State<SignupForm> {
       _formKey.currentState!.save();
       client.setAddress = address;
       user.setClient = client;
+      Navigator.pop(context);
       UserRequesterBloc userRequesterBloc =
           BlocProvider.of<UserRequesterBloc>(context);
       userRequesterBloc.add(CreateUserRequest(user));
+      AuthRequesterBloc authBloc =
+          BlocProvider.of<AuthRequesterBloc>(context);
+      authBloc.add(CreateAuthUserRequest(user: user));
     }
   }
 

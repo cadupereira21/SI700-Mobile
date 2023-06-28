@@ -16,15 +16,16 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
 
       _listenToStream(event);
     });
-    on<SignUpRequestSuccessful>(((event, emit) {
+    on<ListenToCreateUserRequestSuccessful>(((event, emit) {
+      debugPrint("[User Monitor] Create user successful");
       UserData.instance.setId(event.userId!);
       UserData.instance.setUser(event.user!);
-      emit(LoggedInState());
+      emit(UserRequestSuccesful(user: event.user!));
     }));
-    on<SignUpRequestFailed>((event, emit) {
-      emit(SignUpFailedState(
+    on<ListenToCreateUserRequestFailed>((event, emit) {
+      debugPrint("[User Monitor] Create user Failed");
+      emit(UserRequestFailed(
           message: "Houve um problema na criação do cadastro!"));
-      debugPrint((state as SignUpFailedState).message);
     });
   }
 
@@ -39,12 +40,13 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
 
   _listenToCreateUserRequestResponse(event) {
     RequestStatus requestStatus = event[1];
-    List<Object> obj = event[2];
+    String userId = event[2][0].toString();
+    UserModel user = event[2][1] as UserModel;
     if (requestStatus == RequestStatus.SUCCESSFUL) {
-      add(SignUpRequestSuccessful(
-          userId: obj[0].toString(), user: (obj[1] as UserModel)));
+      add(ListenToCreateUserRequestSuccessful(
+          user: user, userId: userId));
     } else {
-      add(SignUpRequestFailed());
+      add(ListenToCreateUserRequestFailed());
     }
   }
 }

@@ -26,4 +26,23 @@ class UserModel {
   set setPassword(String password) => this._password = password;
   Client get getClient => _client ?? Client();
   set setClient(Client client) => this._client = client;
+
+  toMap(){
+    return {
+      "email": getEmail,
+      "client": {
+        "name": getClient.getName,
+        "address": {
+          "street": getClient.getAddress.getStreet,
+          "streetNumber": getClient.getAddress.getStreetNumber,
+          "neighbour" : getClient.getAddress.getNeighbour,
+          "district" : getClient.getAddress.getDistrict,
+          "city" : getClient.getAddress.getCity,
+          "zipcode" : getClient.getAddress.getCep,
+        },
+        "phone": getClient.getPhone,
+      },
+      "activePlan": null
+    };
+  }
 }

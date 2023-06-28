@@ -22,7 +22,7 @@ class Address {
   set setStreetNumber(int streetNumber) => _streetNumber = streetNumber;
   String get getNeighbour => _neighbour ?? "";
   set setNeighbour(String neighbour) => _neighbour = neighbour;
-  String get getDistrict => _district ?? "";
+  String get getDistrict => _district ?? "AC";
   set setDistrict(String district) => _district = district;
   String get getCity => _city ?? "";
   set setCity(String city) => _city = city;

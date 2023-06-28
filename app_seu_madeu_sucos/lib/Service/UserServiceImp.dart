@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 import '../Model/Client.dart';
 import '../Model/UserModel.dart';
 import 'RequestStatus.dart';
@@ -16,31 +18,20 @@ class UserServiceImp extends Service {
   UserServiceImp._internal();
 
   Future<void> createUser(UserModel user) async {
-    final response = await dio.post("$baseUrl/users.json",
-        data: json.encode({
-          "email": user.getEmail,
-          "password": user.getPassword,
-          "client": {
-            "name": user.getClient.getName,
-            "address": {
-              "street": user.getClient.getAddress.getStreet,
-              "streetNumber": user.getClient.getAddress.getStreetNumber,
-              "neighbour" : user.getClient.getAddress.getNeighbour,
-              "district" : user.getClient.getAddress.getDistrict,
-              "city" : user.getClient.getAddress.getCity,
-              "zipcode" : user.getClient.getAddress.getCep,
-            },
-            "phone": user.getClient.getPhone,
-          },
-          "activePlan": null
-        }));
+    final userId = const Uuid().v1();
+
+    final response = await dio.post(
+      "$baseUrl/users/$userId.json",
+      data: user.toMap(),
+    );
+    
 
     notify(
       requestTitle: UserServiceImp.REQ_TITLE_CREATE_USER,
       responseStatus: response.statusCode!.toInt() / 100 == 2
           ? RequestStatus.SUCCESSFUL
           : RequestStatus.FAILED,
-      object: [response.data['name'].toString(), user],
+      object: [userId.toString(), user],
     );
   }
 

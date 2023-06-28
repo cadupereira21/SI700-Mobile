@@ -10,3 +10,8 @@ class AuthenticateRequest extends AuthRequesterEvent {
 }
 
 class SignOutRequest extends AuthRequesterEvent {}
+
+class CreateAuthUserRequest extends AuthRequesterEvent {
+  UserModel user;
+  CreateAuthUserRequest({required this.user});
+}

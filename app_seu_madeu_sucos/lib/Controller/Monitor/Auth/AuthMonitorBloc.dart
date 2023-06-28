@@ -25,6 +25,9 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
         case AuthServiceImp.REQ_TITLE_SIGNOUT:
           _listenToSignOut(event);
           break;
+        case AuthServiceImp.REQ_TITLE_CREATE_USER:
+          _listenToCreateAuthUser(event);
+          break;
         default:
           break;
       }
@@ -55,6 +58,16 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
       debugPrint("[Auth Monitor] Sign Out failed! Description: ${event.message}");
       emit(AuthenticatedState(message: "Falha no logout! Descrição: ${event.message}"));
     },);
+
+    on<CreateUserRequestSuccessful>((event, emit) {
+      debugPrint("[Auth Monitor] Auth User Created");
+      emit(AuthenticatedState());
+    },);
+
+    on<CreateUserRequestFailed>((event, emit) {
+      debugPrint("[Auth Monitor] Create auth user failed! Description: ${event.message}");
+      emit(UnauthenticatedState(message: "Falha na criação do usuário! Descrição: ${event.message}"));
+    },);
   }
   
   void _listenToAuthenticate(event) {
@@ -80,4 +93,15 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
     }
   }
   
+  void _listenToCreateAuthUser(event) {
+    RequestStatus responseStatus = event[1];
+
+    if (responseStatus == RequestStatus.SUCCESSFUL) {
+      UserModel user = event[2][0] as UserModel;
+      add(CreateUserRequestSuccessful(user: user));
+    } else {
+      String message = event[2][0].toString();
+      add(CreateUserRequestFailed(message: message));
+    }
+  }
 }
