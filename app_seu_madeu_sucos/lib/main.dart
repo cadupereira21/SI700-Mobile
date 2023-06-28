@@ -17,7 +17,7 @@ import 'Controller/Requester/RequestState.dart';
 import 'Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartState.dart';
-import '/View/Login/LoginPage.dart';
+import 'View/Login/LoginScreen.dart';
 import '/View/HomePage.dart';
 import 'firebase_options.dart';
 
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: CustomColor.getGreenColor(),
             ),
-            home: switchPage(authState),
+            home: LoginScreen(),
           );
         }
       ),
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
 
 Widget switchPage(UserMonitorState state){
   if (state is LogInState) {
-    return const LoginPage(title: 'Login Page');
+    return const LoginScreen();
   } else if (state is LoggedInState) {
     return const HomePage(title: 'Home Page');
   } else if (state is SignUpState) {

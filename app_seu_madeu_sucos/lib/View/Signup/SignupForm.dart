@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import '../../Controller/Monitor/User/UserMonitorBloc.dart';
-import '../../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Model/Address.dart';
 import '../../Model/Client.dart';
@@ -354,7 +352,6 @@ class _SignupFormState extends State<SignupForm> {
   }
 
   void cancelAction() {
-    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
-    accessBloc.add(CancelSignUpButtonClick());
+    Navigator.pop(context);
   }
 }

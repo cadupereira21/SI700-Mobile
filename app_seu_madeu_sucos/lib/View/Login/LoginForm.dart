@@ -1,3 +1,4 @@
+import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -150,7 +151,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void signUpAction() {
-    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
-    accessBloc.add(IWantToSignUpButtonClick());
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
   }
 }
