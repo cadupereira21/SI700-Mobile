@@ -22,8 +22,8 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   UserModel user = UserData.instance.user;
-  String _dropdownValue = UserData.instance.user.client!.address!.district!;
-  //var clientAddress = UserData.instance.user.client!.address!;
+  String _dropdownValue = UserData.instance.user.getClient.address!.district!;
+  //var clientAddress = UserData.instance.user.getClient.address!;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 formTextField(
                   text: SignupFormFieldName.NAME,
                   inputType: TextInputType.name,
-                  initialValue: user.client!.name!,
+                  initialValue: user.getClient.name!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira seu nome';
@@ -56,14 +56,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.client!.name = value;
+                    user.getClient.name = value;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.PHONE,
                   mask: TextFormFieldFormat.PHONE,
                   inputType: TextInputType.phone,
-                  initialValue: user.client!.phone!,
+                  initialValue: user.getClient.phone!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu número de telefone";
@@ -73,12 +73,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.client!.phone = value;
+                    user.getClient.phone = value;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET,
-                  initialValue: user.client!.address!.street!,
+                  initialValue: user.getClient.address!.street!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu endereço";
@@ -94,13 +94,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
     
-                    user.client!.address!.street = value;
+                    user.getClient.address!.street = value;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.STREET_NUMBER,
                   initialValue:
-                      user.client!.address!.streetNumber!.toString(),
+                      user.getClient.address!.streetNumber!.toString(),
                   mask: TextFormFieldFormat.STREET_NUMBER,
                   inputType: TextInputType.number,
                   validator: (value) {
@@ -110,12 +110,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.client!.address!.streetNumber = int.parse(value!);
+                    user.getClient.address!.streetNumber = int.parse(value!);
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.NEIGHBOUR,
-                  initialValue: user.client!.address!.neighbour!,
+                  initialValue: user.getClient.address!.neighbour!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira seu bairro";
@@ -131,13 +131,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       value = i == 0 ? auxValue[i] : "$value ${auxValue[i]}";
                     }
     
-                    user.client!.address!.neighbour = value;
+                    user.getClient.address!.neighbour = value;
                   },
                 ),
                 dropdownButton(),
                 formTextField(
                   text: SignupFormFieldName.CITY,
-                  initialValue: user.client!.address!.city!,
+                  initialValue: user.getClient.address!.city!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Por favor insira sua cidade";
@@ -145,13 +145,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.client!.address!.city =
+                    user.getClient.address!.city =
                         "${value!.substring(0, 1).toUpperCase()}${value.substring(1).toLowerCase()}";
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.ZIPCODE,
-                  initialValue: user.client!.address!.cep!,
+                  initialValue: user.getClient.address!.cep!,
                   mask: TextFormFieldFormat.ZIPCODE,
                   inputType: TextInputType.number,
                   validator: (value) {
@@ -163,12 +163,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.client!.address!.cep = value;
+                    user.getClient.address!.cep = value;
                   },
                 ),
                 formTextField(
                   text: SignupFormFieldName.EMAIL,
-                  initialValue: user.email!,
+                  initialValue: user.getEmail,
                   inputType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -179,7 +179,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.email = value;
+                    user.setEmail = value!;
                   },
                 ),
                 formNewPasswordField(),
@@ -217,7 +217,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           );
         }).toList(),
         onSaved: (value) {
-          user.client!.address!.district = value;
+          user.getClient.address!.district = value;
         },
         onChanged: (value) {
           setState(() {
@@ -270,7 +270,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             return null;
           },
           onSaved: (value) {
-            UserData.instance.user.password = value;
+            UserData.instance.user.setPassword = value!;
           },
         ));
   }

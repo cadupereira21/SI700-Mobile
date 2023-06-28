@@ -1,25 +1,29 @@
 import 'Client.dart';
 
 class UserModel {
-  String? email;
-  String? password;
-  Client? client;
+  String? _email;
+  String? _password;
+  Client? _client;
 
   UserModel({
-    this.email,
-    this.password,
-    this.client,
-  });
+    email,
+    password,
+    client,
+  }){
+    this._email = email;
+    this._password = password;
+    this._client = client;
+  }
 
   @override
   String toString() {
-    return "User: {email: $email, password: $password, client: ${client.toString()}}";
+    return "User: {email: $_email, password: $_password, client: ${_client.toString()}}";
   }
 
-  String? get getEmail => email;
-  set setEmail(String? email) => this.email = email;
-  String? get getPassword => password;
-  set setPassword(String? password) => this.password = password;
-  Client? get getClient => client;
-  set setClient(Client? client) => this.client = client;
+  String get getEmail => _email ?? "";
+  set setEmail(String email) => this._email = email;
+  String get getPassword => _password ?? "";
+  set setPassword(String password) => this._password = password;
+  Client get getClient => _client ?? Client();
+  set setClient(Client client) => this._client = client;
 }

@@ -7,7 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../../Model/Address.dart';
 import '../../Model/Client.dart';
-import '../../Model/User.dart';
+import '../../Model/UserModel.dart';
 import '../../Model/Districts.dart';
 import '../TextFormFieldFormat.dart';
 
@@ -19,7 +19,7 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupFormState extends State<SignupForm> {
-  User user = User();
+  UserModel user = UserModel();
   Client client = Client();
   Address address = Address();
 
@@ -199,7 +199,7 @@ class _SignupFormState extends State<SignupForm> {
                     return null;
                   },
                   onSaved: (value) {
-                    user.email = value;
+                    user.setEmail = value!;
                   },
                 ),
                 formPasswordField(),
@@ -316,7 +316,7 @@ class _SignupFormState extends State<SignupForm> {
             return null;
           },
           onSaved: (value) {
-            user.password = value;
+            user.setPassword = value!;
           },
         ));
   }
@@ -344,7 +344,7 @@ class _SignupFormState extends State<SignupForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       client.address = address;
-      user.client = client;
+      user.setClient = client;
       UserRequesterBloc userRequesterBloc =
           BlocProvider.of<UserRequesterBloc>(context);
       userRequesterBloc.add(CreateUserRequest(user));

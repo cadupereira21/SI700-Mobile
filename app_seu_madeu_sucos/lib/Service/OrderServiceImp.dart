@@ -63,7 +63,7 @@ class OrderServiceImp extends Service {
 
   List<Order> _filterOrders(UserModel user, Map<String, dynamic> firebaseOrderMap) {
     debugPrint(
-        "[Order Service] Begin to filter orders by user email \"${user.email}\"");
+        "[Order Service] Begin to filter orders by user email \"${user.getEmail}\"");
     List<Order> filteredOrders = [];
     var firebaseOrderMapKeys = firebaseOrderMap.keys;
     var firebaseOrderMapValues = firebaseOrderMap.values;
@@ -71,7 +71,7 @@ class OrderServiceImp extends Service {
     firebaseOrderMapValues.forEach((element) {
       var order = (element as Map<String, dynamic>).values;
       order.forEach((element) {
-        if (element['requester']['user']['email'].toString() == user.email) {
+        if (element['requester']['user']['email'].toString() == user.getEmail) {
           filteredOrders.add(_buildOrderFromFirebaseOrderModel(
             firebaseOrderMapKeys.elementAt(index).split("-")[0].toUpperCase(),
             element,

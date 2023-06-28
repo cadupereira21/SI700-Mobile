@@ -18,19 +18,19 @@ class UserServiceImp extends Service {
   Future<void> createUser(UserModel user) async {
     final response = await dio.post("$baseUrl/users.json",
         data: json.encode({
-          "email": user.email,
-          "password": user.password,
+          "email": user.getEmail,
+          "password": user.getPassword,
           "client": {
-            "name": user.client!.name,
+            "name": user.getClient.name,
             "address": {
-              "street": user.client!.address!.street!,
-              "streetNumber": user.client!.address!.streetNumber!,
-              "neighbour" : user.client!.address!.neighbour!,
-              "district" : user.client!.address!.district!,
-              "city" : user.client!.address!.city,
-              "zipcode" : user.client!.address!.cep,
+              "street": user.getClient.address!.street!,
+              "streetNumber": user.getClient.address!.streetNumber!,
+              "neighbour" : user.getClient.address!.neighbour!,
+              "district" : user.getClient.address!.district!,
+              "city" : user.getClient.address!.city,
+              "zipcode" : user.getClient.address!.cep,
             },
-            "phone": user.client!.phone,
+            "phone": user.getClient.phone,
           },
           "activePlan": null
         }));
@@ -53,8 +53,8 @@ class UserServiceImp extends Service {
     client.address = response.data['client']['address'];
     client.name = response.data['client']['name'];
     client.phone = response.data['client']['phone'];
-    user.client = client;
-    user.email = response.data['email'];
+    user.setClient = client;
+    user.setEmail = response.data['email'];
 
     notify(
       requestTitle: UserServiceImp.REQ_TITLE_GET_USER,
@@ -68,21 +68,21 @@ class UserServiceImp extends Service {
   Future<void> updateUser(String userId, UserModel user) async {
     final response = await dio.put("$baseUrl/users/$userId.json",
         data: json.encode({
-          "email": user.email,
-          "password": user.password,
+          "email": user.getEmail,
+          "password": user.getPassword,
           "client": {
-            "name": user.client!.name,
+            "name": user.getClient.name,
             "address": {
-              "street": user.client!.address!.street!,
-              "streetNumber": user.client!.address!.streetNumber!,
-              "neighbour" : user.client!.address!.neighbour!,
-              "district" : user.client!.address!.district!,
-              "city" : user.client!.address!.city,
-              "zipcode" : user.client!.address!.cep,
+              "street": user.getClient.address!.street!,
+              "streetNumber": user.getClient.address!.streetNumber!,
+              "neighbour" : user.getClient.address!.neighbour!,
+              "district" : user.getClient.address!.district!,
+              "city" : user.getClient.address!.city,
+              "zipcode" : user.getClient.address!.cep,
             },
-            "phone": user.client!.phone,
+            "phone": user.getClient.phone,
           },
-          "activePlan": user.client!.activePlan
+          "activePlan": user.getClient.activePlan
         }));
 
     notify(

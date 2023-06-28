@@ -87,7 +87,7 @@ class Order {
         "user": {
           "email": _requester!.getEmail,
           "client": {
-            "name": _requester!.getClient!.getName,
+            "name": _requester!.getClient.getName,
           },
         },
       },
