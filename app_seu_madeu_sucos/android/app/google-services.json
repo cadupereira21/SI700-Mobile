@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "954156126081",
+    "firebase_url": "https://seu-madeu-sucos-default-rtdb.firebaseio.com",
+    "project_id": "seu-madeu-sucos",
+    "storage_bucket": "seu-madeu-sucos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954156126081:android:accbb8effb5e90b0cf2280",
+        "android_client_info": {
+          "package_name": "com.example.app_seu_madeu_sucos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954156126081-lm9ibb0rfsbvu1pv2hksr6jehk56lkdh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk1e6rRbwEuWmSR1vd2GWOXmqc1d5o7mI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954156126081-lm9ibb0rfsbvu1pv2hksr6jehk56lkdh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "954156126081-n4en8g2a2bn5fdmlp9o316u46lmb0g38.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appSeuMadeuSucos"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,6 +4,7 @@ import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorBloc.dart
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/OrderRequester/OrderRequesterState.dart';
 import 'package:app_seu_madeu_sucos/View/Signup/SignupScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,8 +19,13 @@ import 'Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'Controller/Screen/Bloc/CartController/CartState.dart';
 import '/View/Login/LoginPage.dart';
 import '/View/HomePage.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
