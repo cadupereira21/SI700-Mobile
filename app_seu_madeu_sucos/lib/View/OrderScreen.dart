@@ -47,6 +47,7 @@ class _OrderScreenState extends State<OrderScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Finalizar Pedido"),
         leading: IconButton(
