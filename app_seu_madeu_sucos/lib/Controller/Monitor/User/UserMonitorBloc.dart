@@ -1,6 +1,6 @@
 import 'package:app_seu_madeu_sucos/Data/OrderCollectionData.dart';
 import 'package:app_seu_madeu_sucos/Data/UserData.dart';
-import 'package:app_seu_madeu_sucos/Model/User.dart';
+import 'package:app_seu_madeu_sucos/Model/UserModel.dart';
 import 'package:app_seu_madeu_sucos/Service/UserServiceImp.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,7 +59,7 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     RequestStatus requestStatus = event[1];
     List<Object> obj = event[2];
     if (requestStatus == RequestStatus.SUCCESSFUL) {
-      add(FetchUserDataEvent(user: obj[0] as User));
+      add(FetchUserDataEvent(user: obj[0] as UserModel));
     } else {
       print("Erro no UserMonitorBloc - ${RequestStatus.FAILED.toString()}");
     }
@@ -70,7 +70,7 @@ class UserMonitorBloc extends Bloc<UserMonitorEvent, UserMonitorState> {
     List<Object> obj = event[2];
     if (requestStatus == RequestStatus.SUCCESSFUL) {
       add(SignUpRequestSuccessfulEvent(
-          userId: obj[0].toString(), user: (obj[1] as User)));
+          userId: obj[0].toString(), user: (obj[1] as UserModel)));
     } else {
       add(SignUpRequestFailedEvent());
     }

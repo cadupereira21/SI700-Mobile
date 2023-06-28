@@ -1,11 +1,11 @@
 import 'Client.dart';
 
-class User {
+class UserModel {
   String? email;
   String? password;
   Client? client;
 
-  User({
+  UserModel({
     this.email,
     this.password,
     this.client,

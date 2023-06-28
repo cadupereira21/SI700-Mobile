@@ -1,10 +1,10 @@
 import '../Model/Address.dart';
 import '../Model/Client.dart';
-import '../Model/User.dart';
+import '../Model/UserModel.dart';
 
 class UserData {
   String _id = "";
-  User _user = User(
+  UserModel _user = UserModel(
     email: "",
     password: "",
     client: Client(
@@ -27,7 +27,7 @@ class UserData {
 
   void clearData() {
     setId("");
-    setUser(User(
+    setUser(UserModel(
       email: "",
       password: "",
       client: Client(
@@ -49,12 +49,12 @@ class UserData {
     _id = id;
   }
 
-  void setUser(User user) {
+  void setUser(UserModel user) {
     _user = user;
   }
 
   String get id => _id;
-  User get user => _user;
+  UserModel get user => _user;
 
   @override
   String toString() {

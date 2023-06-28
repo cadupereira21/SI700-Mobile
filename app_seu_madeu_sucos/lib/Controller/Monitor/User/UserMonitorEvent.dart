@@ -1,9 +1,9 @@
-import '../../../Model/User.dart';
+import '../../../Model/UserModel.dart';
 
 abstract class UserMonitorEvent {}
 
 class FetchUserDataEvent extends UserMonitorEvent {
-  User user;
+  UserModel user;
   FetchUserDataEvent({required this.user});
 }
 
@@ -21,7 +21,7 @@ class IWantToSignUpButtonClick extends UserMonitorEvent {
 
 class SignUpRequestSuccessfulEvent extends UserMonitorEvent {
   String? userId;
-  User? user;
+  UserModel? user;
   SignUpRequestSuccessfulEvent({this.userId, this.user});
 }
 

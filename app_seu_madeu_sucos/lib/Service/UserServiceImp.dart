@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import '../Model/Client.dart';
-import '../Model/User.dart';
+import '../Model/UserModel.dart';
 import 'RequestStatus.dart';
 import 'Service.dart';
 
@@ -15,7 +15,7 @@ class UserServiceImp extends Service {
   static final UserServiceImp instance = UserServiceImp._internal();
   UserServiceImp._internal();
 
-  Future<void> createUser(User user) async {
+  Future<void> createUser(UserModel user) async {
     final response = await dio.post("$baseUrl/users.json",
         data: json.encode({
           "email": user.email,
@@ -45,7 +45,7 @@ class UserServiceImp extends Service {
   }
 
   Future<void> getUserById(String? userId) async {
-    User user = User();
+    UserModel user = UserModel();
     Client client = Client();
     final response = await dio.get("$baseUrl/users/$userId.json");
     //{client: {address: f, f, f, f-f, f, name: f, phone: f}, email: f, password: f}
@@ -65,7 +65,7 @@ class UserServiceImp extends Service {
     );
   }
 
-  Future<void> updateUser(String userId, User user) async {
+  Future<void> updateUser(String userId, UserModel user) async {
     final response = await dio.put("$baseUrl/users/$userId.json",
         data: json.encode({
           "email": user.email,

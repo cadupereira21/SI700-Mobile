@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../Model/Address.dart';
 import '../Model/Order.dart';
 import '../Model/Product.dart';
-import '../Model/User.dart';
+import '../Model/UserModel.dart';
 import 'RequestStatus.dart';
 
 class OrderServiceImp extends Service {
@@ -43,7 +43,7 @@ class OrderServiceImp extends Service {
     return response;
   }
 
-  Future<void> getOrdersByUserEmail(User user) async {
+  Future<void> getOrdersByUserEmail(UserModel user) async {
     var getAllOrdersResponse = await getAllOrders();
 
     if (getAllOrdersResponse.statusCode!.toInt() / 100 != 2) {
@@ -61,7 +61,7 @@ class OrderServiceImp extends Service {
     );
   }
 
-  List<Order> _filterOrders(User user, Map<String, dynamic> firebaseOrderMap) {
+  List<Order> _filterOrders(UserModel user, Map<String, dynamic> firebaseOrderMap) {
     debugPrint(
         "[Order Service] Begin to filter orders by user email \"${user.email}\"");
     List<Order> filteredOrders = [];

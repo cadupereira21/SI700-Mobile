@@ -7,7 +7,7 @@ import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
 import '../Model/Districts.dart';
-import '../Model/User.dart';
+import '../Model/UserModel.dart';
 import 'ConfirmDeleteUserScreen.dart';
 import 'Signup/SignupFormFieldName.dart';
 import 'TextFormFieldFormat.dart';
@@ -21,7 +21,7 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final _formKey = GlobalKey<FormState>();
-  User user = UserData.instance.user;
+  UserModel user = UserData.instance.user;
   String _dropdownValue = UserData.instance.user.client!.address!.district!;
   //var clientAddress = UserData.instance.user.client!.address!;
 
