@@ -1,10 +1,10 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/View/UserPlanScreen.dart';
 import 'package:app_seu_madeu_sucos/View/UserProfileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../Controller/Monitor/User/UserMonitorBloc.dart';
-import '../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../Data/UserData.dart';
 import 'CartScreen.dart';
 import 'HistoryScreen.dart';
@@ -84,8 +84,8 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: MaterialStateProperty.all(Colors.red),
                   ),
                   onPressed: (){
-                    UserMonitorBloc accessBloc = BlocProvider.of<UserMonitorBloc>(context);
-                    accessBloc.add(LogOutButtonClick());
+                    AuthRequesterBloc authBloc = BlocProvider.of<AuthRequesterBloc>(context);
+                    authBloc.add(SignOutRequest());
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
@@ -105,9 +105,9 @@ class _HomePageState extends State<HomePage> {
       accountName: Text(UserData.instance.user.getClient.getName),
       accountEmail: Text(
         UserData.instance.user.getEmail,
-        style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+        style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
       ),
-      currentAccountPicture: CircleAvatar(),
+      currentAccountPicture: const CircleAvatar(),
     );
   }
 

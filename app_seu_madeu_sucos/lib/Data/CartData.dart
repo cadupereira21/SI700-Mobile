@@ -53,7 +53,7 @@ class CartData {
     return null;
   }
 
-  void clearCart() {
+  void clearData() {
     _addedProducts.clear();
   }
 

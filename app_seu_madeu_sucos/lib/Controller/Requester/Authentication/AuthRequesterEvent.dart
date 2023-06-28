@@ -9,4 +9,4 @@ class AuthenticateRequest extends AuthRequesterEvent {
   AuthenticateRequest({required this.user});
 }
 
-class UnauthenticateRequest extends AuthRequesterEvent {}
+class SignOutRequest extends AuthRequesterEvent {}

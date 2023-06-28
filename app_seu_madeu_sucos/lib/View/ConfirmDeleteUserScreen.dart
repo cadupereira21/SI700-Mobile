@@ -1,8 +1,8 @@
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../Controller/Monitor/User/UserMonitorBloc.dart';
-import '../Controller/Monitor/User/UserMonitorEvent.dart';
 import '../Controller/Requester/UserRequester/UserRequesterBloc.dart';
 import '../Controller/Requester/UserRequester/UserRequesterEvent.dart';
 import '../Data/UserData.dart';
@@ -40,9 +40,9 @@ class ConfirmDeleteUserScreen extends StatelessWidget {
                     BlocProvider.of<UserRequesterBloc>(context)
                         .add(DeleteUserRequest(userId: UserData.instance.id));
                     Navigator.pop(context);
-                    UserMonitorBloc accessBloc =
-                        BlocProvider.of<UserMonitorBloc>(context);
-                    accessBloc.add(LogOutButtonClick());
+                    AuthRequesterBloc authBloc =
+                        BlocProvider.of<AuthRequesterBloc>(context);
+                    authBloc.add(SignOutRequest());
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),

@@ -11,7 +11,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(AddingToCart(addedProducts: CartData.instance.addedProducts));
     });
     on<ClearCart>((event, emit){
-      CartData.instance.clearCart();
+      CartData.instance.clearData();
       emit(ClearingCart(addedProducts: CartData.instance.addedProducts));
     });
     on<RemoveFromCart>((event, emit){

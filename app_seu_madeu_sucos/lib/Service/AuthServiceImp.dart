@@ -7,6 +7,7 @@ import 'RequestStatus.dart';
 
 class AuthServiceImp extends Service {
   static const REQ_TITLE_AUTHENTICATE = "Authenticate Request";
+  static const REQ_TITLE_SIGNOUT = "Sign Out Request";
 
   static final AuthServiceImp instance = AuthServiceImp._internal();
   AuthServiceImp._internal();
@@ -42,8 +43,19 @@ class AuthServiceImp extends Service {
   Future signOut() async {
     try{
       await _firebaseAuth.signOut();
+
+      notify(
+        requestTitle: AuthServiceImp.REQ_TITLE_SIGNOUT,
+        responseStatus: RequestStatus.SUCCESSFUL,
+        object: [],
+      );
     } on FirebaseAuthException catch (e) {
       debugPrint("[Auth Service] signOut error: ${e.code.toString()}");
+      notify(
+        requestTitle: AuthServiceImp.REQ_TITLE_SIGNOUT,
+        responseStatus: RequestStatus.FAILED,
+        object: [e.code.toString()],
+      );
     }
   }
 }

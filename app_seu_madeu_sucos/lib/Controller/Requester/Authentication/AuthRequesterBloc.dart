@@ -14,6 +14,7 @@ class AuthRequesterBloc extends Bloc<AuthRequesterEvent, AuthRequesterState>{
         _authenticate(event, emit);
       },
     );
+    on<SignOutRequest>((event, emit) => _signOut(event, emit));
   }
   
   Future<void> _authenticate(AuthenticateRequest event, Emitter emit) async {
@@ -24,5 +25,15 @@ class AuthRequesterBloc extends Bloc<AuthRequesterEvent, AuthRequesterState>{
 
     add(CompleteAuthRequest());
     debugPrint("[Order Requester] Complete authenticate request");
+  }
+  
+  _signOut(SignOutRequest event, Emitter emit) async {
+    emit(ProcessingAuthRequestState());
+    debugPrint("[Auth Requester] Starting sign out request");
+
+    await _service.signOut();
+
+    add(CompleteAuthRequest());
+    debugPrint("[Order Requester] Complete sign out request");
   }
 }
