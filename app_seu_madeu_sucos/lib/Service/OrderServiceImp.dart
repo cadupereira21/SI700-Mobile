@@ -1,7 +1,10 @@
+
 import 'package:app_seu_madeu_sucos/Service/Service.dart';
 import 'package:dio/src/response.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../Model/Address.dart';
 import '../Model/Order.dart';
@@ -18,6 +21,24 @@ class OrderServiceImp extends Service {
 
   OrderServiceImp._internal();
 
+  Future<void> sendWhatsappOrderMessage(Order order) async {
+    debugPrint("[order-service] starting to send whatsapp message");
+
+    try{
+      const link = WhatsAppUnilink(
+        phoneNumber: '+55-(19)996060222',
+        text: "Hey! I'm inquiring about the apartment listing",
+      );
+      if(await canLaunchUrl(Uri.parse(link.toString()))){
+        await launchUrl(Uri.parse(link.toString()));
+      } else {
+        throw 'Não é possível enviar a mensagem!';
+      }
+    } catch (e) {
+      debugPrint("[order-service] whatsapp send message error: ${e.toString()}");
+    }
+  }
+
   Future<void> createOrder(Order order) async {
     final orderId = const Uuid().v1();
 
@@ -26,7 +47,10 @@ class OrderServiceImp extends Service {
       data: order.toMap(),
     );
 
+    order.setId = orderId;
     _transformOrderModelProductList(order);
+
+    //sendWhatsappOrderMessage(order); currently not working
 
     notify(
       requestTitle: OrderServiceImp.REQ_TITLE_CREATE_ORDER,
@@ -63,7 +87,7 @@ class OrderServiceImp extends Service {
 
   List<Order> _filterOrders(UserModel user, Map<String, dynamic> firebaseOrderMap) {
     debugPrint(
-        "[Order Service] Begin to filter orders by user email \"${user.getEmail}\"");
+        "[order-service] Begin to filter orders by user email \"${user.getEmail}\"");
     List<Order> filteredOrders = [];
     var firebaseOrderMapKeys = firebaseOrderMap.keys;
     var firebaseOrderMapValues = firebaseOrderMap.values;
@@ -82,7 +106,7 @@ class OrderServiceImp extends Service {
       });
     });
     debugPrint(
-        "[Order Service] Finished filtering, there are ${filteredOrders.length} orders returned: ${filteredOrders.toString()}");
+        "[order-service] Finished filtering, there are ${filteredOrders.length} orders returned: ${filteredOrders.toString()}");
 
     return filteredOrders;
   }
