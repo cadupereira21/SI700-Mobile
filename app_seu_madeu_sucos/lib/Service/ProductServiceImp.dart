@@ -35,6 +35,5 @@ class ProductServiceImp extends Service {
       responseStatus: RequestStatus.SUCCESSFUL, 
       object: productColletion,
     );
-    //return null;
   }
 }

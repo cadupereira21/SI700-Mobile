@@ -1,12 +1,12 @@
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Product/ProductMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterEvent.dart';
+import 'package:app_seu_madeu_sucos/Controller/Requester/ProductRequester/ProductRequesterState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Screen/Bloc/CartController/CartBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Controller/Requester/ProductRequester/ProductRequesterBloc.dart';
-import '../Controller/Requester/RequestState.dart';
 import '../Controller/Screen/Bloc/CartController/CartEvent.dart';
 import '../../Model/Product.dart';
 import '../Data/ProductData.dart';
@@ -29,22 +29,33 @@ class _ProductScreenState extends State<ProductScreen> {
     if (allProducts.isEmpty) {
       productRequesterBloc.add(GetAllProductsRequest());
     }
-    return BlocBuilder<ProductMonitorBloc, ProductMonitorState>(
+    return BlocBuilder<ProductRequesterBloc, ProductRequesterState>(
         builder: (context, state) {
-      return productRequesterBloc.state is ProcessingRequest
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              color: const Color.fromRGBO(67, 160, 71, 1),
-              child: GridView.count(
-                childAspectRatio: screenWidth*0.0016,
-                crossAxisCount: 2,
-                children: List.generate(state.productColletion.length, (index) {
-                  return productTile(state.productColletion[index], screenWidth*0.025, screenWidth*0.055);
-                }),
-              ),
-            );
+      return state is ProcessingProductRequestState
+          ? Container(
+            height: MediaQuery.of(context).size.height,
+            width: screenWidth,
+            color: const Color.fromRGBO(67, 160, 71, 1),
+            child: const Center(
+              child: CircularProgressIndicator(color: Colors.white,),
+            ),
+          )
+          : BlocBuilder<ProductMonitorBloc, ProductMonitorState>(
+            builder: (context, state) {
+              return state is ProductRequestSuccesfulState
+              ? Container(
+                  color: const Color.fromRGBO(67, 160, 71, 1),
+                  child: GridView.count(
+                    childAspectRatio: screenWidth*0.0016,
+                    crossAxisCount: 2,
+                    children: List.generate(state.productColletion.length, (index) {
+                      return productTile(state.productColletion[index], screenWidth*0.025, screenWidth*0.055);
+                    }),
+                  ),
+                )
+              : _errorScreen();
+            }
+          );
     });
   }
 
@@ -168,5 +179,36 @@ class _ProductScreenState extends State<ProductScreen> {
           Icons.add_shopping_cart_sharp,
           size: buttonIconSize,
         ));
+  }
+  
+  Widget _errorScreen() {
+    var textPaddingTop = const EdgeInsets.only(top: 10.0);
+    const textStyle = TextStyle(
+      color: Color.fromRGBO(0, 0, 0, .6),
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    );
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "Houve um problema enquanto tentavamos trazer os produtos",
+          style: textStyle,
+        ),
+        Padding(
+          padding: textPaddingTop,
+          child: const Text(":(", style: textStyle),
+        ),
+        Padding(
+          padding: textPaddingTop,
+          child: const Text("Por favor, verifique sua conexão com a internet", style: TextStyle(
+            color: Color.fromRGBO(0, 0, 0, .6),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),),
+        )
+      ],
+    ));
   }
 }

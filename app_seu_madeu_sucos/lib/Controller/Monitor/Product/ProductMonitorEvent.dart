@@ -2,7 +2,13 @@ import '../../../Model/Product.dart';
 
 class ProductMonitorEvent{}
 
-class UpdateProductsEvent extends ProductMonitorEvent{
+
+class ListenToGetAllProductsRequestSuccessful extends ProductMonitorEvent {
   final List<Product> productColletion;
-  UpdateProductsEvent({required this.productColletion});
+  ListenToGetAllProductsRequestSuccessful({required this.productColletion});
+}
+
+class ListenToGetAllProductsRequestFailed extends ProductMonitorEvent {
+  String message;
+  ListenToGetAllProductsRequestFailed({required this.message});
 }

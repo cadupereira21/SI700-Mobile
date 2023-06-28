@@ -1,3 +1,7 @@
 abstract class ProductRequesterEvent {}
 
-class GetAllProductsRequest extends ProductRequesterEvent{}
+class CompleteProductRequest extends ProductRequesterEvent {
+  CompleteProductRequest();
+}
+
+class GetAllProductsRequest extends ProductRequesterEvent {}

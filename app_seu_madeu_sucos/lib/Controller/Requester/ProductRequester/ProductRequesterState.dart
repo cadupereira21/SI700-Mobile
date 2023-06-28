@@ -1,3 +1,10 @@
-import '../RequestState.dart';
 
-class ProductRequesterState extends RequestState{}
+class ProductRequesterState {}
+
+class WaitingProductRequestState extends ProductRequesterState {
+  WaitingProductRequestState();
+}
+
+class ProcessingProductRequestState extends ProductRequesterState {
+  ProcessingProductRequestState();
+}

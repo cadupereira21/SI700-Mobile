@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:app_seu_madeu_sucos/Controller/Monitor/User/UserMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterBloc.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/Authentication/AuthRequesterEvent.dart';
 import 'package:app_seu_madeu_sucos/Controller/Requester/UserRequester/UserRequesterBloc.dart';

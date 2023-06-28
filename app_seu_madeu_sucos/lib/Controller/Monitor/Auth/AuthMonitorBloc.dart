@@ -2,6 +2,7 @@ import 'package:app_seu_madeu_sucos/Controller/Monitor/Auth/AuthMonitorEvent.dar
 import 'package:app_seu_madeu_sucos/Controller/Monitor/Auth/AuthMonitorState.dart';
 import 'package:app_seu_madeu_sucos/Data/NewOrderData.dart';
 import 'package:app_seu_madeu_sucos/Data/OrderCollectionData.dart';
+import 'package:app_seu_madeu_sucos/Data/ProductData.dart';
 import 'package:app_seu_madeu_sucos/Model/UserModel.dart';
 import 'package:app_seu_madeu_sucos/Service/AuthServiceImp.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,7 @@ class AuthMonitorBloc extends Bloc<AuthMonitorEvent, AuthMonitorState> {
       debugPrint("[Auth Monitor] Signed Out");
       CartData.instance.clearData();
       NewOrderData.instance.clearData();
+      ProductData.instance.clearProducts();
       OrderCollectionData.instance.clearOrders();
       UserData.instance.clearData();
       emit(UnauthenticatedState(message: "Usuário saiu com sucesso"));
