@@ -24,8 +24,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _screenWidth = MediaQuery.of(context).size.width;
-    var productMonitorBloc = BlocProvider.of<ProductMonitorBloc>(context);
+    var screenWidth = MediaQuery.of(context).size.width;
     var productRequesterBloc = BlocProvider.of<ProductRequesterBloc>(context);
     if (allProducts.isEmpty) {
       productRequesterBloc.add(GetAllProductsRequest());
@@ -39,10 +38,10 @@ class _ProductScreenState extends State<ProductScreen> {
           : Container(
               color: const Color.fromRGBO(67, 160, 71, 1),
               child: GridView.count(
-                childAspectRatio: _screenWidth*0.0016,
+                childAspectRatio: screenWidth*0.0016,
                 crossAxisCount: 2,
                 children: List.generate(state.productColletion.length, (index) {
-                  return productTile(state.productColletion[index], _screenWidth*0.025, _screenWidth*0.055);
+                  return productTile(state.productColletion[index], screenWidth*0.025, screenWidth*0.055);
                 }),
               ),
             );
@@ -75,10 +74,10 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
               child: Text(
                 product.name!.split("-")[1].replaceAll(" ", ""),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),

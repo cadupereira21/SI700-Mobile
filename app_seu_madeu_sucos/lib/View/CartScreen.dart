@@ -29,115 +29,115 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 2 / 3,
-          child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-            return ListView.builder(
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state){
+      return Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 2 / 3,
+            child: ListView.builder(
                 itemCount: state.addedProducts.length,
                 itemBuilder: (BuildContext context, int index) =>
-                    productTile(state.addedProducts[index]));
-          }),
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            //color: Colors.red,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Total: R\$${CartData.instance.getTotalValue}",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
+                    productTile(state.addedProducts[index])),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              //color: Colors.red,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Total: R\$${CartData.instance.getTotalValue.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500
+                          ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const Text("Pedido de plano"),
-                          Switch(
-                            value: _isPlan,
-                            onChanged: (bool value) {
-                              setState(() {
-                                _isPlan = value;
-                              });
-                            }),
-                        ],
-                      ),
-                    ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text("Pedido de plano"),
+                            Switch(
+                              value: _isPlan,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _isPlan = value;
+                                });
+                              }),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(Colors.red),
-                          ),
-                          onPressed: () {
-                            BlocProvider.of<CartBloc>(context).add(ClearCart());
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text("Cancelar"),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: ElevatedButton(
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: ElevatedButton(
+                            style: const ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(Colors.red),
+                            ),
                             onPressed: () {
-                              if (CartData.instance.addedProducts.isEmpty) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(noProductSnackbar());
-                              } else {
-                                Order newOrder = Order(
-                                  id: "",
-                                  requester: _userData.user,
-                                  products: _cartData.addedProducts,
-                                  value: CartData.instance.getTotalValue,
-                                  comments: "",
-                                  paymentMethod: PaymentMethod.list[0],
-                                  isPlan: _isPlan,
-                                  isDelivery: false,
-                                  customDeliveryAddress: null,
-                                  deliveryTime: "",
-                                );
-                                _orderData.setOrder = newOrder;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const OrderScreen()),
-                                );
-                              }
+                              BlocProvider.of<CartBloc>(context).add(ClearCart());
                             },
                             child: const Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text("Continuar"),
-                            )),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                              child: Text("Cancelar"),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (CartData.instance.addedProducts.isEmpty) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(noProductSnackbar());
+                                } else {
+                                  Order newOrder = Order(
+                                    id: "",
+                                    requester: _userData.user,
+                                    products: _cartData.addedProducts,
+                                    value: CartData.instance.getTotalValue,
+                                    comments: "",
+                                    paymentMethod: PaymentMethod.list[0],
+                                    isPlan: _isPlan,
+                                    isDelivery: false,
+                                    customDeliveryAddress: null,
+                                    deliveryTime: "",
+                                  );
+                                  _orderData.setOrder = newOrder;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const OrderScreen()),
+                                  );
+                                }
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text("Continuar"),
+                              )),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        )
-      ],
-    );
+          )
+        ],
+      );
+    });
   }
 
   productTile(Map<String, Object> element) {
